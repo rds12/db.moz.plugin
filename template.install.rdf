@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:name>db.moz.plugin</em:name>
+    <em:version>%version</em:version>
+    <em:description>smart firefox extension for omegaday</em:description>
+    <em:creator>rds12</em:creator>
+    <em:id>rds12sog@gmail.com</em:id>
+    <em:iconURL>chrome://db.moz.plugin.style/content/images/logo.ico</em:iconURL>
+    <em:updateURL>http://db.wiki.seiringer.eu/update.rdf</em:updateURL>
+    <em:updateKey>MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDq80LIfXZyI+Sm5dl0M4/Ewq9ROga1wg8QR4M8y55PEAEW34w6fa4WXiVCMp1GU2EYx9cqUvD6fN3KTjB4zfSiLX+Hi6hVuA7mXkvtENwE31sZ+HHBFfU/myMJzSOr8+NQ49Uju81tQYC1Vizq8M33SgPIWwnWlP07AG7A+JLHwwIDAQAB</em:updateKey>
+    <em:optionsURL>chrome://db.moz.plugin.gui/content/dialogs/preferences.xul</em:optionsURL>
+
+    <em:targetApplication>
+      <!-- Firefox -->
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>%FFMinVersion</em:minVersion>
+        <em:maxVersion>%FFMaxVersion</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+    
+    <em:iconURL></em:iconURL>
+    <em:homepageURL>http://db.wiki.seiringer.eu/plugin/</em:homepageURL>
+  </Description>
+</RDF>

@@ -1,0 +1,30 @@
+<!ENTITY dialog.title "db.moz.plugin - Preferences">
+<!ENTITY dialog.homepage "Homepage">
+
+<!ENTITY tab.configset "Configset">
+<!ENTITY tab.odhelper "OD-Helper API">
+
+<!ENTITY preferences "Preferences">
+<!ENTITY important.note.text "<html:b>Important</html:b>: <html:i>db.moz.plugin</html:i> won't support all settings from the official OD-Helper tool, please read <html:i>http://db.wiki.seiringer.eu/plugin/odhelper</html:i> for further informations.">
+
+<!ENTITY configset.insert.text "Insert the configset url below, to get the settings for your database">
+<!ENTITY configset.example "Example: http://www.example.com/odhelper_configset.xml">
+<!ENTITY configset.update "update!">
+
+<!ENTITY update.log "Update Log">
+
+<!ENTITY odhelper.fow.settings "Fow Settings">
+<!ENTITY odhelper.fow.url "Fow url to merge informations from your database with a system:">
+
+<!ENTITY odhelper.fow.placeholders "placeholders: &#x0025;s - systemid, &#x0025;w - world, &#x0025;h - host">
+
+<!ENTITY odhelper.fow.known.system "Also merge informations, if system is not in fow state">
+
+<!ENTITY odhelper.parser.caption "External Parser">
+<!ENTITY odhelper.parser.target.url "Parser url of your database to send omega-day source code to it:">
+<!ENTITY odhelper.parser.target.element "Textarea element with the attribute &quot;name&quot;, where the source code will be included:">
+<!ENTITY odhelper.parser.clipboard "Copy source code to clipboard">
+
+<!ENTITY odhelper.parser.miscellaneous "Miscellaneous Parser Settings">
+<!ENTITY odhelper.parser.shortcut "Shortcut for site parsing (empty - no shortcut, restart needed):">
+<!ENTITY odhelper.parser.shortcut.modifiers "Ctrl + Alt + ">

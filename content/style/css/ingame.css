@@ -1,0 +1,217 @@
+.dbMozPluginBox {
+  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+  -moz-border-radius: 5px;
+  border: 1px solid #156080;
+}
+
+.dbMozPluginLogo {
+  float: right;
+  font-size: 10px;
+  padding-left: 5px;
+}
+
+.dbMozPluginDebug {
+  position: absolute;
+  top: 50px;
+  right: 0px;
+}
+
+.dbMozPluginDebug #odMozPluginDebugWindow {
+  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+  opacity: 0.7;
+}
+
+.dbMozPluginDebug > div {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+#dbMozPluginCommAjaxResponse {
+  position: absolute;
+  display: block;
+}
+
+#dbMozPluginCommAjaxResponse > div {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+#dbMozPluginCommAjaxResponse > div > a{
+  display: block;
+  margin-left: 15px;
+  width: 100%;
+} 
+
+#dbMozPluginCommAjaxResponse > div:hover, 
+#dbMozPluginCommAjaxResponse > div[hover]{
+  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-bluelight.gif);
+}
+
+#dbMozPluginOrbitStatistics {
+  margin-bottom: 2px;
+}
+
+#dbMozPluginCommOverlay {
+  opacity: 0.40;
+  position: absolute; 
+  top:0px; 
+  left:0px;
+  z-index:2;
+}
+
+a {
+  cursor: pointer;
+}
+
+.dbMozPluginFleetFastest {
+  background-color: green;
+}
+
+.dbMozPluginFleetSlowest {
+  background-color: red;
+}
+
+#dbMozPluginInfrastructurePlanet {
+  position: absolute; 
+  width: 50px; 
+  top: 0px; 
+  left: 0px;
+}
+
+#dbMozPluginInfrastructureOrbit {
+  position: absolute; 
+  width: 50px; 
+  top: 0px; 
+  left: 50px;
+}
+
+#dbMozPluginFleetQuickSend {
+  position: absolute;
+}
+
+#dbMozPluginFowWindow {
+  position: absolute;
+  left: 220px;
+  top: 5px;
+  height: 80px;
+  width: 220px;
+  overflow: auto;
+}
+
+#dbMozPluginFowWindow *{
+	font-size: 10px !important;
+}
+
+.dbMozPluginFowNewerScan {
+  color: green;
+}
+
+.dbMozPluginFowOlderScan {
+  color: red;
+}
+
+#dbMozPluginFowTable{
+  min-width: 580px;
+  margin-top: 15px;
+  padding: 5px;
+}
+
+#dbMozPluginFowTable td{
+  padding: 2px;
+}
+
+.dbMozPluginFowFirst{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.dbMozPluginFowMaterial{
+  position: relative;
+}
+
+.dbMozPluginFowMaterial > div{
+  position: absolute;
+  left: 65px;
+  top: 0px;
+  text-align: right;
+  width: 40px;
+}
+
+.dbMozPluginFowScanPic {
+  display: block;
+  position: absolute;
+  right: 10px;
+  top: 56px;
+  padding: 2px;
+  width: 140px;
+  height: 100px;
+  text-align: right;
+}
+
+.dbMozPluginPlanet {
+  display: block;
+  position: relative;
+}
+
+.dbMozPluginPlanet > div {
+  display: block;
+  position: absolute;
+  bottom: 3px;
+  right: 8px;
+}
+
+.dbMozPluginPlanet > div > img {
+  /* no default img border */
+  border: 0px none !important;
+}
+
+div.menu-item {
+  border: 1px solid #156080;
+  margin: 2px;
+  text-align: center;
+  -moz-border-radius: 4px;
+  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+}
+
+div.menu-item > a {
+  background-color: green;
+  color: #2ac0ff ! important;
+  -moz-border-radius: 4px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+
+div.menu-item > a:hover{
+  background-color: red;
+}
+
+#dbMozPluginNotifyWindow{
+  position: fixed;
+  bottom: 0px;
+  right:0px;
+  z-index: 2048;
+  margin: 2px; 
+  padding: 2px;
+  min-width: 250px;
+}
+
+#dbMozPluginNotifyWindow > div:first-child {
+	background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-bluelight.gif);
+	border-bottom: 1px solid #156080;
+	margin-bottom: 0.2em;
+	position: relative;
+}
+
+#dbMozPluginNotifyWindow .closer {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	margin-right: 4px;
+}
+
+#dbMozPluginNotifyWindow > #dbMozPluginNotifyEntry {
+	padding-left: 10px;
+	padding-right: 10px;
+  text-align: left;
+}

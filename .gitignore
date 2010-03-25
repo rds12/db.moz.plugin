@@ -1,0 +1,10 @@
+.project
+.settings
+content/javascripts/various_stuff
+experimental*
+versions/*
+tools/*
+*~
+*.swp
+install.rdf
+update.rdf

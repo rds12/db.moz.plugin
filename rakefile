@@ -1,0 +1,205 @@
+#!/usr/bin/env ruby
+require 'digest/md5'
+require 'digest/sha1'
+
+EXCLUDE_FILES = [
+  '.gitignore', 
+  '.git/\*',
+  '.project',
+  '.settings/\*', 
+  'rakefile',
+  'README',
+  'build.xml',
+  'template.*.rdf',
+  'update.rdf',
+  '\*~', 
+  'tools/\*', 
+  'versions/\*',
+  'various_stuff/\*', 
+  'content/tests/\*', 
+  'content/experimental/\*'
+]
+
+TIME = Time.now
+
+OPTIONS = {
+  :date    => TIME.strftime('%Y.%m.%d'),
+  :version => TIME.strftime('%Y-%m-%d'),
+  :FFMinVersion => '3.0.0',
+  :FFMaxVersion => '3.6.*'
+}
+
+task :default => [:clean]
+
+KEYNAME = 'db.moz.plugin'
+BASICPATH = pwd
+
+TMP_FILES = {
+  "Removing Temporary Files" => ["*~"],
+}
+
+
+desc("generating table entry for given date download wiki")
+task :wiki, :date do |t, args|
+  echo "> Generating Wiki Table Entry.."
+
+  generate_wiki_entry args[:date]
+end
+
+desc("build extension")
+task :build do
+  echo "> Building Extension .."
+  mkdir 'versions' unless File.exists?('versions')
+
+  file = generate_filename OPTIONS[:date]
+  
+  echo 'generate install.rdf'
+  replace_template 'template.install.rdf', OPTIONS
+
+  echo "remove old build, if existing"
+  rm file if File.exists? file
+
+  echo "zip everything"
+  sh "zip -r #{file} . -x #{EXCLUDE_FILES.join(' ')}"
+end
+
+desc "publish newest build"
+task :publish => :build do
+  puts
+  echo 'the build will be published now'
+
+  file = generate_filename OPTIONS[:date]
+  basename = File.basename file
+
+  hash = Digest::SHA1.hexdigest(File.read(file))
+  echo "hash is #{hash}"
+
+  echo 'generate update.rdf'
+  replace_template 'template.update.rdf', OPTIONS.merge(:hash => hash)
+
+  path = pwd # current path
+  # see https://bugzilla.mozilla.org/show_bug.cgi?id=396525#c8
+  sh "tools/mccoy/mccoy -command update -updateRDF #{path}/update.rdf -key '#{KEYNAME}'"
+
+  echo 'upload build and update.rdf'
+  sh "scp #{file} db:downloads/plugin"
+  sh "scp update.rdf db:wiki/"
+
+  # echo 'remove update.rdf'
+  # rm 'update.rdf'
+  generate_wiki_entry OPTIONS[:date]
+end
+
+def generate_filename(date)
+  "versions/db.moz.plugin.#{date}.xpi"
+end
+
+def human_readable_size(num)
+  for x in ['b','K','M','G','T']
+    return "%3.1f%s" % [num, x] if num < 1024.0 
+    num /= 1024.0
+  end
+end
+
+def replace_template(file,options)
+  content = ''
+  File.open(file,'r') do |f|
+    while line = f.gets
+      options.each{|key,value| line.gsub!("%#{key}",value);}
+      content << line
+    end
+  end
+  newfile = file.gsub('template.','')
+  newfile = File.open(newfile,'w')
+  newfile.write(content)
+  newfile.close
+end
+
+def generate_wiki_entry(date)
+  file = generate_filename date
+  
+  if !File.exists? file
+    puts
+    echo "file: #{file} not found"
+    exit
+  end
+  
+  f = File.read(file)
+
+  basename = File.basename(file)  
+  match = /(\d{4}).(\d{2}).(\d{2})/.match(file) 
+  wikidate = match[3] << '.' << match[2] << '.' << match[1]
+  filedate = match[0]
+
+  sha1 = Digest::SHA1.hexdigest(f)
+  size = human_readable_size f.size
+
+  puts "|{{.#{basename}}} |[[.changelog##{wikidate}|#{wikidate}]] |#{size} |#{sha1} |"
+end
+
+
+desc("Remove Temporary Files")
+task :clean do
+  TMP_FILES.each do |l, expr|
+    echo "> #{l} .."
+    expr.each do |e|
+      Dir["**/#{e}"].each do |f|
+        puts "[1;31m -[0m '#{f}'"
+        File.delete(f)
+      end
+    end
+  end
+end
+
+desc("add tools, which are used to build the extension")
+task :tools do
+  echo "> Installing needed Tools .."
+  # see https://developer.mozilla.org/en/McCoy
+
+  mkdir 'tools' unless File.exists? 'tools'
+
+  cd 'tools'
+  
+  if File.exists? 'mccoy'
+    echo "mccoy is existing"
+    exit
+  end
+
+  echo 'download mccoy'
+  sh "wget 'http://www.oxymoronical.com/mccoy/releases/0.5/mccoy-0.5.en-US.linux-i686.tar.bz2'"
+  
+  # see https://bugzilla.mozilla.org/show_bug.cgi?id=396525#c7
+  echo 'download mccoy-command-line patch'
+  sh "wget 'http://www.xuluwarrior.com/development/mccoy_cmdline_xuluwarrior.patch'"
+  
+  echo "unpack mccoy"
+  sh "tar xvf 'mccoy-0.5.en-US.linux-i686.tar.bz2'"
+  
+  cd 'mccoy'
+  cd 'chrome'
+  
+  echo 'unpack mccoy content'
+  sh "unzip 'mccoy.jar'"
+  
+  echo 'apply mccoy-command-line patch'
+  sh "patch 'content/mccoy.js' '../../mccoy_cmdline_xuluwarrior.patch'"
+  
+  echo 'zip patched file'
+  sh "zip -r 'mccoy.jar' 'content/'"
+  
+  echo 'remove patch dir'
+  rm_r 'content', :force => true
+  
+  cd '../..'
+  
+  echo 'remove downloaded files'
+  rm %w(mccoy_cmdline_xuluwarrior.patch mccoy-0.5.en-US.linux-i686.tar.bz2)
+
+  echo "please generate a key with the name #{KEYNAME}"
+  sh 'chmod +X mccoy/mccoy' 
+  sh 'mccoy/mccoy'
+end
+
+def echo(line)
+  puts "[1;33m#{line}[0m"
+end

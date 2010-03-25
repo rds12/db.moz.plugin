@@ -1,0 +1,49 @@
+ + ff gui for preferences
+   * half implemented, for fow api
+
++ gui
+   + make links right-clickable and load these in databases or in od
+     as an replacement for the toolbars in the odhelper tool
+
++ gui fleet overview
+   + order buttons for alliancefleet columns
+
++ gui orbit
+   + make statistics clickable
+   + add more statistic features, like emp: 0, inva: 0, toxxer: 0
+   
++ timer
+   + everywhere a time is shown, add a text [add to timer]
+
++ parser api
+   + api for silent mode, with the odhelper common header, something like:
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?>
+<odh:odhelper xmlns="http://unzureichende.info/odhelp/ns/xhrparser/2010" xmlns:odh="http://unzureichende.info/odhelp/ns/api">
+    <odh:head>
+        <odh:auth>true</odh:auth>
+        <odh:status>200</odh:status>
+        <odh:version>1.0</odh:version>
+    </odh:head>
+
+    <odh:data>
+      <parser successful='true/false'>
+        <message>got everything</message>
+      </parser>
+    </odh:data>
+</odh:odhelper>
+
+@some memos:
+
+overview:
+https://developer.mozilla.org/en/Code_snippets
+
+notification for parsed site:
+https://developer.mozilla.org/en/Code_snippets/Alerts_and_Notifications
+
+sqlite:
+http://forums.mozillazine.org/viewtopic.php?f=19&t=1743255
+
+style:
+<div class="menu-item">
+  <a href="http://shipconfig.odgates.de/">Schiffkonfigurator</a>
+</div>

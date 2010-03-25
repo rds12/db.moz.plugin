@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelPreferences'>
+    <groupbox>
+      <caption>&preferences;</caption>  
+      <description>
+        &important.note.text;
+      </description>
+      
+      <description style='margin-top: 1.2em; margin-bottom: 1.2em;'>
+        &configset.insert.text;
+      </description>
+  
+      <label style='font-style: italic;' value="&configset.example;"/>
+      <hbox>
+        <textbox onkeydown='if(event.which == 13){ prefs.update_configset(); return false;}' 
+                 id='configset.source.uri' value='' flex='1' />
+        <button label="&configset.update;" 
+                oncommand='prefs.update_configset();' />
+      </hbox>
+    </groupbox>
+
+    <groupbox flex='1'>
+      <caption>&update.log;</caption>
+      <textbox style='overflow:auto; white-space: pre; height: 200px;'
+               id='updateLog' readonly='true' flex='1'/>
+    </groupbox>
+  </tabpanel>
+</overlay>

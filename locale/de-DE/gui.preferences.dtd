@@ -1,0 +1,31 @@
+<!ENTITY dialog.title "db.moz.plugin - Einstellungen">
+<!ENTITY dialog.homepage "Homepage">
+
+<!ENTITY tab.configset "Configset">
+<!ENTITY tab.odhelper "OD-Helper API">
+
+<!ENTITY preferences "Einstellungen">
+<!ENTITY important.note.text "<html:b>Wichtig</html:b>: <html:i>db.moz.plugin</html:i> unterstützt nicht alle Einstellungen des OD-Helpers, bitte lies <html:i>http://db.wiki.seiringer.eu/plugin/odhelper</html:i> für mehr Informationen">
+
+<!ENTITY configset.insert.text "Trage unten die Url für das Configset ein, um die Einstellungen von deiner Datenbank zu bekommen.">
+<!ENTITY configset.example "Beispiel: http://www.example.com/odhelper_configset.xml">
+<!ENTITY configset.update "update!">
+
+<!ENTITY update.log "Update Log">
+
+<!ENTITY odhelper.fow.settings "Fow Einstellungen">
+<!ENTITY odhelper.fow.url "Fow Url wovon die Informationen der Datenbank bezogen werden, um das System zu kompletieren:">
+
+<!ENTITY odhelper.fow.placeholders "Platzhalter: &#x0025;s - Systemid, &#x0025;w - Welt, &#x0025;h - Hostname">
+
+<!ENTITY odhelper.fow.known.system "Erweitere auch Systeme, die nicht den Fow status haben">
+
+<!ENTITY odhelper.parser.caption "Externer Parser">
+<!ENTITY odhelper.parser.target.url "Parser Url von deiner Datenbank, wohin der Quelltext von Omega-Day hingeschickt wird:">
+<!ENTITY odhelper.parser.target.element "Textarea Element mit dem Attribut &quot;name&quot;, wo der Quelltext eingefügt wird:">
+<!ENTITY odhelper.parser.clipboard "Kopier Quelltext in die Zwischenablage">
+
+
+<!ENTITY odhelper.parser.miscellaneous "Verschiedene Parser Einstellungen">
+<!ENTITY odhelper.parser.shortcut "Shortcut für Seiten parsen (leer - kein Shortcut, Neustart benötigt):">
+<!ENTITY odhelper.parser.shortcut.modifiers "Strg + Alt + ">

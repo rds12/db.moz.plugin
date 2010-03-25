@@ -1,0 +1,40 @@
+ubuntu was used for this tutorial, last update 2010/03/07
+
+If you want to use db.moz.plugin with automated publishing 
+options for `rake build` do the following:
+
+1)
+  the following cmd will install the needed tools 
+  (mccoy and a patch for cmdline support).
+  > rake tools
+  
+  at the end of the install process the tool mccoy will
+  be opened.
+
+  create a key with the name 'db.moz.plugin' and replace 
+  the generated public key with the old key  
+  in the tag 'updateKey' in the file 'template.install.rdf'
+  
+  also replace the updateUrl to point to your own host url.
+
+2)
+  alias your ssh connection to your remote server as 'db'
+  so that an simple '>ssh db' will connect you to the
+  server.
+  on your server ('>ssh db'):
+  1)
+    link in your home dir 'wiki' to the place 
+    where your update.rdf should be uploaded.
+  2)
+    and link in your home dir 'downloads' to the place
+    where the .xpi files will be uploaded.
+    In 'downloads' you must create the dir 'plugin'!
+
+3)
+  to build an xpi, simple type:
+  '>rake build'
+
+4)
+  to publish the current build, simply type:
+  '>rake publish'
+  the files will be zipped and uploaded automatically

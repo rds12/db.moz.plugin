@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
+
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/preferences.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odhelper.xul"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<dialog id="dbMozPluginDialogPreferences"
+        buttons="accept,cancel,extra1"
+        buttonlabelextra1="&dialog.homepage;"
+        title="&dialog.title;"
+        onload="prefs.onload();"
+        ondialogaccept="prefs.save();"
+        ondialogextra1="prefs.openHomepage();"
+        style="max-width: 800px; max-height:480px;"
+        xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
+        xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <script type="application/x-javascript" 
+    src="chrome://db.moz.plugin/content/javascripts/library.js"/>
+
+  <script>
+    const prefs = db.moz.plugin.gui.preferences;
+  </script>
+
+  <tabbox flex='1' selectedIndex='0'>
+    <tabs>
+      <tab flex='1' label="&tab.configset;" image="" />
+      <tab flex='1' label="&tab.odhelper;" image="" />  
+    </tabs>
+    <tabpanels flex='1'>
+      <tabpanel id="dbMozPluginTabpanelPreferences" orient='vertical'/>
+      <tabpanel id="dbMozPluginTabpanelOdHelper" orient='vertical'/>
+    </tabpanels>
+  </tabbox>
+</dialog>

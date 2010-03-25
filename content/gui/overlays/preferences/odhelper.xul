@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelOdHelper'>
+    <groupbox>
+      <caption><checkbox id="configset.extDisableFow" label="&odhelper.fow.settings;"/></caption>
+
+      <description value='&odhelper.fow.url;' />
+      <textbox id="configset.extFowApiUri" />
+      <description style='margin-left: 2em; margin-bottom: 1.2em; font-style: italic;' 
+                   value='&odhelper.fow.placeholders;' />
+
+      <checkbox id="configset.extFowKnown" label='&odhelper.fow.known.system;' />
+
+    </groupbox>
+
+    <groupbox>
+      <caption><checkbox id="configset.parserUseExt"
+                label="&odhelper.parser.caption;"/></caption>
+
+      <description value='&odhelper.parser.target.url;' />
+      <textbox id="configset.parserTargetUri" />
+
+      <description value='&odhelper.parser.target.element;' />
+      <textbox id="configset.parserTargetElement" />
+    </groupbox>
+
+    <groupbox>
+      <caption label='&odhelper.parser.miscellaneous;' />
+
+      <description value='&odhelper.parser.shortcut;' />
+      <hbox align='center'>
+        <description value='&odhelper.parser.shortcut.modifiers;'/>
+        <textbox id='configset.parserShortcutKey' value='' maxlength='1'/>
+      </hbox>
+
+      <checkbox id="configset.parserClipboardCopy"
+                label='&odhelper.parser.clipboard;' />
+
+    </groupbox>
+  </tabpanel>
+</overlay>

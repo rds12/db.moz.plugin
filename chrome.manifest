@@ -1,0 +1,17 @@
+
+content    db.moz.plugin          content/
+content    db.moz.plugin.gui      content/gui/
+
+# compatible methode for graphic packet <img>, ...
+content    db.moz.plugin.style    content/style/
+content    db.moz.plugin.style    content/style/    contentaccessible=yes
+
+
+# overlays
+overlay    chrome://browser/content/browser.xul   chrome://db.moz.plugin.gui/content/overlays/browser.xul
+overlay    chrome://browser/content/browser.xul   chrome://db.moz.plugin.gui/content/overlays/statusbar.xul
+
+
+# locales
+locale     db.moz.plugin    de-DE    locale/de-DE/
+locale     db.moz.plugin    en-US    locale/en-US/

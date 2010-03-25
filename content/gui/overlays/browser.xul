@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <script type="application/x-javascript" 
+    src="chrome://db.moz.plugin/content/javascripts/library.js"/>
+
+  <script type="application/x-javascript">
+    db.moz.plugin.require.library('runner','browser');
+  </script>
+
+  <!-- Shortcuts Element Firefox -->
+  <keyset id="mainKeyset">
+      <key key="" modifiers="accel alt" id="dbMozPluginKeyParse"
+           oncommand="db.moz.plugin.parser.parseSite()" />
+  </keyset>
+</overlay>
