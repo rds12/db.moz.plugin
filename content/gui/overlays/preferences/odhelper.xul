@@ -7,38 +7,53 @@
 
   <tabpanel id='dbMozPluginTabpanelOdHelper'>
     <groupbox>
-      <caption><checkbox id="configset.extDisableFow" label="&odhelper.fow.settings;"/></caption>
+      <!-- enable fow completion -->
+      <caption>
+         <checkbox id="preferences.configset.extDisableFow"
+                   label="&odhelper.fow.settings;"/>
+      </caption>
 
+      <!-- fow url -->
       <description value='&odhelper.fow.url;' />
-      <textbox id="configset.extFowApiUri" />
+      <textbox id="preferences.configset.extFowApiUri" />
       <description style='margin-left: 2em; margin-bottom: 1.2em; font-style: italic;' 
                    value='&odhelper.fow.placeholders;' />
 
-      <checkbox id="configset.extFowKnown" label='&odhelper.fow.known.system;' />
+      <!-- merge known systems -->
+      <checkbox id="preferences.configset.extFowKnown"
+                label='&odhelper.fow.known.system;' />
 
     </groupbox>
 
     <groupbox>
-      <caption><checkbox id="configset.parserUseExt"
-                label="&odhelper.parser.caption;"/></caption>
+      <!-- external parser -->
+      <caption>
+        <checkbox id="preferences.configset.parserUseExt"
+                label="&odhelper.parser.caption;"/>
+      </caption>
 
+      <!-- parser url -->
       <description value='&odhelper.parser.target.url;' />
-      <textbox id="configset.parserTargetUri" />
+      <textbox id="preferences.configset.parserTargetUri" />
 
+      <!-- parser targer element -->
       <description value='&odhelper.parser.target.element;' />
-      <textbox id="configset.parserTargetElement" />
+      <textbox id="preferences.configset.parserTargetElement" />
     </groupbox>
 
     <groupbox>
+      <!-- miscellaneous -->
       <caption label='&odhelper.parser.miscellaneous;' />
 
+      <!-- parser shortcut -->
       <description value='&odhelper.parser.shortcut;' />
       <hbox align='center'>
         <description value='&odhelper.parser.shortcut.modifiers;'/>
-        <textbox id='configset.parserShortcutKey' value='' maxlength='1'/>
+        <textbox id='preferences.parserShortcutKey' value='' maxlength='1'/>
       </hbox>
 
-      <checkbox id="configset.parserClipboardCopy"
+      <!-- copy to clipboard -->
+      <checkbox id="preferences.configset.parserClipboardCopy"
                 label='&odhelper.parser.clipboard;' />
 
     </groupbox>

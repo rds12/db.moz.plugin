@@ -70,7 +70,7 @@ db.moz.plugin.gui.preferences = (function(){
   }
 
   var santitize = function(name){
-    return ('configset.'+name).replace(/\./g,'\\.');
+    return ('preferences.'+name).replace(/\./g,'\\.');
   }
 
   var save_value = function(branch,name,value){
@@ -78,7 +78,7 @@ db.moz.plugin.gui.preferences = (function(){
         type = branch.type(name),
         invalid = true;
 
-    // entry not existing?
+    // entry exists?
     if(type == branch.INVALID) return {
       value: value,
       old_value: old_value,
@@ -87,7 +87,7 @@ db.moz.plugin.gui.preferences = (function(){
     };
 
     if(type == branch.BOOLEAN){
-      // if not true or false -> no boolean -> invalid type
+      // if not 'true' or 'false' -> no boolean -> invalid type -> invalid = true
       invalid = !/true|false/.exec(value);
 
       if(!invalid) value = !!value.match(/true/);
@@ -97,13 +97,14 @@ db.moz.plugin.gui.preferences = (function(){
       invalid = (/\d+/.exec(value) || [true])[0];
 
       // invalid !== true - is number
-      if(invalid !== true) value = parseInt(invalid);
+      if(invalid !== true)
+        value = parseInt(invalid);
 
       // if invalid == true -> no number -> invalid type
       invalid = invalid === true;
 
     }else if(type == branch.STRING){
-      // because value is a string, we don't have to typecast
+      // because value is a string, we don't have to typecast it
       invalid = false;
     }
 
@@ -118,14 +119,16 @@ db.moz.plugin.gui.preferences = (function(){
   }
 
   var update_configset_with_xhr = function(xhr,uri){
-    var branch = db.moz.plugin.preferences.get_branch('configset.'),
+    // restrict changes on the branch 'configset', so that other preferences
+    // can not be changed through a configset
+    var branch = db.moz.plugin.preferences.get_branch('preferences.configset.'),
         children = branch.get_children(),
         $ = xhr.responseHTML.$;
 
     var updates = 0, 
         inserts = 0,
         config_name = $('configName').text();
-    
+
     if(!config_name){
       log('responseNoConfigName');
       return false;
@@ -175,7 +178,7 @@ db.moz.plugin.gui.preferences = (function(){
     log('guiStartUpdate');
     log();
 
-    var uri = $('#configset\\.source\\.uri').val(),
+    var uri = $('#preferences\\.configset\\.source\\.uri').val(),
         status = ajax.check_url(uri);
 
     // something is fishy about the given url
@@ -195,7 +198,7 @@ db.moz.plugin.gui.preferences = (function(){
         log(status);
         if(status != 'responseStatusOK') return;
 
-        // did update_configset_with_xhr success?
+        // did update_configset_with_xhr successed?
         var successed = update_configset_with_xhr(xhr,uri);
 
         if(successed)refresh_gui();
@@ -246,7 +249,7 @@ db.moz.plugin.gui.preferences = (function(){
   }
 
   var refresh_gui = function(){
-    var branch = db.moz.plugin.preferences.get_branch('configset.'),
+    var branch = db.moz.plugin.preferences.get_branch('preferences.'),
         children = branch.get_children();
 
     for(var i = 0, len = children.length; i<len; ++i){
@@ -282,7 +285,7 @@ db.moz.plugin.gui.preferences = (function(){
   }
 
   var save = function(){
-    var branch = db.moz.plugin.preferences.get_branch('configset.'),
+    var branch = db.moz.plugin.preferences.get_branch('preferences.'),
         children = branch.get_children();
 
     for(var i = 0, len = children.length; i<len; ++i){

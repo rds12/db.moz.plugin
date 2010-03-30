@@ -19,7 +19,7 @@
       <label style='font-style: italic;' value="&configset.example;"/>
       <hbox>
         <textbox onkeydown='if(event.which == 13){ prefs.update_configset(); return false;}' 
-                 id='configset.source.uri' value='' flex='1' />
+                 id='preferences.configset.source.uri' value='' flex='1' />
         <button label="&configset.update;" 
                 oncommand='prefs.update_configset();' />
       </hbox>
