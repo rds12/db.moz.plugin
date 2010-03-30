@@ -4,21 +4,30 @@
 + gui
    + make links right-clickable and load these in databases or in od
      as an replacement for the toolbars in the odhelper tool
+     #rds12: this won't feel like native embedded in omega-day 
 
 + gui fleet overview
-   + order buttons for alliancefleet columns
+   + order buttons for alliance fleet columns
 
 + gui orbit
-   + make statistics clickable
+   + add events to the statistics, so that the clicked ship graphic
+     will select all ships of the same graphic
    + add more statistic features, like emp: 0, inva: 0, toxxer: 0
-   
+     #rds12: where should we exactly locate it?
+
 + timer
    + everywhere a time is shown, add a text [add to timer]
 
-+ parser api
-   + api for silent mode, with the odhelper common header, something like:
++ notification window for mail alarms, use the callback/message format
+
++ api for planets
+   + everywhere a planet is shown, add custom pictures which are
+     doing ajax requests to a specific database url, to trigger
+     events like 'planet was toxxed', 'add planet to favorites'
+     or 'add planet to invasion list'
+Configuration for Planet Api:
 <?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?>
-<odh:odhelper xmlns="http://unzureichende.info/odhelp/ns/xhrparser/2010" xmlns:odh="http://unzureichende.info/odhelp/ns/api">
+<odh:odhelper xmlns="http://unzureichende.info/odhelp/ns/config/planetinfo/2010" xmlns:odh="http://unzureichende.info/odhelp/ns/api">
     <odh:head>
         <odh:auth>true</odh:auth>
         <odh:status>200</odh:status>
@@ -26,11 +35,67 @@
     </odh:head>
 
     <odh:data>
-      <parser successful='true/false'>
-        <message>got everything</message>
-      </parser>
+      <entry>
+        /* url */
+        <image alt='text, if image failed to load' title='Some Info Message'>
+          http(s)://image.database.com/favorite.gif
+        </image>
+
+        /* if the image will be clicked a GET request 
+           will be send with this url */
+        <ajax>
+         <!CDATA[
+          http(s)://callback.database.com/planetinfo.html
+          ?q=add_to_favorites&planet_id=%s&host=%h&world=%w
+         ]]>
+        </ajax>
+      </entry>
+
+      ...
+
+      <entry>
+        <image title='Some Info Message'>...</image>
+        <ajax>...</ajax>
+      </entry>
     </odh:data>
 </odh:odhelper>
+
+Response of the GET request must be in callback/messages format
+
++ parser api
+   + api for silent mode, with the odhelper common header, something like:
+<?xml version="1.0" encoding="ISO-8859-1" standalone="yes" ?>
+<odh:odhelper xmlns="http://unzureichende.info/odhelp/ns/callback/messages/2010" xmlns:odh="http://unzureichende.info/odhelp/ns/api">
+    <odh:head>
+        <odh:auth>true</odh:auth>
+        <odh:status>200</odh:status>
+        <odh:version>1.0</odh:version>
+    </odh:head>
+
+    <odh:data>
+      <messages>
+
+        /** basic format: this message will only be displayed */
+        <message>got everything</message>
+
+        /** advanced format: message states if it was a success or not */
+        <message successful='true/false'>
+          <![CDATA[got everything]]>
+        </message>
+
+        ...
+
+        /** complex format: message with embedded links */
+        <message successful='true/false'>
+          <![CDATA[got everything]]> <a href='?op=system&amp;sys=69610'><![CDATA[next old system]]></a>
+        </message>
+      </messages>
+    </odh:data>
+</odh:odhelper>
+
++ sitter tasks if logged in sitter
+  + prepend to 'dbMozPluginLogo' <a style='font-size: 10px' href='javascript:;' >show sitter tasks</a> | 
+  and use callback/message as callback
 
 @some memos:
 

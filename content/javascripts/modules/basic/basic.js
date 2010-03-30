@@ -63,9 +63,10 @@ db.moz.plugin.modules.register({
     // loading guis
     this.gui_extending_logo();
     this.gui_extending_debug();
-    
+    this.gui_extending_configurator_links();
+
     // logging variables
-    
+
     this.log('module.basic',null,true)
     this.log(this.is_od              ,'is_od');
     this.log(this.is_logged_in       ,'is_logged_in');
@@ -243,5 +244,11 @@ db.moz.plugin.modules.register({
       var element = $('#odMozPluginDebugWindow').toggle();
       prefs.set('debug.visible',element.is(':visible'));
     });
+  },
+
+  gui_extending_configurator_links: function(){
+    const $   = this.od.jQuery;
+
+    $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
   }
 });

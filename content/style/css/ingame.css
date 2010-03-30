@@ -4,24 +4,28 @@
   border: 1px solid #156080;
 }
 
-.dbMozPluginLogo {
+#dbMozPluginLogo {
   float: right;
   font-size: 10px;
   padding-left: 5px;
 }
 
-.dbMozPluginDebug {
+#dbMozPluginLogo *{
+	font-size: 10px !important;
+}
+
+#dbMozPluginDebug {
   position: absolute;
   top: 50px;
   right: 0px;
 }
 
-.dbMozPluginDebug #odMozPluginDebugWindow {
+#dbMozPluginDebug #odMozPluginDebugWindow {
   background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
   opacity: 0.7;
 }
 
-.dbMozPluginDebug > div {
+#dbMozPluginDebug > div {
   position: absolute;
   top: 0px;
   right: 0px;
