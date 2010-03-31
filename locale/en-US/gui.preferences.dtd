@@ -33,9 +33,47 @@
 
 <!ENTITY tab.odchanges "Site specific">
 
-<!ENTITY odchanges.tab.overall "Overall">
-<!ENTITY odchanges.tab.system "System">
-<!ENTITY odchanges.tab.planet "Planet">
+<!ENTITY odchanges.tab.miscellaneous "Miscellaneous">
+<!ENTITY odchanges.tab.planet "Planet / System">
 <!ENTITY odchanges.tab.orbit "Orbit">
 <!ENTITY odchanges.tab.fleet "Fleet">
 <!ENTITY odchanges.tab.comm "Comm">
+
+<!ENTITY odchanges.comm.favorites "enlarge the favorites sidebar, so that an horizontal scrollbar won't appear [only premium]">
+<!ENTITY odchanges.comm.numerate "numerate each comm">
+<!ENTITY odchanges.comm.autocompletion "suggestions of an typed in player name">
+<!ENTITY odchanges.comm.parselinks "convert all text-links to real ones">
+
+<!ENTITY odchanges.comm.caption.comm "Comm">
+
+<!ENTITY odchanges.fleet.unselectButton "add a unselect button to the alliance fleet">
+<!ENTITY odchanges.fleet.dblclickSend "a double click on a checkbox will select all ships with the same destination and opens a window with a send button">
+<!ENTITY odchanges.fleet.flytimes "if a fleet is not flying display all avaible flytimes in the selection box">
+<!ENTITY odchanges.fleet.orbitLink "add a link to the orbit where the fleet is heading to">
+
+<!ENTITY odchanges.fleet.caption.fleetOverview "Fleet overview">
+<!ENTITY odchanges.fleet.caption.dispatchMenu "Dispatch menu">
+
+<!ENTITY odchanges.miscellaneous.configurators "display planet and ship configurator links">
+<!ENTITY odchanges.miscellaneous.quickjumpHighlighting "highlight all owned planets in the quickjump area, which are currently accessed on the page">
+<!ENTITY odchanges.miscellaneous.escHandler "if you press the esc key, [esc] indicated windows will be closed">
+<!ENTITY odchanges.miscellaneous.buylink "convert javascript buy links into normal links for multi tabbing">
+
+<!ENTITY odchanges.miscellaneous.caption.overall "Overall">
+<!ENTITY odchanges.miscellaneous.caption.shipShop "Ship shop">
+
+<!ENTITY odchanges.orbit.shortcuts "add shortcuts for fleet navigation">
+<!ENTITY odchanges.orbit.shipStatistics "group ships by appearance and display the number of each group">
+
+<!ENTITY odchanges.orbit.caption.orbit "Orbit">
+
+<!ENTITY odchanges.planet.invaderStatisics "display number of running invasions, resonations and occupiers">
+<!ENTITY odchanges.planet.clickableOrbit "append link to orbit if not present">
+<!ENTITY odchanges.planet.resizeImages "resize and group images by base or orbit type">
+<!ENTITY odchanges.planet.postSymbol "opaque the planet picture in the holopad, so that the 'you got a mail' symbol can be seen [only premium]">
+<!ENTITY odchanges.planet.dailyIncome "calculate the daily income and display it">
+<!ENTITY odchanges.planet.buildableShips "calculate the number of buildable ships and display it">
+
+<!ENTITY odchanges.planet.caption.planetOverview "Planet overview">
+<!ENTITY odchanges.planet.caption.system "System">
+<!ENTITY odchanges.planet.caption.infrastructure "Infrastructure">

@@ -1,20 +1,20 @@
 
 /** Overall Settings */
 
-// configurators ship,planet 
+// configurators ship,planet - ok 
 pref("extensions.db.moz.plugin.preferences.overall.configurators",true);
 
-// quickjump highlighting
+// quickjump highlighting - ok
 pref("extensions.db.moz.plugin.preferences.overall.quickjump",true);
 
-// [Esc] appending and close handler
+// [Esc] appending and close handler - ok
 pref("extensions.db.moz.plugin.preferences.overall.closeHandler",true);
 
 
 
 /** Shop Settings */
 
-// convert in fleet shop all javascript requests in normal links
+// convert in fleet shop all javascript requests in normal links - ok
 pref("extensions.db.moz.plugin.preferences.shop.convertFleetLinks",true);
 
 
@@ -28,59 +28,59 @@ pref("extensions.db.moz.plugin.preferences.system.clickableOrbit",true);
 
 /** Planet Settings */
 
-// show statistics of invaders
+// show statistics of invaders - ok
 pref("extensions.db.moz.plugin.preferences.planet.invaderStatisics",true);
 
-// group images into base and orbit types and resize them
+// group images into base and orbit types and resize them - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.resizeImages",true);
 
-// opaque left upper planet image in holopanel and add post symbol
+// opaque left upper planet image in holopad and add post symbol - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.postSymbol",true);
 
-// calculate daily income
+// calculate daily income - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.dailyIncome",true);
 
-// calculate number of buildable ships
+// calculate number of buildable ships - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.buildableShips",true);
 
 
 
 /** Orbit Settings */
 
-// add shortcuts to orbit
+// add shortcuts to orbit - ok
 pref("extensions.db.moz.plugin.preferences.orbit.shortcuts",true);
 
-// show statistics of an entire fleet
+// show statistics of an entire fleet - ok
 pref("extensions.db.moz.plugin.preferences.orbit.shipStatistics",true);
 
 
 
 /** Fleet Settings */
 
-// add unselect button to alliance fleet
+// add unselect button to alliance fleet - ok
 pref("extensions.db.moz.plugin.preferences.fleet.unselectButton",true);
 
-// on double click show send button near the checked checkbock
+// on double click show send button near the checked checkbock - ok
 pref("extensions.db.moz.plugin.preferences.fleet.dblClickSendButton",true);
 
-// if a fleet is not flying show all avaible flytimes
+// if a fleet is not flying show all avaible flytimes - ok
 pref("extensions.db.moz.plugin.preferences.fleet.flytimes",true);
 
-// add an link to the orbit in the dispatch menu there the fleet is heading to
+// add an link to the orbit in the dispatch menu where the fleet is heading to - ok
 pref("extensions.db.moz.plugin.preferences.fleet.orbitLink",true);
 
 
 
 /** Comm Settings */
 
-// fix favorites width
+// fix favorites width - ok
 pref("extensions.db.moz.plugin.preferences.comm.fixFavorites",true);
 
-// numerate each comm
+// numerate each comm - ok
 pref("extensions.db.moz.plugin.preferences.comm.numeration",true);
 
-// suggestion of an typed player name 
+// suggestions of an typed in player name - ok 
 pref("extensions.db.moz.plugin.preferences.comm.autocompletion",true);
 
-// convert link like text into an link
+// convert link like text into an link - ok
 pref("extensions.db.moz.plugin.preferences.comm.parseLinks",true);

@@ -6,6 +6,43 @@
          xmlns:html="http://www.w3.org/1999/xhtml">
 
   <tabpanel id='dbMozPluginTabpanelOdChangesPlanet'>
-    <label value='planet' />
+    <!-- planet overview -->
+    <groupbox>
+      <caption label="&odchanges.planet.caption.planetOverview;"/>
+
+      <!-- planet overview statistics -->
+      <checkbox id="preferences.planet.invaderStatisics"
+                label='&odchanges.planet.invaderStatisics;' />
+    </groupbox>
+
+    <!-- System overview -->
+    <groupbox>
+      <caption label="&odchanges.planet.caption.system;"/>
+
+      <!-- make orbit clickable -->
+      <checkbox id="preferences.system.clickableOrbit"
+                label='&odchanges.planet.clickableOrbit;' />
+    </groupbox>
+
+    <!-- infrastructure -->
+    <groupbox>
+      <caption label="&odchanges.planet.caption.infrastructure;"/>
+
+      <!-- resize and group images -->
+      <checkbox id="preferences.infrastructure.resizeImages"
+                label='&odchanges.planet.resizeImages;' />
+
+      <!-- opaque planet picture -->
+      <checkbox id="preferences.infrastructure.postSymbol"
+                label='&odchanges.planet.postSymbol;' />
+
+      <!-- daily income -->
+      <checkbox id="preferences.infrastructure.dailyIncome"
+                label='&odchanges.planet.dailyIncome;' />
+
+      <!-- number of buildable ships -->
+      <checkbox id="preferences.infrastructure.buildableShips"
+                label='&odchanges.planet.buildableShips;' />
+    </groupbox>
   </tabpanel>
 </overlay>

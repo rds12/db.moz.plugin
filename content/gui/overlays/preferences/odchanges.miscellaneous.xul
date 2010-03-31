@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelOdChangesMiscellaneous'>
+    <!--overall settings -->
+    <groupbox>
+      <caption label='&odchanges.miscellaneous.caption.overall;' />
+
+      <!-- configurators -->
+      <checkbox id="preferences.overall.configurators"
+                label='&odchanges.miscellaneous.configurators;' />
+  
+      <!-- quickjump highlighting -->
+      <checkbox id="preferences.overall.quickjump"
+                label='&odchanges.miscellaneous.quickjumpHighlighting;' />
+  
+      <!-- [esc] close-handler -->
+      <checkbox id="preferences.overall.closeHandler"
+                label='&odchanges.miscellaneous.escHandler;' />
+    </groupbox>
+
+    <!-- ship shop settings -->
+    <groupbox>
+      <caption label='&odchanges.miscellaneous.caption.shipShop;' />
+
+      <!-- convert buy links -->
+      <checkbox id="preferences.shop.convertFleetLinks"
+                label='&odchanges.miscellaneous.buylink;' />
+    </groupbox>
+
+  </tabpanel>
+</overlay>

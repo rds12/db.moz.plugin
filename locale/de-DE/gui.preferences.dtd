@@ -29,3 +29,52 @@
 <!ENTITY odhelper.parser.miscellaneous "Verschiedene Parser Einstellungen">
 <!ENTITY odhelper.parser.shortcut "Shortcut für Seiten parsen (leer - kein Shortcut, Neustart benötigt):">
 <!ENTITY odhelper.parser.shortcut.modifiers "Strg + Alt + ">
+
+<!-- new since 30.03.2010 -->
+
+<!ENTITY tab.odchanges "Seiten spezifisch">
+
+<!ENTITY odchanges.tab.miscellaneous "Verschiedenes">
+<!ENTITY odchanges.tab.planet "Planet / System">
+<!ENTITY odchanges.tab.orbit "Orbit">
+<!ENTITY odchanges.tab.fleet "Flotten">
+<!ENTITY odchanges.tab.comm "Comm">
+
+<!ENTITY odchanges.comm.favorites "Vergrößere die Favoriten, damit kein horizontaler Scrollbalken entsteht [nur Premium]">
+<!ENTITY odchanges.comm.numerate "Nummeriere jede Comm">
+<!ENTITY odchanges.comm.autocompletion "Bei der Eingabe werden Spielernamen vorgeschlagen">
+<!ENTITY odchanges.comm.parselinks "Wandle im Text vorhandene Links in richtige Links um">
+
+<!ENTITY odchanges.comm.caption.comm "Comm">
+
+<!ENTITY odchanges.fleet.unselectButton "Füge einen 'unselect' Button zu der Allianzflotte">
+<!ENTITY odchanges.fleet.dblclickSend "Ein Doppelclick auf eine Checkbox selektiert alle Schiffe mit dem gleichen Ziel und öffnet ein Fenster mit einem Sende-Button">
+<!ENTITY odchanges.fleet.flytimes "Wenn eine Flotte nicht fliegt werden die Flugzeiten in den Auswahlmenüs angezeigt">
+<!ENTITY odchanges.fleet.orbitLink "Füge einen Link zum Orbit hinzu, wo die Flotte derzeit hinfliegt">
+
+<!ENTITY odchanges.fleet.caption.fleetOverview "Flottenübersicht">
+<!ENTITY odchanges.fleet.caption.dispatchMenu "Versendemenü">
+
+<!ENTITY odchanges.miscellaneous.configurators "Links für Planeten- und Schiffkonfigutor">
+<!ENTITY odchanges.miscellaneous.quickjumpHighlighting "Hebe alle Planeten im Quickjump-Bereich hervor, die in der aktuellen Seite vorhanden sind">
+<!ENTITY odchanges.miscellaneous.escHandler "Wenn du die Esc-Taste drückst werden alle mit [Esc] gekennzeichneten Fenster geschlossen">
+<!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, zum öffnen in Tabs">
+
+<!ENTITY odchanges.miscellaneous.caption.overall "Überall">
+<!ENTITY odchanges.miscellaneous.caption.shipShop "Schiff Shop">
+
+<!ENTITY odchanges.orbit.shortcuts "Shortcuts für die Flottennavigation">
+<!ENTITY odchanges.orbit.shipStatistics "Gruppiere Schiffe nach dem Äußeren und zeige die Anzahl jeder Gruppe an">
+
+<!ENTITY odchanges.orbit.caption.orbit "Orbit">
+
+<!ENTITY odchanges.planet.invaderStatisics "Zeige die Anzahl der laufenden Invasionen, Resonationen und Besatzungen an">
+<!ENTITY odchanges.planet.clickableOrbit "Wenn ein Link zum Orbit fehlt wird dieser hinzugefügt">
+<!ENTITY odchanges.planet.resizeImages "Verkleinere und gruppiere die Gebäude nach Orbit-Typ und Boden-Typ">
+<!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol durch scheint [nur Premium]">
+<!ENTITY odchanges.planet.dailyIncome "Berechne die Tageseinahmen und zeige sie an">
+<!ENTITY odchanges.planet.buildableShips "Berechne die Anzahl baubarer Schiffe und zeige sie an">
+
+<!ENTITY odchanges.planet.caption.planetOverview "Planetenübersicht">
+<!ENTITY odchanges.planet.caption.system "System">
+<!ENTITY odchanges.planet.caption.infrastructure "Planetenbebauung">

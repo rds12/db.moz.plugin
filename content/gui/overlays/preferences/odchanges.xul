@@ -2,8 +2,7 @@
 
 <!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
 
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.overall.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.system.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.miscellaneous.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.planet.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.orbit.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.fleet.xul"?>
@@ -17,8 +16,7 @@
     <tabbox flex='1' selectedIndex='0'>
 
       <tabs>
-        <tab flex='1' label="&odchanges.tab.overall;" image="" />
-        <tab flex='1' label="&odchanges.tab.system;" image="" />
+        <tab flex='1' label="&odchanges.tab.miscellaneous;" image="" />
         <tab flex='1' label="&odchanges.tab.planet;" image="" />
         <tab flex='1' label="&odchanges.tab.orbit;" image="" />
         <tab flex='1' label="&odchanges.tab.fleet;" image="" />
@@ -26,15 +24,11 @@
       </tabs>
 
       <tabpanels flex='1'>
-        <!-- overall tab -->
-        <tabpanel id="dbMozPluginTabpanelOdChangesOverall" orient='vertical'
+        <!-- miscellaneous tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesMiscellaneous" orient='vertical'
                   style='overflow:auto'/>
 
-        <!-- system tab -->
-        <tabpanel id="dbMozPluginTabpanelOdChangesSystem" orient='vertical'
-                  style='overflow:auto'/>
-
-        <!-- planet tab -->
+        <!-- planet / system tab -->
         <tabpanel id="dbMozPluginTabpanelOdChangesPlanet" orient='vertical'
                   style='overflow:auto'/>
 

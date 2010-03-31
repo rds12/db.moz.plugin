@@ -5,7 +5,34 @@
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
 
+  <!-- fleet-tab -->
   <tabpanel id='dbMozPluginTabpanelOdChangesFleet'>
-    <label value='fleet' />
+    <!-- fleet overview -->
+    <groupbox>
+      <caption label='&odchanges.fleet.caption.fleetOverview;' />
+
+      <!-- unselect button -->
+      <checkbox id='preferences.fleet.unselectButton'
+                label='&odchanges.fleet.unselectButton;' />
+
+      <!-- double click selection -->
+      <checkbox id='preferences.fleet.dblClickSendButton'
+                label='&odchanges.fleet.dblclickSend;' />
+
+    </groupbox>
+
+    <!-- dispatch menu -->
+    <groupbox>
+      <caption label='&odchanges.fleet.caption.dispatchMenu;' />
+
+      <!-- flytimes -->
+      <checkbox id='preferences.fleet.flytimes'
+                label='&odchanges.fleet.flytimes;' />
+
+      <!-- orbit link -->
+      <checkbox id='preferences.fleet.orbitLink'
+                label='&odchanges.fleet.orbitLink;' />
+
+    </groupbox>
   </tabpanel>
 </overlay>

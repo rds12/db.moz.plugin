@@ -5,7 +5,18 @@
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">
 
+  <!-- orbit -->
   <tabpanel id='dbMozPluginTabpanelOdChangesOrbit'>
-    <label value='orbit' />
+    <groupbox>
+      <caption label='&odchanges.orbit.caption.orbit;' />
+
+      <!-- shortcuts -->
+      <checkbox id='preferences.orbit.shortcuts'
+                label='&odchanges.orbit.shortcuts;' />
+  
+      <!-- statistics -->
+      <checkbox id='preferences.orbit.shipStatistics'
+                label='&odchanges.orbit.shipStatistics;' />
+    </groupbox>
   </tabpanel>
 </overlay>

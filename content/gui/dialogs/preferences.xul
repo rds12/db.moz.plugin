@@ -26,7 +26,7 @@
     const prefs = db.moz.plugin.gui.preferences;
   </script>
 
-  <tabbox flex='1' selectedIndex='2'>
+  <tabbox flex='1' selectedIndex='0'>
     <tabs>
       <tab flex='1' label="&tab.configset;" image="" />
       <tab flex='1' label="&tab.odhelper;" image="" />
