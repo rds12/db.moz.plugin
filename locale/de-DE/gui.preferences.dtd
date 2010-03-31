@@ -32,7 +32,7 @@
 
 <!-- new since 30.03.2010 -->
 
-<!ENTITY tab.odchanges "Seiten spezifisch">
+<!ENTITY tab.odchanges "Seiten spezifisches">
 
 <!ENTITY odchanges.tab.miscellaneous "Verschiedenes">
 <!ENTITY odchanges.tab.planet "Planet / System">
@@ -55,23 +55,23 @@
 <!ENTITY odchanges.fleet.caption.fleetOverview "Flottenübersicht">
 <!ENTITY odchanges.fleet.caption.dispatchMenu "Versendemenü">
 
-<!ENTITY odchanges.miscellaneous.configurators "Links für Planeten- und Schiffkonfigutor">
+<!ENTITY odchanges.miscellaneous.configurators "Links für Planeten- und Schiffkonfigurator">
 <!ENTITY odchanges.miscellaneous.quickjumpHighlighting "Hebe alle Planeten im Quickjump-Bereich hervor, die in der aktuellen Seite vorhanden sind">
 <!ENTITY odchanges.miscellaneous.escHandler "Wenn du die Esc-Taste drückst werden alle mit [Esc] gekennzeichneten Fenster geschlossen">
-<!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, zum öffnen in Tabs">
+<!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, um diese in Tabs öffnen zu können">
 
 <!ENTITY odchanges.miscellaneous.caption.overall "Überall">
 <!ENTITY odchanges.miscellaneous.caption.shipShop "Schiff Shop">
 
 <!ENTITY odchanges.orbit.shortcuts "Shortcuts für die Flottennavigation">
-<!ENTITY odchanges.orbit.shipStatistics "Gruppiere Schiffe nach dem Äußeren und zeige die Anzahl jeder Gruppe an">
+<!ENTITY odchanges.orbit.shipStatistics "Gruppiere Schiffe nach dem Aussehen und zeige die Anzahl jeder Gruppe an">
 
 <!ENTITY odchanges.orbit.caption.orbit "Orbit">
 
 <!ENTITY odchanges.planet.invaderStatisics "Zeige die Anzahl der laufenden Invasionen, Resonationen und Besatzungen an">
 <!ENTITY odchanges.planet.clickableOrbit "Wenn ein Link zum Orbit fehlt wird dieser hinzugefügt">
 <!ENTITY odchanges.planet.resizeImages "Verkleinere und gruppiere die Gebäude nach Orbit-Typ und Boden-Typ">
-<!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol durch scheint [nur Premium]">
+<!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol zu sehen ist [nur Premium]">
 <!ENTITY odchanges.planet.dailyIncome "Berechne die Tageseinahmen und zeige sie an">
 <!ENTITY odchanges.planet.buildableShips "Berechne die Anzahl baubarer Schiffe und zeige sie an">
 
