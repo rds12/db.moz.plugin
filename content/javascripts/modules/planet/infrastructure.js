@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'infrastructure',
   module_author:      'rds12',
-  module_version:     '2010-03-08',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -90,6 +90,9 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_buildable_ships: function(){
+    if(this.lib.preferences.get('preferences.infrastructure.buildableShips') !== true)
+      return;
+
     if(this.modules.location.options['scan']) return;
 
     const $ = this.od.jQuery;
@@ -97,7 +100,7 @@ db.moz.plugin.modules.register({
 
     // we have to delay the calculation of the buildable ships
     // because omega-day is using javascript to set the content
-    // of the window. only god knows why...
+    // of the ship-build-window. only god knows why...
 
     // we have to do a little trick here, because append_values will
     // be called by the event 'DOMNodeInserted', but it will manipulate
@@ -159,6 +162,9 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_images: function(){
+    if(this.lib.preferences.get('preferences.infrastructure.resizeImages') !== true)
+      return;
+
     if(this.modules.location.options['scan']) return;
     // Bug#5:
     // if odhelper is installed and the building resize option is set,
@@ -199,6 +205,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_post_symbol: function(){
+    if(this.lib.preferences.get('preferences.infrastructure.postSymbol') !== true)
+      return;
+
     const $   = this.od.jQuery;
     const dom = this.od.dom;
     const img = dom['old'];
@@ -211,6 +220,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_day_tax_income: function(){
+    if(this.lib.preferences.get('preferences.infrastructure.dailyIncome') !== true)
+      return;
+
     if(this.modules.location.options['scan']) return;
     
     const $   = this.od.jQuery;

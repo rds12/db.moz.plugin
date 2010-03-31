@@ -28,3 +28,14 @@
 <!ENTITY odhelper.parser.miscellaneous "Miscellaneous Parser Settings">
 <!ENTITY odhelper.parser.shortcut "Shortcut for site parsing (empty - no shortcut, restart needed):">
 <!ENTITY odhelper.parser.shortcut.modifiers "Ctrl + Alt + ">
+
+<!-- new since 30.03.2010 -->
+
+<!ENTITY tab.odchanges "Site specific">
+
+<!ENTITY odchanges.tab.overall "Overall">
+<!ENTITY odchanges.tab.system "System">
+<!ENTITY odchanges.tab.planet "Planet">
+<!ENTITY odchanges.tab.orbit "Orbit">
+<!ENTITY odchanges.tab.fleet "Fleet">
+<!ENTITY odchanges.tab.comm "Comm">

@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet',
   module_author:      'rds12',
-  module_version:     '2010-03-07',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -28,6 +28,8 @@ db.moz.plugin.modules.register({
     
     basic.log('module.fleet',null,true);
     basic.log(this.is_flying ,'is_flying');
+    //FIXME: retrieve flying state without #gui_dispatch_menu_extending_flytimes 
+    //> could be disabled!
   },
   
   is_fleet_overview:function(){
@@ -96,28 +98,34 @@ db.moz.plugin.modules.register({
       $(e).attr('checked',false);
     });
   },
-  
-  gui_overview_extending_button: function(){
+
+  gui_overview_extending_buttons: function(){
+    if(this.lib.preferences.get('preferences.fleet.unselectButton') !== true)
+      return;
+
     const $    = this.od.jQuery;
     const self = this;
-    
+
     var form = $('form[name="AllyFlform"]');
     if(!form.length) return;
-    
+
     form.find('tr.tablecolor input:submit').each(function(i,e){
       var s = $(self.template('unselectButton'));
       s.click(function(){
         self.select_reset();
       });
-      
+
       $(e).parents('td:eq(0)').prepend(s);
     });
   },
-  
+
   gui_overview_extending_checkboxes: function(){
+    if(this.lib.preferences.get('preferences.fleet.dblClickSendButton') !== true)
+      return;
+
     const $ = this.od.jQuery;
     var self = this;
-    // create window for send the dynamic button
+    // create window for the dynamic send button
     $('body').append(self.template('sendWindow'));
 
     // event select same!
@@ -129,6 +137,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_dispatch_menu_extending_flytimes: function(){
+    if(this.lib.preferences.get('preferences.fleet.flytimes') !== true)
+      return;
+
     const dom = this.od.dom;
     const $   = this.od.jQuery;
     
@@ -199,6 +210,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_orbit_link_in_dispatch_menu: function(){
+    if(this.lib.preferences.get('preferences.fleet.orbitLink') !== true)
+      return;
+
     const $ = this.od.jQuery;
 
     var e = $('#maincontent td.messageBox_Middle:first td');
@@ -214,7 +228,7 @@ db.moz.plugin.modules.register({
   
   od_overview: function(){
     this.gui_overview_extending_checkboxes();
-    this.gui_overview_extending_button();
+    this.gui_overview_extending_buttons();
   },
   
   od_dispatch_menu: function(){

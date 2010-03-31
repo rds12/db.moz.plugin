@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'system',
   module_author:      'rds12',
-  module_version:     '2010-03-09',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -46,6 +46,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_orbit_clickable: function(){
+    if(this.lib.preferences.get('preferences.system.clickableOrbit') !== true)
+      return;
+
     const self = this;
     const $ = this.od.jQuery;
     

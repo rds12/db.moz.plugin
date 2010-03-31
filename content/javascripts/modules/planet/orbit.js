@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'orbit',
   module_author:      'rds12',
-  module_version:     '2010-03-17',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -30,7 +30,7 @@ db.moz.plugin.modules.register({
     const self = this;
     var ships = $('td[namsn]');
 
-    // no options -> get all ships?
+    // no options -> get all ships!
     if(!options) return ships;
     
     var get_range = function(ships){
@@ -315,6 +315,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_shortcuts: function(){
+    if(this.lib.preferences.get('preferences.orbit.shortcuts') !== true)
+      return;
+
     const $ = this.od.jQuery;
     const win = this.od.doc;
     const self = this;
@@ -362,6 +365,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_ships_statistic: function(){
+    if(this.lib.preferences.get('preferences.orbit.shipStatistics') !== true)
+      return;
+
     const $ = this.od.jQuery;
     
     var stats = this.get_statistics();

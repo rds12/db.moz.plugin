@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fowapi',
   module_author:      'rds12',
-  module_version:     '2010-03-16',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -334,13 +334,13 @@ db.moz.plugin.modules.register({
     if(!system_id) return;
     
     // fow api enabled?
-    var enabled = prefs.get('configset.extDisableFow');
+    var enabled = prefs.get('preferences.configset.extDisableFow');
     if(enabled != true) return;
 
     this.gui_extending_append_fow_window();
     
     // get uri
-    var uri = prefs.get('configset.extFowApiUri');
+    var uri = prefs.get('preferences.configset.extFowApiUri');
     uri = this.replace_placeholders(uri,system_id);
 
     // test if uri is not empty 
@@ -350,7 +350,7 @@ db.moz.plugin.modules.register({
     }
 
     // system is viewable and the config says not to complete the system
-    if(self.system_viewable && true != prefs.get('configset.extFowKnown')){
+    if(self.system_viewable && true != prefs.get('preferences.configset.extFowKnown')){
       self.log(self.template('requestExtendNotSystem',uri));
       return;
     }

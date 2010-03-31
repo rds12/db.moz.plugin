@@ -27,7 +27,7 @@ db.moz.plugin.browser = {
       }, false);
 
     var key = document.getElementById('dbMozPluginKeyParse'),
-        shortcut = db.moz.plugin.preferences.get('configset.parserShortcutKey');
+        shortcut = db.moz.plugin.preferences.get('preferences.parserShortcutKey');
 
     if(key && shortcut != '')
       key.setAttribute('key',shortcut);

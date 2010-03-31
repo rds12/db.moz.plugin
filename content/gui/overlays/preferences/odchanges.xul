@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.overall.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.system.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.planet.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.orbit.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.fleet.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.comm.xul"?>
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelOdChanges'>
+
+    <tabbox flex='1' selectedIndex='0'>
+
+      <tabs>
+        <tab flex='1' label="&odchanges.tab.overall;" image="" />
+        <tab flex='1' label="&odchanges.tab.system;" image="" />
+        <tab flex='1' label="&odchanges.tab.planet;" image="" />
+        <tab flex='1' label="&odchanges.tab.orbit;" image="" />
+        <tab flex='1' label="&odchanges.tab.fleet;" image="" />
+        <tab flex='1' label="&odchanges.tab.comm;" image="" />
+      </tabs>
+
+      <tabpanels flex='1'>
+        <!-- overall tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesOverall" orient='vertical'
+                  style='overflow:auto'/>
+
+        <!-- system tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesSystem" orient='vertical'
+                  style='overflow:auto'/>
+
+        <!-- planet tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesPlanet" orient='vertical'
+                  style='overflow:auto'/>
+
+        <!-- orbit tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesOrbit" orient='vertical'
+                  style='overflow:auto'/>
+
+        <!-- fleet tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesFleet" orient='vertical'
+                  style='overflow:auto'/>
+
+        <!-- comm tab -->
+        <tabpanel id="dbMozPluginTabpanelOdChangesComm" orient='vertical'
+                  style='overflow:auto'/>
+      </tabpanels>
+    </tabbox>
+
+  </tabpanel>
+</overlay>

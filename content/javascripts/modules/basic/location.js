@@ -6,7 +6,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'location',
   module_author:      'rds12',
-  module_version:     '2010-03-08',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -49,7 +49,23 @@ db.moz.plugin.modules.register({
       this.sub  = '';
     }
 
-    const self = this;
+    this.gui_extending_quickjump_highlighting();
+    this.gui_extending_close_event();
+
+    basic.log('module.location',null,true)
+    basic.log(this.query.op  ,'op');
+    basic.log(this.query     ,'query');
+    basic.log(this.main      ,'main');
+    basic.log(this.sub       ,'sub');
+    basic.log(this.options   ,'options');
+  },
+
+  gui_extending_quickjump_highlighting: function(){
+    if(this.lib.preferences.get('preferences.overall.quickjump') !== true)
+      return;
+
+    const self = this,
+          $ = this.od.jQuery;
 
     // if the planet order was changed, don't scroll to the first
     // planet
@@ -64,19 +80,12 @@ db.moz.plugin.modules.register({
     // to be sure that the loading process is finished before this call.
     selectors();
     $('div.quickjump').bind('DOMNodeInserted',selectors);
-
-    this.gui_extending_close_event();
-
-    basic.log('module.location',null,true)
-    basic.log(this.query.op  ,'op');
-    basic.log(this.query     ,'query');
-    basic.log(this.main      ,'main');
-    basic.log(this.sub       ,'sub');
-    basic.log(this.options   ,'options');
-    
   },
   
   gui_extending_close_event: function(){
+    if(this.lib.preferences.get('preferences.overall.closeHandler') !== true)
+      return;
+
     const win = this.od.doc;
     const $ = this.od.jQuery;
 

@@ -4,6 +4,7 @@
 
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/preferences.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odhelper.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.xul"?>
 
 <!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
 
@@ -25,14 +26,16 @@
     const prefs = db.moz.plugin.gui.preferences;
   </script>
 
-  <tabbox flex='1' selectedIndex='0'>
+  <tabbox flex='1' selectedIndex='2'>
     <tabs>
       <tab flex='1' label="&tab.configset;" image="" />
-      <tab flex='1' label="&tab.odhelper;" image="" />  
+      <tab flex='1' label="&tab.odhelper;" image="" />
+      <tab flex='1' label="&tab.odchanges;" image="" />
     </tabs>
     <tabpanels flex='1'>
       <tabpanel id="dbMozPluginTabpanelPreferences" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelOdHelper" orient='vertical'/>
+      <tabpanel id="dbMozPluginTabpanelOdChanges" orient='vertical'/>
     </tabpanels>
   </tabbox>
 </dialog>

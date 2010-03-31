@@ -2,7 +2,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'comm',
   module_author:      'rds12',
-  module_version:     '2010-03-07',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -19,6 +19,7 @@ db.moz.plugin.modules.register({
   od_inbox: function(){
     this.gui_fixing_favorites_sidebar();
     this.gui_extending_numeration();
+    this.gui_extending_link_parser();
     this.gui_extending_ajax();
   },
   
@@ -27,43 +28,63 @@ db.moz.plugin.modules.register({
   },
   
   gui_fixing_favorites_sidebar: function(){
+    if(this.lib.preferences.get('preferences.comm.fixFavorites') !== true)
+      return;
+
     if(!this.modules.basic.is_premium) return;
+
     const $ = this.od.jQuery;
-    // getting favorites sidebar, with the notice input
+
+    // get favorites sidebar, with the notice input
     $('input[name=submit2]').parents('div:first').css('width','185');
   },
   
   // adding comm numeration
   gui_extending_numeration: function(){
+    if(this.lib.preferences.get('preferences.comm.numeration') !== true)
+      return;
+
     const $ = this.od.jQuery;
     const self = this;
 
     var offset = this.modules.location.options.start + 1;
     $('form[method=post] div[style] tbody > tr').each(function(i,e){
       var even = i%2 == 0;
-      if(even){
-        // adding numer
-        $(e).prepend(self.template('numeration',offset + i/2));
-      }else{
-        var td = $(e).find('td').attr('colspan',4);
-        self.gui_extending_link_parser(td);
-      }
+      if(!even) return;
+
+      // adding numer
+      $(e).prepend(self.template('numeration',offset + i/2));
     });
   },
   
   gui_extending_link_parser: function(element){
-    const $ = this.od.jQuery;
-    const parseToLink = db.moz.plugin.basics.parseToLink;
-    var element = $(element);
+    if(this.lib.preferences.get('preferences.comm.parseLinks') !== true)
+      return;
 
-    var html = element.html();
-    element.html(parseToLink(html,this.template('parseLink'),function(link){
-      var match = link.match(/spielgrafik/);
-      return match === null;
-    }));
+    const parseToLink = db.moz.plugin.basics.parseToLink,
+          self = this,
+          $ = this.od.jQuery;
+
+    $('form[method=post] div[style] tbody > tr').each(function(i,e){
+      var odd = i%2 == 1;
+      if(!odd) return;
+
+      var element = $(e).find('td').attr('colspan',4),
+          html = element.html();
+
+      element.html(parseToLink(html,self.template('parseLink'),function(link){
+        // forbid links that include an image path to an smily,
+        // because this would screw up the image
+        var match = link.match(/spielgrafik/);
+        return match === null;
+      }));
+    });
   },
 
   gui_extending_ajax: function(){
+    if(this.lib.preferences.get('preferences.comm.autocompletion') !== true)
+      return;
+
     const world = this.modules.basic.world; 
     const $ = this.od.jQuery;
     const autocompleter = this.lib.ajax.autocompleter;

@@ -6,7 +6,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'basic',
   module_author:      'rds12',
-  module_version:     '2010-03-11',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -247,6 +247,9 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_configurator_links: function(){
+    if(this.lib.preferences.get('preferences.overall.configurators') !== true)
+      return;
+
     const $   = this.od.jQuery;
 
     $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));

@@ -13,10 +13,10 @@
    + add events to the statistics, so that the clicked ship graphic
      will select all ships of the same graphic
    + add more statistic features, like emp: 0, inva: 0, toxxer: 0
-     #rds12: where should we exactly locate it?
+     #rds12: where should we exactly locate this?
 
 + timer
-   + everywhere a time is shown, add a text [add to timer]
+   + everywhere a time is shown, add the text [add to timer]
 
 + notification window for mail alarms, use the callback/message format
 

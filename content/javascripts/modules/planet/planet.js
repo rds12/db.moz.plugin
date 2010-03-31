@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'planet',
   module_author:      'rds12',
-  module_version:     '2010-03-03',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -29,6 +29,9 @@ db.moz.plugin.modules.register({
   },
   
   gui_extending_agressor_statistics: function(){
+    if(this.lib.preferences.get('preferences.planet.invaderStatisics') !== true)
+      return;
+
     const $ = this.od.jQuery;
     
     var /*div = $('#9999992'),*/ trs = $('#planlist tr[id]');

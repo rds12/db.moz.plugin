@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet_shop',
   module_author:      'rds12',
-  module_version:     '2010-03-14',
+  module_version:     '2010-03-30',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -25,6 +25,9 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_convert_javascript_to_link: function(){
+    if(this.lib.preferences.get('preferences.shop.convertFleetLinks') !== true)
+      return;
+
     const $ = this.od.jQuery;
 
     $('a[href^=javascript:kauf]').each(function(i,e){
