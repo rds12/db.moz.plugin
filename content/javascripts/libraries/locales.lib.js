@@ -4,7 +4,7 @@
 
 // Never use ISO-8859-1 coded .property files
 // they will fuck up everything!
-// UTF-8 is the key!
+// UTF-8 does the magic!
 Namespace('db.moz.plugin');
 
 /**
@@ -29,7 +29,7 @@ db.moz.plugin.locales = function(path){
   var service = Components.classes["@mozilla.org/intl/stringbundle;1"]
                 .getService(Components.interfaces.nsIStringBundleService),
       cached_locales = {};
-     
+
   this.get= function(location){
     const basics    = db.moz.plugin.basics;
     const console   = db.moz.plugin.console;
@@ -40,7 +40,7 @@ db.moz.plugin.locales = function(path){
 
     var locale = cached_locales[location];
 
-    // not defined? -> define and load all strings
+    // not defined yet? -> define and load all strings
     if(locale == undefined){
       var file = path + location + '.properties';
       // save the raw bundle and the achieved keys

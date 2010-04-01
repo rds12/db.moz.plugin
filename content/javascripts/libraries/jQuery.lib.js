@@ -17,8 +17,7 @@ db.moz.plugin.jQuery = {
   },
   
   get_chrome: function(){
-    this.chromeWindow = this.chromeWindow || 
-      this.new_query(window.document);
+    this.chromeWindow = this.chromeWindow || this.new_query(window.document);
 
     return this.chromeWindow;
   },

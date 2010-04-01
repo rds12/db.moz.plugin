@@ -21,11 +21,14 @@ db.moz.plugin.browser = {
       function(event){db.moz.plugin.browser.setup(event);}, true
     );
 
-    if(gBrowser && gBrowser.tabContainer)
+    if(gBrowser && gBrowser.tabContainer){
+
       gBrowser.tabContainer.addEventListener("TabSelect", function(event){
         db.moz.plugin.browser.tab_selected(event);
       }, false);
+    }
 
+    // set parse shortcut
     var key = document.getElementById('dbMozPluginKeyParse'),
         shortcut = db.moz.plugin.preferences.get('preferences.parserShortcutKey');
 
@@ -84,7 +87,8 @@ db.moz.plugin.browser = {
 
     const require = db.moz.plugin.require;
 
-    var dom = doc.defaultView.wrappedJSObject;
+    var win = doc.defaultView;
+    var dom = win.wrappedJSObject;
 
     // register basic modules
     require.module('basic');
@@ -142,6 +146,7 @@ db.moz.plugin.browser = {
   },
 
   tab_selected: function(event){
+    // set the visibility of statusbar
     this.check_if_omega_day(window.content.document);
   }
 };

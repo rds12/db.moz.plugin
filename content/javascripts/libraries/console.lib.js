@@ -14,9 +14,14 @@ db.moz.plugin.console = {
   
   get_message: function(message,exception){
     if(!exception) return message;
+
     const prefs = db.moz.plugin.preferences;
+
     message += '\n' + 'error: '+exception;
-    if(prefs && prefs.get('debug.enable')) alert(message);
+
+    if(prefs && prefs.get('debug.enable')) 
+      alert(message);
+
     return message;
   },
   
@@ -24,11 +29,14 @@ db.moz.plugin.console = {
                     columnnumber,flags,category,exception
   ){
     this.init();
+
     message = this.get_message(this._message_prefix+message,exception);
+
     var error = Components.classes["@mozilla.org/scripterror;1"]
                 .createInstance(Components.interfaces.nsIScriptError);
     error.init(message,sourcename,sourceline,linenumber,
                       columnnumber,flags,category);
+
     this._console.logMessage(error);
   },
   
@@ -42,7 +50,9 @@ db.moz.plugin.console = {
   
   log: function(message,exception){
     this.init();
+
     message = this.get_message(this._message_prefix+message,exception);
+
     this._console.logStringMessage(message);
   },
   
