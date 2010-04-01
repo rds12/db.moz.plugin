@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-01',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -225,17 +225,60 @@ db.moz.plugin.modules.register({
       this.template('goToOrbitLink',pid)
     );
   },
+
+  gui_overview_extending_hide_merged_ships: function(){
+    if(true !== this.lib.preferences.get('preferences.fleet.hideMergedShips'))
+      return;
+
+    const self = this,
+          $ = this.od.jQuery;
+
+    $('#div3 table tr:eq(1) td').append(self.template('hiddenShips'));
+
+    var is_fleet_hidden = false,
+        window = $('#dbMozPluginHiddenShips'),
+        link = window.find('a').click(function(){
+          toggle_merged_fleets();
+        });
+
+    var toggle_merged_fleets = function(){
+      var number_of_hidings = 0;
+
+      $('#div3 table table table:first tr').each(function(){
+        // check if galaxy is set
+        // if not, ship belongs to a fleet
+        var tr = $(this),
+            is_merged = !tr.find('td:eq(2)').text();
+
+        // is ship merged in fleet?
+        if(!is_merged) return;
   
+        if(is_fleet_hidden) tr.show();
+        else tr.hide();
+
+        number_of_hidings++;
+      });
+
+      is_fleet_hidden = !is_fleet_hidden;
+
+      var text = is_fleet_hidden ? 'showHiddenShips' : 'hideMergedShips';
+      link.html(self.template(text,number_of_hidings));
+    }
+
+    toggle_merged_fleets();
+  },
+
   od_overview: function(){
     this.gui_overview_extending_checkboxes();
     this.gui_overview_extending_buttons();
+    this.gui_overview_extending_hide_merged_ships();
   },
-  
+
   od_dispatch_menu: function(){
     this.gui_dispatch_menu_extending_flytimes();
     this.gui_extending_orbit_link_in_dispatch_menu();
   },
-  
+
   od_dispatched: function(){
     //
   }

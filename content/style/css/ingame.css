@@ -219,3 +219,8 @@ div.menu-item > a:hover{
 	padding-right: 10px;
   text-align: left;
 }
+
+#dbMozPluginHiddenShips {
+	display: inline;
+	margin-left: 10px;
+}

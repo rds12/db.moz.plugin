@@ -11,6 +11,10 @@
     <groupbox>
       <caption label='&odchanges.fleet.caption.fleetOverview;' />
 
+      <!-- hide merged ships -->
+      <checkbox id='preferences.fleet.hideMergedShips'
+                label='&odchanges.fleet.hideMergedShips;' />
+
       <!-- unselect button -->
       <checkbox id='preferences.fleet.unselectButton'
                 label='&odchanges.fleet.unselectButton;' />

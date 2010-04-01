@@ -47,6 +47,7 @@
 
 <!ENTITY odchanges.comm.caption.comm "Comm">
 
+<!ENTITY odchanges.fleet.hideMergedShips "Verstecke alle Schiffe, die in einer Flotte sind">
 <!ENTITY odchanges.fleet.unselectButton "Füge einen 'unselect' Button zu der Allianzflotte">
 <!ENTITY odchanges.fleet.dblclickSend "Ein Doppelclick auf eine Checkbox selektiert alle Schiffe mit dem gleichen Ziel und öffnet ein Fenster mit einem Sende-Button">
 <!ENTITY odchanges.fleet.flytimes "Wenn eine Flotte nicht fliegt werden die Flugzeiten in den Auswahlmenüs angezeigt">

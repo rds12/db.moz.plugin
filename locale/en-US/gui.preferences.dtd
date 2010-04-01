@@ -46,6 +46,7 @@
 
 <!ENTITY odchanges.comm.caption.comm "Comm">
 
+<!ENTITY odchanges.fleet.hideMergedShips "hide all ships that are currently merged into a fleet">
 <!ENTITY odchanges.fleet.unselectButton "add a unselect button to the alliance fleet">
 <!ENTITY odchanges.fleet.dblclickSend "a double click on a checkbox will select all ships with the same destination and opens a window with a send button">
 <!ENTITY odchanges.fleet.flytimes "if a fleet is not flying display all avaible flytimes in the selection box">

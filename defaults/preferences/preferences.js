@@ -69,6 +69,8 @@ pref("extensions.db.moz.plugin.preferences.fleet.flytimes",true);
 // add an link to the orbit in the dispatch menu where the fleet is heading to - ok
 pref("extensions.db.moz.plugin.preferences.fleet.orbitLink",true);
 
+// hide merged ships
+pref("extensions.db.moz.plugin.preferences.fleet.hideMergedShips",true);
 
 
 /** Comm Settings */
