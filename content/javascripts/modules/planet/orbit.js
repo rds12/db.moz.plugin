@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'orbit',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-02',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -24,7 +24,39 @@ db.moz.plugin.modules.register({
     this.gui_extending_shortcuts();
     this.gui_extending_ships_statistic();
   },
-  
+
+  /**
+   * // get all ships:
+   *
+   * var ships = get_ships();
+   * 
+   * // get the first ship or no ship:
+   * 
+   * var ship = get_ships({
+   *   range: {start: 0, end: 1}
+   * });
+   * 
+   * // get all unselected ships
+   * 
+   * var ship = get_ships({
+   *   filter: 'unselected'
+   * });
+   * 
+   * // get all selected ships
+   * 
+   * var ship = get_ships({
+   *   filter: 'selected'
+   * });
+   * 
+   * // get all unselected ships, where the index is greter than 3
+   * 
+   * var ship = get_ships({
+   *   filter: 'unselected'
+   *   range: {start: 4}
+   * });
+   * 
+   * @return {jQuery} jQuery of td entries
+   */
   get_ships: function(options){
     const $ = this.od.jQuery;
     const self = this;
@@ -32,40 +64,135 @@ db.moz.plugin.modules.register({
 
     // no options -> get all ships!
     if(!options) return ships;
-    
-    var get_range = function(ships){
-      // check if range is avaible
+
+    var start = false,
+        end = false;
+
+    var range_avaible = (function(){
       var range = options.range;
 
-      if(!range) return ships;
+      // check if range is avaible
+      // if not return true
+      if(!range) return false;
 
-      var start = range.start, end = range.end;
+      start = range.start;
+      end   = range.end;
 
-      if(!start && !end) return ships;
+      // if start and end position is invalid
+      // return true
+      if(!start && !end) return false;
 
-      return ships.filter(function( index ){
-        // range = { start: 0, end: 1 } gets the first ship
-        var a = index >= start, b = index < end;
+      return true;
+    })();
 
-        if(start && end) return a && b; 
-        return start ? a : b;
+    var is_in_range = function(index){
+      // if range is not set, every ship is in range
+      if(!range_avaible) return true;
+
+      var a = index >= start, b = index < end;
+
+      // if start and end position is set
+      // return ships within range
+      if(start > 0 && end > 0){
+        // if index is greater than start and
+        // index is greater than end
+        // return 'exceeded' to indicate that the range
+        // was exceeded
+        if(a && !b) return 'exceeded';
+        return a && b;
+      }
+
+      if(start > 0) {
+        return a;
+      }
+
+      // if end position exceeded return 'exceeded'
+      return b ? true : 'exceeded';
+    }
+
+    var get_range = function(ships, callback){
+      // no range and callback avaible, return ships untouched
+      if(!range_avaible && !callback){
+        return ships;
+      }
+
+      // default callback, collect all ships that matches
+      // the range
+      callback = callback || function(ship){return true;}
+
+      var number_of_added_ships = 0;
+      var exceeded = false;
+
+      var select = function( index, ship ){
+        // if range was exceeded, don't collect anymore
+        if(exceeded) return false;
+
+        var ship_added = ship_added = callback($(ship));
+            in_range = is_in_range(number_of_added_ships);
+
+        // abort immediately if range exceeded
+        if(in_range == 'exceeded'){
+          exceeded = true;
+          return false;
+        }
+
+        // ship doesn't fit the callback selector? don't collect it
+        if(!ship_added){
+          return false;
+        }
+
+        // increase the counter of the matched ships
+        number_of_added_ships++;
+
+        // not in range? don't collect this ship
+        if(!in_range) return false;
+
+        return true;
+      }
+
+      // instead of filtering the ships, we add
+      // them to another stack to improve performance
+      // by ranged selection
+      var stack = [];
+
+      ships.each(function(index,ship){
+        var selected = select(index,ship);
+
+        if(self.modules.basic.is_debug_enabled){
+          // just some optical highlighting
+          var background = selected ? 'green' : 'blue';
+          $(ship).find('a').css('background-color',background);
+        }
+
+        // add ship to the new stack
+        if(selected){
+          stack.push(ship);
+        }
+
+        // abort collection if exceeded!
+        if(exceeded){
+          return false;
+        }
       });
+
+      // convert stack into jQuery
+      return $(stack);
     }
     
     var filter = options['filter']; 
     
     // get all selected ships
     if(filter == 'selected'){
-      var ships = ships.filter(function(i,e){
-        return $(e).hasClass('tabletranslight');
+      return get_range(ships,function(ship){
+        return ship.hasClass('tabletranslight');
       });
     }
     
     // get all unselected ships
     if(filter == 'unselected'){
-      var ships = ships.filter(function(i,e){
-        var e = $(e);
-        return e.hasClass('opacity1') || e.hasClass('tabletrans');
+      return get_range(ships,function(ship){
+        return ship.hasClass('opacity1') ||
+               ship.hasClass('tabletrans');
       });
     }
     
@@ -73,18 +200,32 @@ db.moz.plugin.modules.register({
     // or return matched ships
     return get_range(ships);
   },
-  
-  toggle_ship: function(shipid){
+
+  update_gui_and_stack: function(){
+    // FIXME: use native function instead
+    const dom = this.od.dom;
+
+    dom.set_action();
+  },
+
+  toggle_ship_selection: function(shipid){
     //FIXME: use native function instead
+    // 2010-04-01@rds12: improved selection script by using 'clickfast',
+    // but we have to use 'set_action' after all selections to
+    // update the gui and the ship stack, so that fixme is still active
+
     const dom = this.od.dom;
     const $ = this.od.jQuery;
 
-    // toggle ship
-    dom.clicks(shipid);
+    // toggle ship selection
+    dom.clickfast(shipid);
 
     // clicks won't remove ships background
-    if($('td#'+shipid).is('.tabletrans'))
-      $('td#'+shipid).attr({'class':'opacity1','bgcolor':''});
+    if($('#'+shipid).is('.tabletrans'))
+      $('#'+shipid).attr({'class':'opacity1','bgcolor':''});
+
+    // 2010-04-01@rds12: changed 'td#shipid' to '#shipid'
+    // to perform faster ship selection
   },
   
   /**
@@ -105,8 +246,9 @@ db.moz.plugin.modules.register({
       var ships = this.get_ships({filter:'selected'});
       ships.each(function(i,e){
         var shipid = $(e).attr('id');
-        self.toggle_ship(shipid);
+        self.toggle_ship_selection(shipid);
       });
+      self.update_gui_and_stack();
       return;
     }
 
@@ -115,8 +257,9 @@ db.moz.plugin.modules.register({
       var ships = this.get_ships();
       ships.each(function(i,e){
         var shipid = $(e).attr('id');
-        self.toggle_ship(shipid);
+        self.toggle_ship_selection(shipid);
       });
+      self.update_gui_and_stack();
       return;
     }
 
@@ -139,12 +282,15 @@ db.moz.plugin.modules.register({
     // toggle all matched ships
     ships.each(function(i,e){
       var shipid = $(e).attr('id');
-      self.toggle_ship(shipid);
+      self.toggle_ship_selection(shipid);
     });
+    self.update_gui_and_stack();
   },
   
   is_ship_selected: function(){
-    var selected = this.get_ships({filter:'selected'}).length;
+    var selected = this.get_ships({
+      filter:'selected', range: { start: 0, end: 1 }
+    }).length;
     return !!selected;
   },
   
@@ -319,13 +465,22 @@ db.moz.plugin.modules.register({
       return;
 
     const $ = this.od.jQuery;
-    const win = this.od.doc;
+    const doc = this.od.doc;
     const self = this;
+
+    if(self.modules.basic.is_debug_enabled){
+      //FIXME: remove me
+      this.od.dom.get_ships = function(options){
+        var ships = self.get_ships(options);
+        return ships.length;
+      }
+    }
 
     // only if it is our own orbit.
     if(this.modules.location.options['type'] != 'own') return;
 
     // yeah we have ids for all fleet commands :D
+    // what happens if a command and ship id matches?
     $('#200201').prepend('[w] '); // send ship
     $('#200208').prepend('[e] '); // attack ship
     $('#200203').prepend('[r] '); // un/load materials
@@ -356,8 +511,8 @@ db.moz.plugin.modules.register({
     });
 
     // registering onkey event!
-    $(win).keydown(function(event){
-      var active = $(self.od.doc.activeElement);
+    $(doc).keydown(function(event){
+      var active = $(doc.activeElement);
       if(active.is(':input')) return;
 
       self.gui_extending_shortcuts_handler(event);
