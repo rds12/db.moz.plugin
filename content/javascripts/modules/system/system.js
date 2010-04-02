@@ -7,12 +7,13 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'system',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-02',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
   // if fow is disabled
   viewable: false,
+  identified_orbit: false,
 
   initialize: function(){
     const basic = this.modules.basic;
@@ -44,14 +45,21 @@ db.moz.plugin.modules.register({
       return false;
     });
   },
-  
-  gui_extending_orbit_clickable: function(){
-    if(this.lib.preferences.get('preferences.system.clickableOrbit') !== true)
+
+  gui_extending_orbit_clickable: function(force){
+    const prefs = this.lib.preferences;
+
+    if(!force && prefs.get('preferences.system.clickableOrbit') !== true)
+      return;
+
+    // orbit already identified?
+    // a little hack for fowapi
+    if(this.identified_orbit === true)
       return;
 
     const self = this;
     const $ = this.od.jQuery;
-    
+
     var planets = $('#maincontent img[src$=grafik/leer.gif]');
     planets.each(function(i,e){
       var e = $(e);
@@ -69,5 +77,6 @@ db.moz.plugin.modules.register({
 
       orbit.find('a:first').attr('id','orbit-'+pid);
     });
+    this.identified_orbit = true;
   }
 });

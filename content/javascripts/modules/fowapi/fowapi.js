@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fowapi',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-02',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -92,7 +92,7 @@ db.moz.plugin.modules.register({
 
     if(sid != xhr_sid)
       return invalid('responseStatusMismatch',sid,xhr_sid);
-  
+
     if(!$.find('system > planet').length)
       valid('responseStatusUnscouted');
 
@@ -135,7 +135,11 @@ db.moz.plugin.modules.register({
     const prefs = this.lib.preferences;
 
     if(!planets.length) return;
-    
+
+    // force orbit to get identified, for gate pictures
+    // because user can disable this feature
+    this.modules.system.gui_extending_orbit_clickable(true);
+
     planets.each(function(i,element){
       var element = $(element),
           pid = element.attr('pid'),
@@ -231,8 +235,13 @@ db.moz.plugin.modules.register({
       var orbit = $('#orbit-'+pid);
       // if fow-system and gate type was set
       if(!self.system_viewable && type != '' && orbit.length){
-        //change orbit picture
-        orbit.find('img').attr('src',pictures[type]);
+
+        // change orbit picture
+
+        // odhelper size the planet with 100px and 70px, so we have to
+        // resize it to normal size
+        orbit.find('img').attr('src',pictures[type])
+             .css({width: '100px', height: '90px'});
 
         // extending orbit text
         var regex = /^(dlt\(')(.+?)(','.+)$/,
