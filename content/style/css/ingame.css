@@ -68,12 +68,16 @@ a {
   cursor: pointer;
 }
 
-.dbMozPluginFleetFastest {
+.dbMozPluginPlanetNearest {
   background-color: green;
 }
 
-.dbMozPluginFleetSlowest {
+.dbMozPluginPlanetFarthest {
   background-color: red;
+}
+
+.dbMozPluginPlanetActual {
+	background-color: yellow;
 }
 
 #dbMozPluginInfrastructurePlanet {

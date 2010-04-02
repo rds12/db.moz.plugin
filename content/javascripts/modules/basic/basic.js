@@ -97,11 +97,20 @@ db.moz.plugin.modules.register({
   },
   
   parse_time: function(time){
-    var match = /(\d+):(\d+):(\d+):(\d+)/.exec(time),
-    value = match[1] * 24 * 60 * 60 +
-            match[2] * 60 * 60 +
-            match[3] * 60 +
-            match[4];
+    var match = /(\d+):(\d+):(\d+):(\d+)/.exec(time);
+
+    if(!match) return Number.NaN;
+
+    //remove first element
+    match.shift();
+
+    var factors = [86400, 3600, 60, 1];
+    match = this.od.jQuery.map(match,function(e,i){
+      return parseInt(e) * factors[i];
+    });
+
+    var value = match[0] + match[1] + match[2] + match[3];
+
     return value;
   },
   

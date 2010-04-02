@@ -173,35 +173,69 @@ db.moz.plugin.modules.register({
       }
       
       // [Index,MinMaxValue]
-      var pos = {min: [0,Number.MAX_VALUE],max: [0,0]}
+      var pos = {min: [[],Number.MAX_VALUE],max: [[],0]}
       
       // * first option will be ignored, only a info text
       // * adding time to the options of select
       // * hide all options which aren't in the same galaxie as
       //   the ship
-      select.find('option:gt(0)').each(function(i,e){
+      select.find('option:gt(0)').each(function(index,e){
         //shift index, due to gt(0)
-        var format = self.modules.basic.format_time(times[i+1]);
-        if(format){
-          var time = self.modules.basic.parse_time(times[i+1]);
-          if(time < pos.min[1]){pos.min = [i+1,time]}
-          if(time > pos.max[1]){pos.max = [i+1,time]}
-          $(e).html(format + '&nbsp;&nbsp;' + $(e).text());
-        }
+        index++;
+
+        var format = self.modules.basic.format_time(times[index]);
+
         // hide option, if ship is not in galaxy, but let the
         // options index intact, so that omega-day can use
         // his static array construction
-        if(!format) $(e).hide();
+        if(!format){
+          $(e).hide();
+          return;
+        }
+
+        var time = self.modules.basic.parse_time(times[index]);
+
+        if(time == 0){
+          $(e).attr('class','dbMozPluginPlanetActual');
+        }
+
+        if(time > 0){
+          // determine nearest planet
+          if(time < pos.min[1]){
+            pos.min = [[index],time];
+          }else if(time == pos.min[1]){
+            // if time is matching the current nearest
+            // add a index to the stack
+            pos.min[0].push(index);
+          }
+
+          // determine farthest planet
+          if(time > pos.max[1]){
+            pos.max = [[index],time];
+          }else if(time == pos.max[1]){
+            // if time is matching the current farthest
+            // add a index to the stack
+            pos.max[0].push(index);
+          }
+        }
+
+        // add time as attribute
+        $(e).attr('time',time).html(
+          format + '&nbsp;&nbsp;' + $(e).text()
+        );
       });
       
-      // set min and max position
-      if(pos.min[0] > 0)
-        select.find('option:eq('+pos.min[0]+')').attr(
-          'class','dbMozPluginFleetFastest');
-          
-      if(pos.max[0] > 0)
-        select.find('option:eq('+pos.max[0]+')').attr(
-          'class','dbMozPluginFleetSlowest');
+      // set nearest planet
+      $.each(pos.min[0],function(i,value){
+        select.find('option:eq('+value+')')
+              .attr('class','dbMozPluginPlanetNearest');
+      });
+
+      // set farthest planet
+      $.each(pos.max[0],function(i,value){
+        select.find('option:eq('+value+')')
+              .attr('class','dbMozPluginPlanetFarthest');
+      });
     }
     
     write_in_select('switch_page');
