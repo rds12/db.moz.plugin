@@ -1,4 +1,25 @@
- + ff gui for preferences
++ preference menu in ff tools, input Mr. Casino
+
++ preferences for more external links, like forum, database, etc..
+   + place beside the logo <external links>
+   + a click event to open a dropdown with the destinations
+input Mr. Casino
+
++ disable overflow of the quickjump
+   + maybe by mouse-over?
+input Mr. Casino
+
++ get a sitter list through a ajax request
+   #rds12: where to place it?
+   #rds12: introducing sqlite for caching and last visit?
+   #rds12: this have to be invoked by a user interaction,
+           maybe clicking on <sitter list> opens the list
+           of sitters and shows the dates etc.
+   #rds12: maybe grouping and sorting those
+   #rds12: an firefox xul window could be used..
+input Mr. Casino
+
++ ff gui for preferences
    * half implemented, for fow api
 
 + gui
