@@ -165,10 +165,11 @@ db.moz.plugin.gui.preferences = (function(){
       // check if not set
       if(!avaible) continue
 
-      var saved = save_value(branch,name,entry.text());
+      var saved = save_value(branch,name,entry.text()),
+          name_text = saved.is_same? 'guiConfigEntry' : 'guiConfigEntryNew';
 
       log();
-      log('guiConfigEntry',name);
+      log(name_text,name);
 
       if(saved.invalid){
         log('guiConfigValueInvalid', saved.value);
