@@ -32,5 +32,22 @@
                 label='&odchanges.miscellaneous.buylink;' />
     </groupbox>
 
+    <!-- player settings -->
+    <groupbox>
+      <caption label='&odchanges.miscellaneous.caption.player;' />
+
+      <!-- player, search in database -->
+      <checkbox id='preferences.player.searchInDatabase'
+                label='&odchanges.player.searchInDatabase;' />
+    </groupbox>
+
+    <!-- alliance settings -->
+    <groupbox>
+      <caption label='&odchanges.miscellaneous.caption.alliance;' />
+
+      <!-- alliance, search in database -->
+      <checkbox id='preferences.alliance.searchInDatabase'
+                label='&odchanges.alliance.searchInDatabase;' />
+    </groupbox>
   </tabpanel>
 </overlay>

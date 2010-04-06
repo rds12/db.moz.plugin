@@ -72,25 +72,25 @@ pref("extensions.db.moz.plugin.preferences.configset.tbIntToolAllyNickUri",
 
 /** > external toolbar */
 
-// system search uri for od 
+// system search uri for database
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolSysUri",'');
 
-// planet search (only id) uri for od 
+// planet search (only id) uri for database 
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolPlanUri",'');
 
-// planet search (only name) uri for od
+// planet search (only name) uri for database
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolPlanNameUri",'');
 
-// user search (only id) uri for od 
+// user search (only id) uri for database
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolUserUri",'');
 
-// user search (only name) uri for od 
+// user search (only name) uri for database 
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolUserNickUri",'');
 
-// alliance search (only id) uri for od 
+// alliance search (only id) uri for database
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolAllyUri",'');
 
-// alliance search (only name) uri for od 
+// alliance search (only name) uri for database
 pref("extensions.db.moz.plugin.preferences.configset.tbExtToolAllyNickUri",'');
 
 /*** >> Fow Api */

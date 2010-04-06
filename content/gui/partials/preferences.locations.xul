@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelLocations'>
+    <groupbox>
+      <!-- enable fow completion -->
+      <caption label='&locations.database.caption;'/>
+
+      <!-- location for system id -->
+      <description value='&locations.database.systemId;' />
+      <textbox id="preferences.configset.tbExtToolSysUri" />
+
+      <!-- location for planet id -->
+      <description value='&locations.database.planetId;' />
+      <textbox id="preferences.configset.tbExtToolPlanUri" />
+
+      <!-- location for planet name -->
+      <description value='&locations.database.planetName;' />
+      <textbox id="preferences.configset.tbExtToolPlanNameUri" />
+
+      <!-- location for player id -->
+      <description value='&locations.database.playerId;' />
+      <textbox id="preferences.configset.tbExtToolUserUri" />
+
+      <!-- location for player name -->
+      <description value='&locations.database.playerName;' />
+      <textbox id="preferences.configset.tbExtToolUserNickUri" />
+
+      <!-- location for alliance id -->
+      <description value='&locations.database.allianceId;' />
+      <textbox id="preferences.configset.tbExtToolAllyUri" />
+
+      <!-- location for alliance name -->
+      <description value='&locations.database.allianceName;' />
+      <textbox id="preferences.configset.tbExtToolAllyNickUri" />
+    </groupbox>
+  </tabpanel>
+</overlay>

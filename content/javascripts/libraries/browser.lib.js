@@ -106,6 +106,8 @@ db.moz.plugin.browser = {
 
     require.module('fowapi');
 
+    require.module('toolbar');
+
     db.moz.plugin.browser.fire_modules(dom,doc);
   },
 
@@ -130,7 +132,7 @@ db.moz.plugin.browser = {
 
     runner.load_basic_modules(['location','fleet',
       'infrastructure','orbit','planet','system','comm','fowapi',
-      'fleet_shop']);
+      'fleet_shop','toolbar']);
   },
 
   teardown: function(event){

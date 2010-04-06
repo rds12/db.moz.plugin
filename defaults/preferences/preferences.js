@@ -86,3 +86,18 @@ pref("extensions.db.moz.plugin.preferences.comm.autocompletion",true);
 
 // convert link like text into an link - ok
 pref("extensions.db.moz.plugin.preferences.comm.parseLinks",true);
+
+
+/** Toolbar Settings */
+
+// add link 'search in database' in the orbit
+pref("extensions.db.moz.plugin.preferences.orbit.searchInDatabase",true);
+
+// add link 'search in database' in the system
+pref("extensions.db.moz.plugin.preferences.system.searchInDatabase",true);
+
+// add link 'search in database' in the player overview
+pref("extensions.db.moz.plugin.preferences.player.searchInDatabase",true);
+
+// add link 'search in database' in the alliance overview
+pref("extensions.db.moz.plugin.preferences.alliance.searchInDatabase",true);

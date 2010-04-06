@@ -228,3 +228,9 @@ div.menu-item > a:hover{
 	display: inline;
 	margin-left: 10px;
 }
+
+.dbMozPluginUpperRight {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+}

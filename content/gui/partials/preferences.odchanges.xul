@@ -2,11 +2,11 @@
 
 <!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
 
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.miscellaneous.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.planet.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.orbit.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.fleet.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.comm.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.miscellaneous.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.planet.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.orbit.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.fleet.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.comm.xul"?>
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
          xmlns:html="http://www.w3.org/1999/xhtml">

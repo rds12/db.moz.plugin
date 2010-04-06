@@ -79,3 +79,26 @@
 <!ENTITY odchanges.planet.caption.planetOverview "Planetenübersicht">
 <!ENTITY odchanges.planet.caption.system "System">
 <!ENTITY odchanges.planet.caption.infrastructure "Planetenbebauung">
+
+
+<!-- new since 06.04.2010 -->
+
+<!ENTITY tab.locations "Orte">
+
+<!ENTITY locations.database.caption "Datenbank Orte für, ">
+
+<!ENTITY odchanges.miscellaneous.caption.player "Spieler">
+<!ENTITY odchanges.miscellaneous.caption.alliance "Allianz">
+
+<!ENTITY locations.database.systemId "System ID:">
+<!ENTITY locations.database.planetId "Planet ID:">
+<!ENTITY locations.database.planetName "Planet Name:">
+<!ENTITY locations.database.playerId "Spieler ID:">
+<!ENTITY locations.database.playerName "Spieler Name:">
+<!ENTITY locations.database.allianceId "Allianz ID:">
+<!ENTITY locations.database.allianceName "Allianz Name:">
+
+<!ENTITY odchanges.orbit.searchInDatabase "Füge einen Link im Orbit hinzu, um Daten über diesen Planeten in deiner Datenbank anzusehen.">
+<!ENTITY odchanges.system.searchInDatabase "Füge einen Link im System hinzu, um Daten über dieses System in deiner Datenbank anzusehen.">
+<!ENTITY odchanges.player.searchInDatabase "Füge einen Link im Spielerprofil hinzu, um Daten über diesen Spieler in deiner Datenbank anzusehen.">
+<!ENTITY odchanges.alliance.searchInDatabase "Füge einen Link im Allianzprofil hinzu, um Daten über diese Allianz in deiner Datenbank anzusehen.">

@@ -78,3 +78,26 @@
 <!ENTITY odchanges.planet.caption.planetOverview "Planet overview">
 <!ENTITY odchanges.planet.caption.system "System">
 <!ENTITY odchanges.planet.caption.infrastructure "Infrastructure">
+
+
+<!-- new since 06.04.2010 -->
+
+<!ENTITY tab.locations "Locations">
+
+<!ENTITY locations.database.caption "Database location for, ">
+
+<!ENTITY odchanges.miscellaneous.caption.player "Player">
+<!ENTITY odchanges.miscellaneous.caption.alliance "Alliance">
+
+<!ENTITY locations.database.systemId "System id:">
+<!ENTITY locations.database.planetId "Planet id:">
+<!ENTITY locations.database.planetName "Planet name:">
+<!ENTITY locations.database.playerId "Player id:">
+<!ENTITY locations.database.playerName "Player name:">
+<!ENTITY locations.database.allianceId "Alliance id:">
+<!ENTITY locations.database.allianceName "Alliance name:">
+
+<!ENTITY odchanges.orbit.searchInDatabase "append a link in a orbit to see informations about this planet in your database">
+<!ENTITY odchanges.system.searchInDatabase "append a link in a system to see informations about this system in your database">
+<!ENTITY odchanges.player.searchInDatabase "append a link in the player overview to see informations about this player in your database">
+<!ENTITY odchanges.alliance.searchInDatabase "append a link in the alliance overview to see informations about this alliance in your database">

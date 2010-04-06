@@ -2,9 +2,10 @@
 
 <?xml-stylesheet href="chrome://global/skin/" type="text/css"?>
 
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/preferences.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odhelper.xul"?>
-<?xul-overlay href="chrome://db.moz.plugin.gui/content/overlays/preferences/odchanges.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.startpage.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odhelper.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.locations.xul"?>
 
 <!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
 
@@ -31,11 +32,13 @@
       <tab flex='1' label="&tab.configset;" image="" />
       <tab flex='1' label="&tab.odhelper;" image="" />
       <tab flex='1' label="&tab.odchanges;" image="" />
+      <tab flex='1' label="&tab.locations;" image="" />
     </tabs>
     <tabpanels flex='1'>
       <tabpanel id="dbMozPluginTabpanelPreferences" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelOdHelper" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelOdChanges" orient='vertical'/>
+      <tabpanel id="dbMozPluginTabpanelLocations" orient='vertical'/>
     </tabpanels>
   </tabbox>
 </dialog>

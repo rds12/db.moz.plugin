@@ -17,6 +17,10 @@
       <!-- statistics -->
       <checkbox id='preferences.orbit.shipStatistics'
                 label='&odchanges.orbit.shipStatistics;' />
+
+      <!-- planet, search in database -->
+      <checkbox id='preferences.orbit.searchInDatabase'
+                label='&odchanges.orbit.searchInDatabase;' />
     </groupbox>
   </tabpanel>
 </overlay>
