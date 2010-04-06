@@ -29,6 +29,10 @@
     <groupbox>
       <caption label='&odchanges.fleet.caption.dispatchMenu;' />
 
+      <!-- focus direct input -->
+      <checkbox id='preferences.fleet.focusDirectInput'
+                label='&odchanges.fleet.focusDirectInput;' />
+
       <!-- flytimes -->
       <checkbox id='preferences.fleet.flytimes'
                 label='&odchanges.fleet.flytimes;' />

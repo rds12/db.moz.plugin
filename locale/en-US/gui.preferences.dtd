@@ -101,3 +101,5 @@
 <!ENTITY odchanges.system.searchInDatabase "append a link in a system to see informations about this system in your database">
 <!ENTITY odchanges.player.searchInDatabase "append a link in the player overview to see informations about this player in your database">
 <!ENTITY odchanges.alliance.searchInDatabase "append a link in the alliance overview to see informations about this alliance in your database">
+
+<!ENTITY odchanges.fleet.focusDirectInput "focus the input element of planetids">

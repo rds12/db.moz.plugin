@@ -102,3 +102,5 @@
 <!ENTITY odchanges.system.searchInDatabase "Füge einen Link im System hinzu, um Daten über dieses System in deiner Datenbank anzusehen.">
 <!ENTITY odchanges.player.searchInDatabase "Füge einen Link im Spielerprofil hinzu, um Daten über diesen Spieler in deiner Datenbank anzusehen.">
 <!ENTITY odchanges.alliance.searchInDatabase "Füge einen Link im Allianzprofil hinzu, um Daten über diese Allianz in deiner Datenbank anzusehen.">
+
+<!ENTITY odchanges.fleet.focusDirectInput "Fokusiere das Eingabe-Element der Planeten IDs">

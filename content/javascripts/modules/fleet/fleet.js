@@ -243,7 +243,7 @@ db.moz.plugin.modules.register({
     write_in_select('switch_pageb');
   },
   
-  gui_extending_orbit_link_in_dispatch_menu: function(){
+  gui_dispatch_menu_extending_orbit_link: function(){
     if(this.lib.preferences.get('preferences.fleet.orbitLink') !== true)
       return;
 
@@ -302,6 +302,22 @@ db.moz.plugin.modules.register({
     toggle_merged_fleets();
   },
 
+  gui_dispatch_menu_extending_focus_direct_input: function(){
+    if(true !== this.lib.preferences.get('preferences.fleet.focusDirectInput'))
+      return;
+
+    const $ = this.od.jQuery;
+
+    /* yet another case where a jQuery build in function won't 
+     * do what it should do:
+     *   $('selector').focus();
+     */
+    var input = $('input[name=direktid]').get(0);
+    if(!input) return;
+
+    input.focus();
+  },
+
   od_overview: function(){
     this.gui_overview_extending_checkboxes();
     this.gui_overview_extending_buttons();
@@ -309,8 +325,9 @@ db.moz.plugin.modules.register({
   },
 
   od_dispatch_menu: function(){
+    this.gui_dispatch_menu_extending_focus_direct_input();
+    this.gui_dispatch_menu_extending_orbit_link();
     this.gui_dispatch_menu_extending_flytimes();
-    this.gui_extending_orbit_link_in_dispatch_menu();
   },
 
   od_dispatched: function(){

@@ -72,6 +72,8 @@ pref("extensions.db.moz.plugin.preferences.fleet.orbitLink",true);
 // hide merged ships
 pref("extensions.db.moz.plugin.preferences.fleet.hideMergedShips",true);
 
+// focus direct input element
+pref("extensions.db.moz.plugin.preferences.fleet.focusDirectInput",true);
 
 /** Comm Settings */
 
