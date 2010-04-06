@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.statusbar.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+  <!-- Tools Popup -->
+  <menupopup id='menu_ToolsPopup'>
+
+    <menu id='dbMozPluginToolsMenu' label='db.moz.plugin'
+          insertafter='devToolsSeparator'>
+
+      <menupopup id="dbMozPluginToolsMenuPopup"
+                 onpopupshowing='db.moz.plugin.gui.update_menus();'>
+
+        <menuitem id='dbMozPluginToolsMenuitemParse' disabled='true'
+                  label="&db.moz.plugin.statusbar.parse;"
+                  oncommand="db.moz.plugin.gui.statusbar.cmd_parse()" />
+
+        <menuseparator/>
+
+        <menuitem label="&db.moz.plugin.statusbar.preferences;" 
+                  oncommand="db.moz.plugin.gui.preferences.cmd_open()" />
+
+      </menupopup>
+    </menu>
+
+  </menupopup>
+
+</overlay>

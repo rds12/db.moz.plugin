@@ -36,16 +36,33 @@ db.moz.plugin.gui.statusbar.cmd_parse = function(event){
   db.moz.plugin.parser.parseSite();
 }
 
+db.moz.plugin.gui.update_menus = function(){
+  const $ = db.moz.plugin.jQuery.get_chrome(),
+        browser = db.moz.plugin.browser
+        parser = db.moz.plugin.parser,
+        doc = window.content.document;
+
+  // there is no option to share a specific menupopup with a menu _and_
+  // a contextmenu at the same time. you only can share floating popups
+  // with the property context/popup in a popupset, but you can not assign
+  // this menupopup to a menu.
+  // due to this, we have to disable the parse entry twice.
+  var items = $('#dbMozPluginStatusParse, #dbMozPluginToolsMenuitemParse'),
+      // disabled if parser says it is disabled or if
+      // this page is omegaday
+      disabled = parser.is_disabled() ||
+                 !browser.check_if_omega_day(doc);
+
+  items.attr('disabled',disabled ? 'true': 'false')
+}
+
 db.moz.plugin.gui.statusbar.cmd_open_context_menu = function(event){
-  const prefs = db.moz.plugin.preferences;
+  const $ = db.moz.plugin.jQuery.get_chrome();
 
-  var item = document.getElementById('dbMozPluginStatusParse'),
-      disabled = db.moz.plugin.parser.is_disabled();
+  db.moz.plugin.gui.update_menus();
 
-  item.setAttribute('disabled',disabled ? 'true': 'false')
-
-  document.getElementById("dbMozPluginStatusContextMenu").
-         openPopup(event.target,"before_start",0,0,true,true)
+  $("#dbMozPluginStatusContextMenu").get(0).
+      openPopup(event.target,"before_start",0,0,true,true)
 }
 
 db.moz.plugin.gui.preferences = (function(){

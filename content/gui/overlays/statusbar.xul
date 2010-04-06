@@ -3,19 +3,8 @@
 
 <overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
 
-  <statusbar id="status-bar">
-    <statusbarpanel id="dbMozPluginStatusPanel" role='button' collapsed='true'
-      onmouseup='db.moz.plugin.gui.statusbar.cmd_open_context_menu(event)'>
-
-      <image width='18' height='18' id="dbMozPluginStatusIcon"
-             src="chrome://db.moz.plugin.style/content/images/logo.ico"
-             tooltiptext='&db.moz.plugin.statusbar.tooltip;'
-             context='dbMozPluginStatusContextMenu' />
-
-    </statusbarpanel>
-
-    <menupopup id="dbMozPluginStatusContextMenu" 
-               onpopupshowing="">
+  <popupset>
+    <menupopup id="dbMozPluginStatusContextMenu">
 
       <menuitem id='dbMozPluginStatusParse' disabled='true'
                 label="&db.moz.plugin.statusbar.parse;"
@@ -27,6 +16,19 @@
                 oncommand="db.moz.plugin.gui.preferences.cmd_open()" />
 
     </menupopup>
+  </popupset>
+
+  <!-- statusbar -->
+  <statusbar id="status-bar">
+    <statusbarpanel id="dbMozPluginStatusPanel" role='button' collapsed='true'
+      onmouseup='db.moz.plugin.gui.statusbar.cmd_open_context_menu(event)'>
+
+      <image width='18' height='18' id="dbMozPluginStatusIcon"
+             src="chrome://db.moz.plugin.style/content/images/logo.ico"
+             tooltiptext='&db.moz.plugin.statusbar.tooltip;' />
+
+    </statusbarpanel>
+
   </statusbar>
 
 </overlay>
