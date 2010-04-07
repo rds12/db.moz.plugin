@@ -13,6 +13,10 @@
       <!-- planet overview statistics -->
       <checkbox id="preferences.planet.invaderStatisics"
                 label='&odchanges.planet.invaderStatisics;' />
+
+      <!-- disable overflow -->
+      <checkbox id="preferences.planet.disableOverflow"
+                label='&odchanges.planet.disableOverflow;' />
     </groupbox>
 
     <!-- System overview -->

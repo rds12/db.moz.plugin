@@ -6,7 +6,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'location',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-07',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -51,6 +51,7 @@ db.moz.plugin.modules.register({
 
     this.gui_extending_quickjump_highlighting();
     this.gui_extending_close_event();
+    this.gui_extending_disable_quickjump_overflow();
 
     basic.log('module.location',null,true)
     basic.log(this.query.op  ,'op');
@@ -159,7 +160,15 @@ db.moz.plugin.modules.register({
     var e = $('div.quickjump a[href$="index='+planet_id+'"]');
     return this.gui_highlight_quick_jump(e.parents('tr:eq(0)'),selected);
   },
-  
+
+  gui_extending_disable_quickjump_overflow: function(){
+    if(this.lib.preferences.get('preferences.overall.disableQuickjumpOverflow') !== true)
+      return;
+
+    const $ = this.od.jQuery;
+    $('div.quickjump').css({height: '', overflow: ''});
+  },
+
   od_send: function(place){
     const $   = this.od.jQuery;
     

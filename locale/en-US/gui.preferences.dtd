@@ -103,3 +103,6 @@
 <!ENTITY odchanges.alliance.searchInDatabase "append a link in the alliance overview to see informations about this alliance in your database">
 
 <!ENTITY odchanges.fleet.focusDirectInput "focus the input element of planetids">
+<!ENTITY odchanges.planet.disableOverflow "display the entire planet list">
+
+<!ENTITY odchanges.miscellaneous.disableQuickjumpOverflow "display the entire planet list in the quickjump area">

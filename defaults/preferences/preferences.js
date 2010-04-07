@@ -10,6 +10,9 @@ pref("extensions.db.moz.plugin.preferences.overall.quickjump",true);
 // [Esc] appending and close handler - ok
 pref("extensions.db.moz.plugin.preferences.overall.closeHandler",true);
 
+// disable quickjump overflow
+pref("extensions.db.moz.plugin.preferences.overall.disableQuickjumpOverflow",true);
+
 
 
 /** Shop Settings */
@@ -43,6 +46,8 @@ pref("extensions.db.moz.plugin.preferences.infrastructure.dailyIncome",true);
 // calculate number of buildable ships - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.buildableShips",true);
 
+// disable overflow
+pref("extensions.db.moz.plugin.preferences.planet.disableOverflow",true);
 
 
 /** Orbit Settings */

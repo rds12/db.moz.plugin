@@ -104,3 +104,6 @@
 <!ENTITY odchanges.alliance.searchInDatabase "Füge einen Link im Allianzprofil hinzu, um Daten über diese Allianz in deiner Datenbank anzusehen.">
 
 <!ENTITY odchanges.fleet.focusDirectInput "Fokusiere das Eingabe-Element der Planeten IDs">
+<!ENTITY odchanges.planet.disableOverflow "Zeige die komplette Planeten-Liste an">
+
+<!ENTITY odchanges.miscellaneous.disableQuickjumpOverflow "Zeige die komplette Planeten-Liste im Quickjump-Bereich an">

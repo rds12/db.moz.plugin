@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'planet',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-07',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -25,15 +25,24 @@ db.moz.plugin.modules.register({
   },
   
   od_overview: function(){
+    this.gui_extending_disable_overflow();
     this.gui_extending_agressor_statistics();
   },
-  
+
+  gui_extending_disable_overflow: function(){
+    if(this.lib.preferences.get('preferences.planet.disableOverflow') !== true)
+      return;
+
+    const $ = this.od.jQuery;
+    $('#planlist').parents('div:first').css({height: '', overflow: ''});
+  },
+
   gui_extending_agressor_statistics: function(){
     if(this.lib.preferences.get('preferences.planet.invaderStatisics') !== true)
       return;
 
     const $ = this.od.jQuery;
-    
+
     var /*div = $('#9999992'),*/ trs = $('#planlist tr[id]');
     if(/*!div.length ||*/ !trs.length) return;
 

@@ -102,7 +102,7 @@ db.moz.plugin.modules.register({
     if(prefs.get('preferences.orbit.searchInDatabase') !== true)
       return;
 
-    var header = $('input[name=index]').parents('td:first'),
+    var header = $('input[name=index]:text').parents('td:first'),
         planet_id = this.modules.location.options.planet_id,
         url = prefs.get('preferences.configset.tbExtToolPlanUri');
 

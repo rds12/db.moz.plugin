@@ -21,6 +21,10 @@
       <!-- [esc] close-handler -->
       <checkbox id="preferences.overall.closeHandler"
                 label='&odchanges.miscellaneous.escHandler;' />
+
+      <!-- disable quickjump overflow -->
+      <checkbox id="preferences.overall.disableQuickjumpOverflow"
+                label='&odchanges.miscellaneous.disableQuickjumpOverflow;' />
     </groupbox>
 
     <!-- ship shop settings -->
