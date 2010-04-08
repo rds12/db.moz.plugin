@@ -3,10 +3,6 @@
    + a click event to open a dropdown with the destinations
 input Mr. Casino
 
-+ disable overflow of the quickjump
-   + maybe by mouse-over?
-input Mr. Casino
-
 + get a sitter list through a ajax request
    #rds12: where to place it?
    #rds12: introducing sqlite for caching and last visit?
