@@ -25,7 +25,7 @@ TIME = Time.now
 OPTIONS = {
   :date    => TIME.strftime('%Y.%m.%d'),
   :version => TIME.strftime('%Y.%m.%d'),
-  :FFMinVersion => '3.0.0',
+  :FFMinVersion => '3.5.0',
   :FFMaxVersion => '3.6.*'
 }
 

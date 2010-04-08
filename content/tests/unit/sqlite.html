@@ -1,0 +1,188 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>JavaScript unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <script src="chrome://db.moz.plugin/content/tests/assets/jsunittest.js" type="text/javascript"></script>
+  <script src="chrome://db.moz.plugin/content/tests/assets/jscontext.js" type="text/javascript"></script>
+  <script src="chrome://db.moz.plugin/content/javascripts/library.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" href="chrome://db.moz.plugin/content/tests/assets/unittest.css" type="text/css" />
+</head>
+<body>
+
+<div id="content">
+
+  <div id="header">
+    <h1>JavaScript unit test file</h1>
+    <p>
+      This file tests <strong id='filename'></strong>.
+    </p>
+  </div>
+  <script>
+    JsUnitTest.$('filename').innerHTML=location.pathname;
+    document.title += ' ['+location.pathname+']';
+  </script>
+
+  <!-- Log output (one per Runner, via {testLog: "testlog"} option)-->
+  <div id="testlog"></div>
+  
+  <!-- Put sample/test html here -->
+  <div id="sample">
+  </div>
+</div>
+
+<script type="text/javascript">
+// <![CDATA[  
+Object.prototype.inspect = function(with_type){
+  return db.moz.plugin.basics.inspect(this,with_type);
+};
+
+import_library('sqlite');
+
+var filename = 'test.db';
+
+var file = Components.classes["@mozilla.org/file/directory_service;1"]
+             .getService(Components.interfaces.nsIProperties)
+             .get("ProfD", Components.interfaces.nsIFile);
+
+file.append(filename+".sqlite");
+//if(file.exists()) file.remove(false);
+
+new Test.Unit.Runner({
+  setup: function(){
+    this.database = new db.moz.plugin.database(filename);
+    this.static_wait = 500; 
+  },
+  teardown: function(){},
+
+  'testing connect database': function(){ with (this) {
+    assert(database.isConnected());
+  }},
+
+  'testing creating test table': function(){ with (this){
+    var successed = database.execute('create table if not exists ships ( \
+      id INTEGER PRIMARY KEY, \
+      name STRING, \
+      hitpoints INTEGER \
+    )');
+
+    assert(successed);
+  }},
+
+  'testing emptyTable': function(){ with (this){
+    var successed = database.emptyTable('ships',{ 
+      onCompletion: function(result){
+        assertEqual(0,result.reason);
+        isWaiting = false;
+      }
+    });
+    assert(successed);
+
+    // waiting for results
+    wait(static_wait,function(){});
+  }},
+
+  'testing insert and lastRowid()': function(){ with (this){
+    var successed = database.insert('ships',{
+      hitpoints: 99, name: 'bash0r'
+    },{ onCompletion: function(){
+      assertEqual(1,database.lastRowID(),'id of first ship should be 1');
+    }});
+    assert(successed);
+
+    // waiting for results
+    wait(static_wait,function(){
+      var successed = database.insert('ships',{
+        hitpoints: 102, name: 'bash0r2'
+      },{ onCompletion: function(){
+        assertEqual(2,database.lastRowID(),'id of second ship should be 2');
+      }});
+      assert(successed);
+
+      // waiting for results
+      wait(static_wait,function(){});
+    });
+  }},
+
+  'testing select': function() { with (this){
+    var query = database.newQuery('select * from ships order by id desc'),
+        successed = query.each(function(row,position){
+      if( position == 1 )
+        assertEqual(row['name'],'bash0r');
+
+      if( position == 0 )
+        assertEqual(row['name'],'bash0r2');
+    });
+    assert(successed);
+
+    // waiting for results
+    wait(static_wait,function(){});
+  }},
+
+  'testing number of rows': function(){ with (this){
+    var successed = database.newQuery('select * from ships').size();
+    assertEqual(2,successed,'NOTE: not implemented, yet');
+  }},
+
+  'testing update': function(){ with (this){
+    var query = database.newQuery('select * from ships where id < 2');
+
+    var successed = database.update('ships',{
+      name: 'changed_name'
+    },{ 
+      where: 'id < 2', 
+      onCompletion: function(result){
+        var fetched = false;
+        var successed = query.each(function(row){
+          fetched = true; 
+          assertEqual('changed_name', row['name'],
+            'should changed row name'
+          );
+        },function(error){
+          assertNull(error,
+            'no error should occure during select statement'
+          );
+        },function(result){
+          assertEqual(0,result.reason,
+            'select statement should have completed normal'
+          );
+          assertEqual(true,result.fetched,
+            'result should state if at least one row was fetched'
+          );
+          assertEqual(1,result.fetchedRows,
+            'result should state the number of fetched rows'
+          );
+          assert(fetched,'select should have fetched a row');
+        });
+        assert(successed,'select syntax should not fail');
+        assertEqual(0,result.reason,
+          'completion should be without interceptions'
+        );
+      },
+      onError: function(error){
+        assertNull(error,'no error during the update should occure');
+      }
+    });
+    assert(successed,'update query should pass');
+
+    // waiting for results
+    wait(static_wait,function(){});
+  }},
+
+  'testing query.columnNames()': function(){ with (this){
+    var query = database.newQuery('select * from ships');
+    assertEnumEqual(['id','name','hitpoints'],query.columnNames());
+
+    var query = database.newQuery('select hitpoints,name from ships');
+    assertEnumEqual(['hitpoints','name'],query.columnNames());
+
+    var query = database.newQuery('select hitpoints as points,name from ships');
+    assertEnumEqual(['points','name'],query.columnNames());
+  }}
+});
+// ]]>
+</script>
+</body>
+</html>
