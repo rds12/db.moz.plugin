@@ -1,3 +1,18 @@
+A = select all/unselect
+t = schiffe tarnen
+q = schiffe enttarnen
+s = schiffe entsenden
+e = einheiten angreifen
+p = planet angreifen
+y = emp zünden
+B = toxxen
+O = entladen/beladen
+m = gate benutzen
+c = scannen
+f = zu einer flotte
+u = umbenennen
+input creature
+
 + preferences for more external links, like forum, database, etc..
    + place beside the logo <external links>
    + a click event to open a dropdown with the destinations
