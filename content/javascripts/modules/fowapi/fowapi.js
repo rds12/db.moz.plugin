@@ -273,8 +273,11 @@ db.moz.plugin.modules.register({
     var fow_table = $('#dbMozPluginFowTable');
     
     var add_td = function(e,is_header,i){
-      var class = is_header ? 'tablecolor' : '';
-      var td = $('<td/>').addClass(class).text(e.text());
+      var td = $('<td/>').text(e.text());
+
+      if(is_header){
+        td.css('font-weight','bold');
+      }
 
       var colspan = e.attr('colspan'),
           rowspan = e.attr('rowspan'),
