@@ -25,6 +25,10 @@
       <!-- convert to real links -->
       <checkbox id='preferences.comm.parseLinks'
                 label='&odchanges.comm.parselinks;' />
+
+      <!-- fix: resize textarea to normal size -->
+      <checkbox id='preferences.comm.fixWidth'
+                label='&odchanges.comm.fixWidth;' />
     </groupbox>
   </tabpanel>
 </overlay>

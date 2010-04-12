@@ -107,3 +107,8 @@
 <!ENTITY odchanges.planet.disableOverflow "Zeige die komplette Planeten-Liste an">
 
 <!ENTITY odchanges.miscellaneous.disableQuickjumpOverflow "Zeige die komplette Planeten-Liste im Quickjump-Bereich an">
+
+
+<!-- new since 11.04.2010 -->
+
+<!ENTITY odchanges.comm.fixWidth "vergrößere das Eingabefeld zu eine konstanten Größe">

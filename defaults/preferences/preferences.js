@@ -94,6 +94,8 @@ pref("extensions.db.moz.plugin.preferences.comm.autocompletion",true);
 // convert link like text into an link - ok
 pref("extensions.db.moz.plugin.preferences.comm.parseLinks",true);
 
+// fix: resize textarea to normal size
+pref("extensions.db.moz.plugin.preferences.comm.fixWidth",true);
 
 /** Toolbar Settings */
 
