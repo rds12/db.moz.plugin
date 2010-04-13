@@ -21,7 +21,7 @@ db.moz.plugin.listener = {
     this.bindProgressListener();
 
     // initialize browser
-    db.moz.plugin.browser.onInitialize();
+    db.moz.plugin.browser.onSetup();
   },
 
   teardown: function(event){
