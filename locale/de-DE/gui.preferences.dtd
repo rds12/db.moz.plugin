@@ -111,4 +111,8 @@
 
 <!-- new since 11.04.2010 -->
 
-<!ENTITY odchanges.comm.fixWidth "vergrößere das Eingabefeld zu eine konstanten Größe">
+<!ENTITY odchanges.comm.fixWidth "Vergrößere das Eingabefeld zu eine konstanten Größe">
+
+<!-- new since 16.04.2010 -->
+
+<!ENTITY odhelper.system.autoParsing "Parse System automatisch, wenn es unaktuell ist">

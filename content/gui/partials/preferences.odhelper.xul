@@ -23,6 +23,10 @@
       <checkbox id="preferences.configset.extFowKnown"
                 label='&odhelper.fow.known.system;' />
 
+      <!-- auto parsing -->
+      <checkbox id='preferences.system.autoParsing'
+                label='&odhelper.system.autoParsing;' />
+
     </groupbox>
 
     <groupbox>

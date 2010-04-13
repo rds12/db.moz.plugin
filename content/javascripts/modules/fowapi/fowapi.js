@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fowapi',
   module_author:      'rds12',
-  module_version:     '2010-04-02',
+  module_version:     '2010-04-16',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -22,14 +22,15 @@ db.moz.plugin.modules.register({
   initialize: function(){
     const basic = this.modules.basic;
     const location = this.modules.location;
-    
+
     if(location == undefined) throw 'location not avaible';
     if(!basic.is_logged_in) return;
-    
+
     // nothing to do with planet? -> exit
     if(!(location.main == 'system' && location.sub == 'main')) return;
 
     this.system_viewable = this.modules.system.viewable;
+
     this.gui_extending_fow(location.options.system_id);
 
     basic.log('modules.fowapi',null,true);
@@ -46,6 +47,41 @@ db.moz.plugin.modules.register({
   format_scan_date: function(time,scantype){
     var css = {1: 'dbMozPluginFowNewerScan', 2:'dbMozPluginFowOlderScan'};
     return this.template('responseScanDateFormat',css[scantype] || '',time);
+  },
+
+  parse_system_unless_updated: function(odh){
+    if(true !== this.lib.preferences.get('preferences.system.autoParsing'))
+      return;
+
+    // don't parse fow systems
+    if(!this.system_viewable) return false;
+
+    var current = odh.find('system > scanDate').attr('current');
+
+    // 1 - up-to-date, 2 - _not_ up-to-date
+    if(current != '2') return;
+
+    this.log(this.template('responseAutoParse'));
+    var doc = this.od.doc;
+
+    /*
+     * We have a Site named A.
+     * Every time the Location of A changes, all instances of modules
+     * get a reference to A.document.
+     *
+     * This ajax request is async.
+     * In the meantime of loading Process the pages location can change
+     * to Site named B.
+     *
+     * The new B.document will be binded to all instances of modules
+     * but the async. request is still in memory and the A.document
+     * is still avaible, but the A.document.location is now undefined.
+     *
+     * So we can determine with A.document.location, if the originial
+     * Page A is still active.
+     */
+    // force parsing, because location is unset
+    db.moz.plugin.parser.parseSite(doc,!doc.location);
   },
 
   mask_text: function(text){
@@ -111,6 +147,7 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_fow_datas: function(odh){
+    this.parse_system_unless_updated(odh);
     this.gui_extending_system(odh);
     this.gui_extending_system_table(odh.find('system > systemInfo'));
     this.gui_extending_planet_hover(odh.find('system > planet'));
@@ -350,7 +387,7 @@ db.moz.plugin.modules.register({
     if(enabled != true) return;
 
     this.gui_extending_append_fow_window();
-    
+
     // get uri
     var uri = prefs.get('preferences.configset.extFowApiUri');
     uri = this.replace_placeholders(uri,system_id);
@@ -375,6 +412,7 @@ db.moz.plugin.modules.register({
       onSuccess: function(xhr){
         // response ok?
         if(!self.is_fow_response_ok(xhr,true)) return;
+
         self.gui_extending_fow_datas(xhr.responseHTML.$);
       },
       onFailure: function(xhr){

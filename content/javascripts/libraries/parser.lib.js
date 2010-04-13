@@ -4,14 +4,14 @@ Namespace('db.moz.plugin');
 
 db.moz.plugin.parser = {
 
-  getSourceFromPage: function(){
+  getSourceFromPage: function(doc){
     // code copied and modified from odhelper extension 
     // (http://helper.omega-day.com/)
     // from the original function getHtmlFromCache
 
     // originial: doc = window._content.document;
     // but _content is deprecated
-    var doc = window.content.document;
+    var doc = doc || window.content.document;
     // Part 1 : get the history entry (nsISHEntry) associated with the document
     var webnav;
     try {
@@ -171,7 +171,7 @@ db.moz.plugin.parser = {
     }
   },
 
-  ODHelperMethode: function(){
+  ODHelperMethode: function(doc){
     const prefs = db.moz.plugin.preferences,
           self = this,
           inputName = prefs.get('preferences.configset.parserTargetElement'),
@@ -193,11 +193,11 @@ db.moz.plugin.parser = {
     }
 
     notifier.notify('parserGetSource');
-    var source = this.getSourceFromPage();
+    var source = this.getSourceFromPage(doc);
 
     notifier.notify('parserInitialize');
 
-    this.copyToClipboard(source,false,notifier);
+    this.copyToClipboard(source,notifier);
 
     if(source == ''){
       notifier.notify('parserNoSource');
@@ -244,12 +244,12 @@ db.moz.plugin.parser = {
   dbMozPluginMethode: function(){
     const ajax = db.moz.plugin.ajax,
           prefs = db.moz.plugin.preferences;
-  
+
     var source = this.getSourceFromPage(),
         inputName = prefs.get('preferences.configset.parserTargetElement'),
         parserUri = prefs.get('preferences.configset.parserTargetUri'),
         postBody = {check: 'yes'};
-  
+
     postBody[inputName] = source;
 
     new ajax(parserUri, {
@@ -266,15 +266,13 @@ db.moz.plugin.parser = {
     });
   },
 
-  copyToClipboard: function(source, force, notifier){
+  copyToClipboard: function(source, notifier){
     const prefs = db.moz.plugin.preferences;
 
     if( true !== prefs.get('preferences.configset.parserClipboardCopy') )
       return;
 
-    if(true === force)
-      source = this.getSourceFromPage();
-
+    // bind notifier to the current window
     var notifier = notifier || new db.moz.plugin.notifier('lib.parser');
 
     if(!source){
@@ -292,10 +290,12 @@ db.moz.plugin.parser = {
     }
   },
 
-  parseSite: function(){
+  parseSite: function(doc, force){
+    var doc = doc || window.content.document;
+
     // check if omega-day, to disallow source page of
     // other sites than omega-day
-    if(!db.moz.plugin.browser.check_if_omega_day(window.content.document)){
+    if(!force && !db.moz.plugin.browser.check_if_omega_day(doc)){
       return;
     }
 
@@ -306,7 +306,7 @@ db.moz.plugin.parser = {
 
     //TODO: build api for silent and safer parser
     try{
-      already_copied = this.ODHelperMethode();
+      already_copied = this.ODHelperMethode(doc);
     }catch(e){}
     //this.dbMozPluginMethode();
 
@@ -314,8 +314,9 @@ db.moz.plugin.parser = {
     // clipboard don't do it anymore
     // we have to do it, because all methods could be disabled
     if(already_copied !== true){
-      // force to get source
-      this.copyToClipboard('',true);
+      // get source
+      var source = this.getSourceFromPage(doc);
+      this.copyToClipboard(source);
     }
   },
 

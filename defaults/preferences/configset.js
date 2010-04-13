@@ -105,6 +105,9 @@ pref("extensions.db.moz.plugin.preferences.configset.extFowApiUri",'');
 // but don't use planet materials
 pref("extensions.db.moz.plugin.preferences.configset.extFowKnown",false);
 
+// parse system automatically if system is out of date 
+pref("extensions.db.moz.plugin.preferences.system.autoParsing",true);
+
 /*** >> IRC */
 
 // should irc link be fixed?
