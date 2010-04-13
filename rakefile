@@ -15,7 +15,7 @@ EXCLUDE_FILES = [
   '\*~', 
   'tools/\*', 
   'versions/\*',
-  'various_stuff/\*', 
+  'content/javascripts/various_stuff/\*', 
   'content/tests/\*', 
   'content/experimental/\*'
 ]
