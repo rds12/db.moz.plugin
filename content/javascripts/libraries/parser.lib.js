@@ -174,14 +174,14 @@ db.moz.plugin.parser = {
   ODHelperMethode: function(){
     const prefs = db.moz.plugin.preferences,
           self = this,
-          inputName = prefs.get('configset.parserTargetElement'),
-          parserUri = prefs.get('configset.parserTargetUri'),
+          inputName = prefs.get('preferences.configset.parserTargetElement'),
+          parserUri = prefs.get('preferences.configset.parserTargetUri'),
           notifier = new db.moz.plugin.notifier('lib.parser'),
           $ = db.moz.plugin.jQuery.get_chrome(),
           ajax = db.moz.plugin.ajax;
 
     // should use external parser?
-    if( true !== prefs.get('configset.parserUseExt') )
+    if( true !== prefs.get('preferences.configset.parserUseExt') )
       return false;
 
     var status = ajax.check_url(parserUri);
@@ -246,8 +246,8 @@ db.moz.plugin.parser = {
           prefs = db.moz.plugin.preferences;
   
     var source = this.getSourceFromPage(),
-        inputName = prefs.get('configset.parserTargetElement'),
-        parserUri = prefs.get('configset.parserTargetUri'),
+        inputName = prefs.get('preferences.configset.parserTargetElement'),
+        parserUri = prefs.get('preferences.configset.parserTargetUri'),
         postBody = {check: 'yes'};
   
     postBody[inputName] = source;
@@ -269,7 +269,7 @@ db.moz.plugin.parser = {
   copyToClipboard: function(source, force, notifier){
     const prefs = db.moz.plugin.preferences;
 
-    if( true !== prefs.get('configset.parserClipboardCopy') )
+    if( true !== prefs.get('preferences.configset.parserClipboardCopy') )
       return;
 
     if(true === force)
@@ -321,8 +321,8 @@ db.moz.plugin.parser = {
 
   is_disabled: function(){
     const prefs = db.moz.plugin.preferences,
-          clipboard = true === prefs.get('configset.parserClipboardCopy'),
-          parser = true === prefs.get('configset.parserUseExt');
+          clipboard = true === prefs.get('preferences.configset.parserClipboardCopy'),
+          parser = true === prefs.get('preferences.configset.parserUseExt');
 
     // if clipboard and parser is false, this function is disabled
     return !parser && !clipboard;
