@@ -62,6 +62,16 @@ db.moz.plugin.basics = {
     return cloned;
   },
 
+  get_version: function(){
+    const em = Components.classes["@mozilla.org/extensions/manager;1"]
+               .getService(Components.interfaces.nsIExtensionManager);
+
+    var addon   = em.getItemForID("rds12sog@gmail.com"),
+        version = addon ? addon.version : null;
+
+    return version ? version : 'unknown';
+  },
+
   /**
    * Getting the Type in String format from a Object.
    * @param {mixed} object

@@ -6,7 +6,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'basic',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-04-15',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -19,6 +19,9 @@ db.moz.plugin.modules.register({
   is_sitter:          false,
   is_debug_enabled:   false,
   is_odhelper_enabled: false,
+
+  extension_version: 'unknown',
+
   round_relation:   {
     'en1':     'round5',
     'de7':     'round7'
@@ -39,6 +42,9 @@ db.moz.plugin.modules.register({
   initialize: function(){
     var dom = this.od.dom;
     this.is_debug_enabled = !!this.lib.preferences.get('debug.enable');
+
+    // get extesion version!
+    this.extension_version = this.lib.basics.get_version();
 
     this.retrieve_od_whereabouts();
 
@@ -224,13 +230,13 @@ db.moz.plugin.modules.register({
    *******/
 
   gui_extending_logo : function(){
-    var status = this.player_panel.find('tr:eq(1) td:eq(2)');    
+    var status = this.player_panel.find('tr:eq(1) td:eq(2)');
 
     // wrapping div around font
     status.find('font').wrap('<div style="float:left;"></div>');
 
     // adding info that db.moz.plugin was loaded
-    status.append(this.template('logo'));
+    status.append(this.template('logo',this.extension_version));
   },
 
   gui_extending_debug : function(){
