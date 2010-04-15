@@ -2,7 +2,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'comm',
   module_author:      'rds12',
-  module_version:     '2010-04-12',
+  module_version:     '2010-04-15',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -118,6 +118,7 @@ db.moz.plugin.modules.register({
     const $ = this.od.jQuery;
 
     $('textarea[name=nachricht]').css({width: '600px'});
+    $('#maincontent table[width]:eq(1)').removeAttr('width')
   }
 
 });
