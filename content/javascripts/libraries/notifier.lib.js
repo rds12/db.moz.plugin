@@ -3,14 +3,15 @@
 
 Namespace('db.moz.plugin');
 
-db.moz.plugin.notifier = function(template_path){
-  this.binded_content = window.content;
+db.moz.plugin.notifier = function(template_path,doc){
+  this.binded_document = doc || window.content.document;
+
   var $ = db.moz.plugin.jQuery.new_query(),
       event = new db.moz.plugin.basics.event(),
       template = new db.moz.plugin.templates(template_path);
 
   this.rebind_notify_window = function(){
-    var jQuery = $('body',this.binded_content.document),
+    var jQuery = $('body',this.binded_document),
         window = jQuery.find('#dbMozPluginNotifyWindow');
 
     // if notifier window is not avaible, append it!

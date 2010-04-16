@@ -111,3 +111,7 @@
 <!-- new since 11.04.2010 -->
 
 <!ENTITY odchanges.comm.fixWidth "resize the textarea to a constant size">
+
+<!-- new since 16.04.2010 -->
+
+<!ENTITY odhelper.system.autoParsing "parse system automatically, if system is out of date">
