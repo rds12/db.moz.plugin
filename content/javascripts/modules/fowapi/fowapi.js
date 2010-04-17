@@ -319,9 +319,10 @@ db.moz.plugin.modules.register({
       var colspan = e.attr('colspan'),
           rowspan = e.attr('rowspan'),
           system_id = self.modules.location.options.system_id,
-          href = self.replace_placeholders(e.attr('href'),system_id);
+          href = e.attr('href'),
+          href = href ? self.replace_placeholders(href,system_id) : null;
 
-      if(href) td.wrapInner('<a href="'+href+'" />');
+      if(href)td.wrapInner('<a href="'+href+'" />');
       if(colspan) td.attr('colspan',colspan)
       if(rowspan) td.attr('rowspan',rowspan)
 
