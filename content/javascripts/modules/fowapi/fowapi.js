@@ -241,7 +241,7 @@ db.moz.plugin.modules.register({
         // #3: alliance_id, #4: race
         parsed[5] = [owner,owner_id,alliance_tag,alliance_id,race].join("','");
       }
-      
+
       // adding a picture bar to every planet
       hover.addClass('dbMozPluginPlanet').append('<div/>');
       var picture_bar = hover.children('div:first');
@@ -308,7 +308,7 @@ db.moz.plugin.modules.register({
 
     $('#maincontent').append(self.template('fowTable'));
     var fow_table = $('#dbMozPluginFowTable');
-    
+
     var add_td = function(e,is_header,i){
       var td = $('<td/>').text(e.text());
 
@@ -318,7 +318,8 @@ db.moz.plugin.modules.register({
 
       var colspan = e.attr('colspan'),
           rowspan = e.attr('rowspan'),
-          href = e.attr('href');
+          system_id = self.modules.location.options.system_id,
+          href = self.replace_placeholders(e.attr('href'),system_id);
 
       if(href) td.wrapInner('<a href="'+href+'" />');
       if(colspan) td.attr('colspan',colspan)
