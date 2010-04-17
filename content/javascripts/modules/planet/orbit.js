@@ -7,22 +7,38 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'orbit',
   module_author:      'rds12',
-  module_version:     '2010-04-02',
+  module_version:     '2010-04-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
   initialize: function(){
     const basic = this.modules.basic;
     const location = this.modules.location;
-    
+
     if(location == undefined) throw 'location not avaible';
     if(!basic.is_logged_in) return;
-    
+
     // nothing to do with planet? -> exit
     if(!(location.main == 'planet' && location.sub == 'orbit')) return;
-    
+
     this.gui_extending_shortcuts();
     this.gui_extending_ships_statistic();
+  },
+
+  get_overview_bar: function(){
+    const $ = this.od.jQuery;
+
+    var header = $('#dbMozPluginOrbitOverviewBar');
+    if(header.length) return header;
+
+    header = $('input[name=index]:text').parents('td:first');
+
+    // input not found? maybe planet is not existing anymore
+    if(!header.length)header = $('#message .messageBox_Middle');
+
+    header.wrapInner(this.template('overviewBar'));
+
+    return $('#dbMozPluginOrbitOverviewBar');
   },
 
   /**
@@ -524,10 +540,10 @@ db.moz.plugin.modules.register({
       return;
 
     const $ = this.od.jQuery;
-    
+
     var stats = this.get_statistics();
     if(!stats.length) return;
-    
+
     var win = $('td[namsn]:first').parents('div:first'),
         ele = $(this.template('statisticsWindow')),
         max = stats.length;

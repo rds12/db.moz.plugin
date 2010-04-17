@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'toolbar',
   module_author:      'rds12',
-  module_version:     '2010-04-06',
+  module_version:     '2010-04-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -31,10 +31,12 @@ db.moz.plugin.modules.register({
   },
 
   od_system_main: function(){
+    this.gui_extending_navigation_system_bar();
     this.gui_extending_database_system_search();
   },
 
   od_planet_orbit: function(){
+    this.gui_extending_navigation_orbit_bar();
     this.gui_extending_database_orbit_search();
   },
 
@@ -83,7 +85,7 @@ db.moz.plugin.modules.register({
     if(prefs.get('preferences.system.searchInDatabase') !== true)
       return;
 
-    var header = $('#sysid').parents('td:first'),
+    var header = this.modules.system.get_overview_bar(),
         system_id = this.modules.location.options.system_id,
         url = prefs.get('preferences.configset.tbExtToolSysUri');
 
@@ -92,7 +94,19 @@ db.moz.plugin.modules.register({
     url = this.modules.fowapi.replace_placeholders(url,system_id);
 
     header.append(this.template('searchInDatabaseShort',url));
-    header.wrapInner(this.template('relativize'));
+  },
+
+  gui_extending_navigation_system_bar: function(){
+    const prefs = this.lib.preferences,
+          $ = this.od.jQuery;
+
+    if(prefs.get('preferences.system.navigationBar') !== true)
+      return;
+
+    var header = this.modules.system.get_overview_bar(),
+        system_id = parseInt(this.modules.location.options.system_id);
+
+    header.append(this.template('systemNavigation',system_id-1,system_id+1));
   },
 
   gui_extending_database_orbit_search: function(){
@@ -102,7 +116,7 @@ db.moz.plugin.modules.register({
     if(prefs.get('preferences.orbit.searchInDatabase') !== true)
       return;
 
-    var header = $('input[name=index]:text').parents('td:first'),
+    var header = this.modules.orbit.get_overview_bar(),
         planet_id = this.modules.location.options.planet_id,
         url = prefs.get('preferences.configset.tbExtToolPlanUri');
 
@@ -111,6 +125,18 @@ db.moz.plugin.modules.register({
     url = this.modules.fowapi.replace_placeholders(url,planet_id);
 
     header.append(this.template('searchInDatabaseShort',url));
-    header.wrapInner(this.template('relativize'));
+  },
+
+  gui_extending_navigation_orbit_bar: function(){
+    const prefs = this.lib.preferences,
+          $ = this.od.jQuery;
+
+    if(prefs.get('preferences.orbit.navigationBar') !== true)
+      return;
+
+    var header = this.modules.orbit.get_overview_bar(),
+        planet_id = parseInt(this.modules.location.options.planet_id);
+
+    header.append(this.template('orbitNavigation',planet_id-1,planet_id+1));
   }
 });

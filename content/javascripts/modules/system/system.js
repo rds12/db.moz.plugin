@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'system',
   module_author:      'rds12',
-  module_version:     '2010-04-02',
+  module_version:     '2010-04-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -31,7 +31,23 @@ db.moz.plugin.modules.register({
     basic.log('modules.system',null,true);
     basic.log(this.viewable,'viewable');
   },
-  
+
+  get_overview_bar: function(){
+    const $ = this.od.jQuery;
+
+    var header = $('#dbMozPluginSystemOverviewBar');
+    if(header.length) return header;
+
+    header = $('#sysid').parents('td:first');
+
+    // input not found? maybe planet is not existing anymore
+    if(!header.length)header = $('#message .messageBox_Middle');
+
+    header.wrapInner(this.template('overviewBar'));
+
+    return $('#dbMozPluginSystemOverviewBar');
+  },
+
   retrieve_is_system_viewable: function(){
     const self = this;
     const $ = this.od.jQuery;
