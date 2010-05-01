@@ -232,11 +232,11 @@ div.menu-item > a:hover{
 .dbMozPluginUpperRight {
 	position: absolute;
 	right: 0px;
-	top: 0px;
+	top: -30px;
 }
 
 .dbMozPluginUpperLeft {
   position: absolute;
   left: 0px;
-  top: 0px;
+  top: -30px;
 }

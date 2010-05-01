@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet',
   module_author:      'rds12',
-  module_version:     '2010-04-01',
+  module_version:     '2010-05-01',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -54,7 +54,7 @@ db.moz.plugin.modules.register({
     // now select all checkboxes which have this location
     var parent_form = element.parents('form:eq(0)');
     
-    parent_form.find('tr').each(function(i,e){
+    parent_form.find('tr:visible').each(function(i,e){
       var e = $(e);
       var box = e.find('input[type=checkbox]');
       if(!box.length) return true;
