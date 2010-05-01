@@ -528,8 +528,13 @@ db.moz.plugin.modules.register({
 
     // registering onkey event!
     $(doc).keydown(function(event){
+      // if an input element is active, do nothing
       var active = $(doc.activeElement);
       if(active.is(':input')) return;
+
+      // if ctrl, alt, etc.. was pressed, do nothing
+      var special_keys = self.lib.basics.event.keys(event);
+      if(special_keys.isControl) return;
 
       self.gui_extending_shortcuts_handler(event);
     });

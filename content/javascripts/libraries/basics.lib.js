@@ -263,14 +263,17 @@ db.moz.plugin.basics.event.keys = function(event){
     isKeyDown: event.which == 40,
     isEnter  : event.which == 13,
     isEsc    : event.which == 27,
-    isCtr    : event.which == 17,
-    isAlt    : event.which == 18,
-    isShift  : event.which == 16
+    isCtr    : event.which == 17 || event.ctrlKey,
+    isAlt    : event.which == 18 || event.altKey,
+    isShift  : event.which == 16 || event.shiftKey,
+    isControl: false
   }
-  var bool = false;
-  for(var key in o) 
-    bool = bool || o[key];
-  o.isControl = bool;
+  // check if any of the above events were triggered
+  for(var key in o){ 
+    if(!o[key]) continue;
+    o.isControl = true;
+    break;
+  }
   return o;
 }
 
