@@ -117,3 +117,8 @@
 <!ENTITY odhelper.system.autoParsing "parse system automatically, if system is out of date">
 <!ENTITY odchanges.orbit.navigationBar "add navigation-bar for next/previous orbit">
 <!ENTITY odchanges.system.navigationBar "add navigation-bar for next/previous system">
+
+<!-- new since 02.05.2010 -->
+
+<!ENTITY odchanges.miscellaneous.caption.research "Research">
+<!ENTITY odchanges.research.totalPoints "sum research points up [only premium]">

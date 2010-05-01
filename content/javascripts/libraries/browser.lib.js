@@ -50,6 +50,8 @@ db.moz.plugin.browser = {
 
     require.module('toolbar');
 
+    require.module('research');
+
     db.moz.plugin.browser.fire_modules(dom,doc,win);
   },
 
@@ -140,7 +142,7 @@ db.moz.plugin.browser = {
     // only go further if page is od
     if(!runner.modules.basic.is_od) return;
 
-    runner.load_basic_modules(['location','fleet',
+    runner.load_basic_modules(['location','fleet','research',
       'infrastructure','orbit','planet','system','comm','fowapi',
       'fleet_shop','toolbar']);
   },

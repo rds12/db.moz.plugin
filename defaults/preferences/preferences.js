@@ -14,6 +14,11 @@ pref("extensions.db.moz.plugin.preferences.overall.closeHandler",true);
 pref("extensions.db.moz.plugin.preferences.overall.disableQuickjumpOverflow",true);
 
 
+/** Research Settings **/
+
+// sum up research points, premium only
+pref("extensions.db.moz.plugin.preferences.research.totalPoints",true);
+
 
 /** Shop Settings */
 

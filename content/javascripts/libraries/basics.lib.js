@@ -386,6 +386,38 @@ db.moz.plugin.require = {
   }
 }
 
+db.moz.plugin.basics.format_number = function(number){
+  var number = parseInt(number),
+      numbers = [],
+      group_digits = 3,
+      divisor = Math.pow(10,group_digits),
+      sprintf = db.moz.plugin.basics.sprintf,
+      format = '%0' + group_digits + 'd',
+      modulo = '',
+      signed = '';
+
+  if(number == 0 || isNaN(number)) return '0';
+
+  if(number < 0){
+    number *= -1;
+    signed = '-';
+  }
+
+  while(number > 0){
+    modulo = number % divisor;
+    number = parseInt(number / divisor);
+
+    if(number > 0)
+      modulo = sprintf(format,modulo);
+    else
+      modulo = modulo.toString();
+
+    numbers.unshift(modulo);
+  }
+
+  return signed + numbers.join('.')
+}
+
 /**
  * sprintf() for JavaScript v.0.4
  *

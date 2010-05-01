@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'infrastructure',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2010-05-01',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -231,8 +231,8 @@ db.moz.plugin.modules.register({
     var entry = $('img[src*=credits_us]:last');
     if(!entry.length) return;
 
-    var day = this.deposit.tax * 24;
-    //FIXME: use native formatNumber function
-    entry.next('font').find('b').append(' * 24 &rarr; '+ dom.formatNumber(day));
+    var income = this.deposit.tax * 24,
+        format = this.lib.basics.format_number;
+    entry.next('font').find('b').append(' * 24 &rarr; '+ format(income));
   }
 });

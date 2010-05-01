@@ -118,3 +118,8 @@
 <!ENTITY odhelper.system.autoParsing "Parse System automatisch, wenn es unaktuell ist">
 <!ENTITY odchanges.orbit.navigationBar "füge Navigation für Nächster/Vorheriger Orbit hinzu">
 <!ENTITY odchanges.system.navigationBar "füge Navigation für Nächstes/Vorheriges System hinzu">
+
+<!-- new since 02.05.2010 -->
+
+<!ENTITY odchanges.miscellaneous.caption.research "Forschung">
+<!ENTITY odchanges.research.totalPoints "Summiere Forschungspunkte [nur Premium]">

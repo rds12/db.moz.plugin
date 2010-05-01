@@ -53,5 +53,14 @@
       <checkbox id='preferences.alliance.searchInDatabase'
                 label='&odchanges.alliance.searchInDatabase;' />
     </groupbox>
+
+    <!-- research settings -->
+    <groupbox>
+      <caption label='&odchanges.miscellaneous.caption.research;' />
+
+      <!-- research, sum up research points -->
+      <checkbox id='preferences.research.totalPoints'
+                label='&odchanges.research.totalPoints;' />
+    </groupbox>
   </tabpanel>
 </overlay>

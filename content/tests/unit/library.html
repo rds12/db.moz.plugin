@@ -621,6 +621,46 @@
       var expect = '<a href="http://www.google.de/">http://www.google.de/</a> <a href="http://www.google.de/">http://www.google.de/</a>';
       var assign = parseToLink("http://www.google.de/ http://www.google.de/");
       assertEqual(expect,assign,'same link twice');
+    }},
+
+    'testing basic.format_number': function(){with (this) {
+      var format_number = db.moz.plugin.basics.format_number;
+
+      var expect = '0';
+      var assign = format_number(0);
+      assertEqual(expect,assign);
+
+      var expect = '20';
+      var assign = format_number(20);
+      assertEqual(expect,assign);
+
+      var expect = '1.234';
+      var assign = format_number(1234);
+      assertEqual(expect,assign);
+
+      var expect = '12.345.678';
+      var assign = format_number(12345678);
+      assertEqual(expect,assign);
+
+      var expect = '12.345.678';
+      var assign = format_number(12345678.123324);
+      assertEqual(expect,assign);
+
+      var expect = '0';
+      var assign = format_number('nonsense number');
+      assertEqual(expect,assign);
+
+      var expect = '12.345.678';
+      var assign = format_number('12345678.123324');
+      assertEqual(expect,assign);
+
+      var expect = '-12.345.678';
+      var assign = format_number(-12345678.123324);
+      assertEqual(expect,assign);
+
+      var expect = '-12.345.678';
+      var assign = format_number('-12345678.123324');
+      assertEqual(expect,assign);
     }}
     
   });
