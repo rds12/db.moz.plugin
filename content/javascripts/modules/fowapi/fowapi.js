@@ -257,9 +257,10 @@ db.moz.plugin.modules.register({
 
       // if comment is avaible, append it 
       if(!comment.match(/^\s*$/)){
-        parsed[1] += self.template('fowPlanetComment',comment);
+        // 2010.05.04: disabled inline comments in planet-overviews 
+        //parsed[1] += self.template('fowPlanetComment',comment);
 
-        picture_bar.prepend(self.template('planetToolbarComment'));
+        picture_bar.prepend(self.template('planetToolbarComment',comment));
       }
 
       var type = (orbitType.match(/M|G|R/i) || [''])[0].toUpperCase() , 
