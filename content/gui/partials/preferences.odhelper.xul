@@ -49,13 +49,6 @@
       <!-- miscellaneous -->
       <caption label='&odhelper.parser.miscellaneous;' />
 
-      <!-- parser shortcut -->
-      <description value='&odhelper.parser.shortcut;' />
-      <hbox align='center'>
-        <description value='&odhelper.parser.shortcut.modifiers;'/>
-        <textbox id='preferences.parserShortcutKey' value='' maxlength='1'/>
-      </hbox>
-
       <!-- copy to clipboard -->
       <checkbox id="preferences.configset.parserClipboardCopy"
                 label='&odhelper.parser.clipboard;' />

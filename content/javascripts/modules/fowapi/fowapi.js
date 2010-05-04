@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fowapi',
   module_author:      'rds12',
-  module_version:     '2010-04-16',
+  module_version:     '2010-05-04',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   

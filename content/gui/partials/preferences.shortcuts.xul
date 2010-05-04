@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
+
+<overlay xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+         xmlns:html="http://www.w3.org/1999/xhtml">
+
+  <tabpanel id='dbMozPluginTabpanelShortcuts'>
+
+    <groupbox>
+      <!-- orbit -->
+      <caption>
+        <checkbox id='preferences.orbit.shortcuts'
+          label='&shortcuts.orbit;' />
+      </caption>
+
+      <grid flex='1'>
+        <columns>
+          <column flex='1'/>
+          <column flex='1'/>
+          <column flex='1'/>
+          <column flex='1'/>
+          <column flex='1'/>
+          <column flex='1'/>
+        </columns>
+        <rows>
+
+          <row>
+            <!-- send ships -->
+            <description value='&shortcuts.orbit.send_ships;' />
+            <textbox id='preferences.shortcuts.orbit.send_ships' value='' maxlength='1' size='1'/>
+
+            <!-- camouflage_ships -->
+            <description value='&shortcuts.orbit.camouflage_ships;' />
+            <textbox id='preferences.shortcuts.orbit.camouflage_ships' value='' maxlength='1' size='1'/>
+
+            <!-- attack_ship -->
+            <description value='&shortcuts.orbit.attack_ship;' />
+            <textbox id='preferences.shortcuts.orbit.attack_ship' value='' maxlength='1' size='1'/>
+          </row>
+
+          <row>
+            <!-- attack_planet -->
+            <description value='&shortcuts.orbit.attack_planet;' />
+            <textbox id='preferences.shortcuts.orbit.attack_planet' value='' maxlength='1' size='1'/>
+
+            <!-- (un)select all ships -->
+            <description value='&shortcuts.orbit.un_select_ships;' />
+            <textbox id='preferences.shortcuts.orbit.un_select_ships' value='' maxlength='1' size='1'/>
+  
+            <!-- invert ship selection -->
+            <description value='&shortcuts.orbit.invert_ships;' />
+            <textbox id='preferences.shortcuts.orbit.invert_ships' value='' maxlength='1' size='1'/>
+          </row>
+
+          <row>
+            <!-- un/load materials -->
+            <description value='&shortcuts.orbit.un_load_materials;' />
+            <textbox id='preferences.shortcuts.orbit.un_load_materials' value='' maxlength='1' size='1'/>
+
+            <!-- use gate -->
+            <description value='&shortcuts.orbit.use_gate;' />
+            <textbox id='preferences.shortcuts.orbit.use_gate' value='' maxlength='1' size='1'/>
+
+            <!-- use bioweapon -->
+            <description value='&shortcuts.orbit.use_bioweapon;' />
+            <textbox id='preferences.shortcuts.orbit.use_bioweapon' value='' maxlength='1' size='1'/>
+          </row>
+
+          <row>
+            <!-- use emp -->
+            <description value='&shortcuts.orbit.use_emp;' />
+            <textbox id='preferences.shortcuts.orbit.use_emp' value='' maxlength='1' size='1'/>
+
+            <!-- scan planet -->
+            <description value='&shortcuts.orbit.scan_planet;' />
+            <textbox id='preferences.shortcuts.orbit.scan_planet' value='' maxlength='1' size='1'/>
+
+            <!-- rename ship -->
+            <description value='&shortcuts.orbit.rename_ship;' />
+            <textbox id='preferences.shortcuts.orbit.rename_ship' value='' maxlength='1' size='1'/>
+          </row>
+
+          <row>
+            <!-- merge into fleet -->
+            <description value='&shortcuts.orbit.merge_into_fleet;' />
+            <textbox id='preferences.shortcuts.orbit.merge_into_fleet' value='' maxlength='1' size='1'/>
+
+            <!-- uncamouflage -->
+            <description value='&shortcuts.orbit.uncamouflage;' />
+            <textbox id='preferences.shortcuts.orbit.uncamouflage' value='' maxlength='1' size='1'/>
+          </row>
+
+        </rows>
+      </grid>
+
+    </groupbox>
+
+    <groupbox>
+      <!-- miscellaneous -->
+      <caption label='&shortcuts.miscellaneous;' />
+
+      <!-- parser shortcut -->
+      <description value='&shortcuts.parser;' />
+      <hbox align='center'>
+        <description value='&shortcuts.parser.modifiers;'/>
+        <textbox id='preferences.parserShortcutKey' value='' maxlength='1'/>
+      </hbox>
+
+    </groupbox>
+  </tabpanel>
+</overlay>

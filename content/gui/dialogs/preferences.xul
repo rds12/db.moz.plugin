@@ -6,6 +6,7 @@
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odhelper.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.odchanges.xul"?>
 <?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.locations.xul"?>
+<?xul-overlay href="chrome://db.moz.plugin.gui/content/partials/preferences.shortcuts.xul"?>
 
 <!DOCTYPE dialog SYSTEM "chrome://db.moz.plugin/locale/gui.preferences.dtd">
 
@@ -33,12 +34,14 @@
       <tab flex='1' label="&tab.odhelper;" image="" />
       <tab flex='1' label="&tab.odchanges;" image="" />
       <tab flex='1' label="&tab.locations;" image="" />
+      <tab flex='1' label="&tab.shortcuts;" image="" />
     </tabs>
     <tabpanels flex='1'>
       <tabpanel id="dbMozPluginTabpanelPreferences" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelOdHelper" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelOdChanges" orient='vertical'/>
       <tabpanel id="dbMozPluginTabpanelLocations" orient='vertical'/>
+      <tabpanel id="dbMozPluginTabpanelShortcuts" orient='vertical'/>
     </tabpanels>
   </tabbox>
 </dialog>

@@ -44,14 +44,14 @@ db.moz.plugin.basics = {
   },
   
   clone: function(object){
-    if(this.is_array(object))  return slice.call(this, 0);
+    if(this.is_array(object))  return object.slice(0);
     if(this.is_object(object)) return this.extend({ }, object);
     
     return object;
   },
   
   clone_all: function(object){
-    if(this.is_array(object))   return slice.call(this, 0);
+    if(this.is_array(object))   return object.slice(0);
     if(!this.is_object(object)) return object;
     
     var cloned = {};

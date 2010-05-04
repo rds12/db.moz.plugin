@@ -7,9 +7,12 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'orbit',
   module_author:      'rds12',
-  module_version:     '2010-04-17',
+  module_version:     '2010-05-07',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
+
+  shortcuts:          {},
+  commands:           {},
   
   initialize: function(){
     const basic = this.modules.basic;
@@ -21,8 +24,25 @@ db.moz.plugin.modules.register({
     // nothing to do with planet? -> exit
     if(!(location.main == 'planet' && location.sub == 'orbit')) return;
 
+    this.retrieve_shortcuts();
     this.gui_extending_shortcuts();
     this.gui_extending_ships_statistic();
+  },
+
+  retrieve_shortcuts: function(){
+    const prefs = this.lib.preferences;
+
+    var branch = prefs.get_branch('preferences.shortcuts.orbit.'),
+        childs = branch.get_children();
+
+    // load shortcut modifiers as keys and name as value
+    for(var i = 0, len = childs.length; i < len; ++i){
+      var name = childs[i],
+          value = branch.get(name).toLowerCase();
+
+      this.shortcuts[value] = name;
+      this.commands[name] = value;
+    }
   },
 
   get_overview_bar: function(){
@@ -329,7 +349,7 @@ db.moz.plugin.modules.register({
     return stats;
   },
   
-  cmd_send_planet: function(){
+  cmd_send_ships: function(){
     const dom = this.od.dom;
 
     var selected = this.is_ship_selected();
@@ -338,7 +358,7 @@ db.moz.plugin.modules.register({
     dom.sender();
   },
 
-  cmd_camouflage_fleet: function(){
+  cmd_camouflage_ships: function(){
     const dom = this.od.dom;
 
     var selected = this.is_ship_selected();
@@ -376,7 +396,7 @@ db.moz.plugin.modules.register({
     dom.jump();
   },
   
-  cmd_load_materials: function(){
+  cmd_un_load_materials: function(){
     // FIXME: select existing transporters
     const dom = this.od.dom;
 
@@ -420,60 +440,38 @@ db.moz.plugin.modules.register({
 
     dom.fleeter();
   },
-  
+
+  cmd_uncamouflage: function(){
+    // append query for uncamouflage
+    this.od.dom.location.search += '&enttarnen=all' 
+  },
+
+  cmd_un_select_ships: function(){
+    this.select_ships('toggle');
+  },
+
+  cmd_invert_ships: function(){
+    this.select_ships('invert');
+  },
+
   gui_extending_shortcuts_handler: function(event){
-    const self = this;
     var key = String.fromCharCode(event.which).toLowerCase();
 
     // checking if key is a alphabet-sign
     if(!/\w/.test(key)) return;
 
-    var keys = {
-      s: function(){ // ship camouflage
-        self.cmd_camouflage_fleet();
-      }, 
-      w: function(){ // send ship
-        self.cmd_send_planet();
-      }, 
-      e: function(){ // attack ship
-        self.cmd_attack_ship();
-      },
-      q: function(){ // attack planet
-        self.cmd_attack_planet();
-      },
-      t: function(){ // select all or unselect all
-        self.select_ships('toggle');
-      },
-      a: function(){ // invert all ship selections
-        self.select_ships('invert');
-      },
-      r: function(){ // un/load materials
-        self.cmd_load_materials();
-      },
-      d: function(){  // use gate
-        self.cmd_use_gate();
-      },
-      y: function(){ // bioweapon
-        self.cmd_use_bioweapon();
-      },
-      x: function(){ // fire emp
-        self.cmd_use_emp();
-      },
-      c: function(){ // scan planet
-        self.cmd_scan_planet();
-      },
-      v: function(){ // rename ship
-        self.cmd_rename_ship();
-      },
-      f: function(){ // merge into a fleet
-        self.cmd_merge_into_fleet();
-      }
-    }
-    var exists = key in keys;
+    var keys = this.shortcuts,
+        exists = key in keys;
 
     // doesn't exists -> wrong key
     if(!exists) return;
-    keys[key]();
+
+    try{
+      //cmd_<orbit-operation>
+      this['cmd_'+ keys[key]]();
+    }catch(e){
+      alert('failed to load: '+ keys[key]);
+    }
   },
   
   gui_extending_shortcuts: function(){
@@ -483,6 +481,7 @@ db.moz.plugin.modules.register({
     const $ = this.od.jQuery;
     const doc = this.od.doc;
     const self = this;
+    const basics = this.lib.basics;
 
     if(self.modules.basic.is_debug_enabled){
       //FIXME: remove me
@@ -495,29 +494,61 @@ db.moz.plugin.modules.register({
     // only if it is our own orbit.
     if(this.modules.location.options['type'] != 'own') return;
 
+    var allnone = $('a[href$=aller(1);]').attr('id','dbMozPluginAllNone');
     // yeah we have ids for all fleet commands :D
     // what happens if a command and ship id matches?
-    $('#200201').prepend('[w] '); // send ship
-    $('#200208').prepend('[e] '); // attack ship
-    $('#200203').prepend('[r] '); // un/load materials
-    $('#200210').prepend('[d] '); // use gate
-    $('#200207').prepend('[q] '); // attack planet
-    $('#200212').prepend('[v] '); // rename ship
-    $('#200217').prepend('[f] '); // merge into a fleet
-    $('#200301').prepend('[s] '); // ship camoufalge
-    $('#200215').prepend('[y] '); // use bioweapon
-    $('#200219').prepend('[x] '); // fire emp
-    $('#200202').prepend('[c] '); // scan planet
+    var cmds = { 
+      'un_load_materials': '#200203',
+      'rename_ship': '#200212',
+      'attack_planet': '#200207',
+      'send_ships': '#200201',
+      'attack_ship': '#200208',
+      'scan_planet': '#200202',
+      'use_bioweapon': '#200215',
+      'camouflage_ships': '#200301',
+      'merge_into_fleet': '#200217',
+      'use_gate': '#200210',
+      'use_emp': '#200219',
+      'uncamouflage': function(prepend){
+        // operation 'camouflage ships' has no ingame id
 
-    $('a[href$=aller(1);]').prepend('[t] ').
-    attr('href','javascript:').click(function(){
-      // change behavior to a real un/select event
-      self.select_ships('toggle');
-    }).parent().append($(this.template('selectorInvert'))
-    .click(function(){
-      // add invert all event 
-      self.select_ships('invert');
-    }));
+        // get td bioweapon and then go up a td
+        $('#200215').parents('tr:first').find('td:first font')
+                    .prepend(prepend);
+      },
+      'invert_ships': function(a,shortcut){
+        // add shortcut and new text
+        allnone.parent().append(
+          $(self.template('selectorInvert',shortcut)).click(function(){
+            // add invert all event 
+            self.select_ships('invert');
+          })
+        );
+      },
+      'un_select_ships': function(shortcut){
+        // add [shortcut] to all/none
+        allnone.prepend(shortcut).
+        attr('href','javascript:').click(function(){
+          // change behavior to a real un/select event
+          self.select_ships('toggle');
+        });
+      }
+    }
+
+    for(var key in this.commands){
+      var name = this.commands[key];
+      // command is a word?
+      if(!name.match(/\w/i)) continue;
+
+      var selector = cmds[key],
+          prepend = '['+ name +'] ';
+      
+      if(basics.is_function(selector)){
+        selector(prepend, name);
+        continue;
+      }
+      $(selector).prepend(prepend);
+    }
 
     // resize command panel and remove fixed width so that
     // the extended text won't screw up the layout

@@ -20,7 +20,7 @@ db.moz.plugin.console = {
     message += '\n' + 'error: '+exception;
 
     if(prefs && prefs.get('debug.enable')) 
-      alert(message);
+      alert(message + '\n\n' + exception.stack);
 
     return message;
   },

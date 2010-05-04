@@ -27,8 +27,6 @@
 
 
 <!ENTITY odhelper.parser.miscellaneous "Verschiedene Parser Einstellungen">
-<!ENTITY odhelper.parser.shortcut "Shortcut für Seiten parsen (leer - kein Shortcut, Neustart benötigt):">
-<!ENTITY odhelper.parser.shortcut.modifiers "Strg + Alt + ">
 
 <!-- new since 30.03.2010 -->
 
@@ -123,3 +121,25 @@
 
 <!ENTITY odchanges.miscellaneous.caption.research "Forschung">
 <!ENTITY odchanges.research.totalPoints "Summiere Forschungspunkte [nur Premium]">
+
+<!-- new since 04.05.2010 -->
+
+<!ENTITY tab.shortcuts "Shortcuts">
+
+<!ENTITY shortcuts.parser "Shortcut für Seiten parsen (leer - kein Shortcut, Neustart benötigt):">
+<!ENTITY shortcuts.parser.modifiers "Strg + Alt + ">
+
+<!ENTITY shortcuts.orbit.send_ships "sende Schiffe: ">
+<!ENTITY shortcuts.orbit.camouflage_ships "tarne schiffe: ">
+<!ENTITY shortcuts.orbit.attack_ship "greif Schiff an: ">
+<!ENTITY shortcuts.orbit.attack_planet "greif Planet an: ">
+<!ENTITY shortcuts.orbit.un_select_ships "(un)selektiere schiffe: ">
+<!ENTITY shortcuts.orbit.invert_ships "invertiere Selektion: ">
+<!ENTITY shortcuts.orbit.un_load_materials "ent/belade Ressourcen: ">
+<!ENTITY shortcuts.orbit.use_gate "benutze Gate: ">
+<!ENTITY shortcuts.orbit.use_bioweapon "benutze Toxxer: ">
+<!ENTITY shortcuts.orbit.use_emp "benutze EMP: ">
+<!ENTITY shortcuts.orbit.scan_planet "scane Planet: ">
+<!ENTITY shortcuts.orbit.rename_ship "benenne Schiffe um: ">
+<!ENTITY shortcuts.orbit.merge_into_fleet "bilde Flotte: ">
+<!ENTITY shortcuts.orbit.uncamouflage "entarne Schiffe: ">

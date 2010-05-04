@@ -9,10 +9,6 @@
   <tabpanel id='dbMozPluginTabpanelOdChangesOrbit'>
     <groupbox>
       <caption label='&odchanges.orbit.caption.orbit;' />
-
-      <!-- shortcuts -->
-      <checkbox id='preferences.orbit.shortcuts'
-                label='&odchanges.orbit.shortcuts;' />
   
       <!-- statistics -->
       <checkbox id='preferences.orbit.shipStatistics'
