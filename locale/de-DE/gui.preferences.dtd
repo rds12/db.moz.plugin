@@ -125,6 +125,8 @@
 <!-- new since 04.05.2010 -->
 
 <!ENTITY tab.shortcuts "Shortcuts">
+<!ENTITY shortcuts.orbit "Orbit">
+<!ENTITY shortcuts.miscellaneous "Verschiedenes">
 
 <!ENTITY shortcuts.parser "Shortcut für Seiten parsen (leer - kein Shortcut, Neustart benötigt):">
 <!ENTITY shortcuts.parser.modifiers "Strg + Alt + ">
