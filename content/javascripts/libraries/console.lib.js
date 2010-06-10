@@ -5,13 +5,13 @@ Namespace('db.moz.plugin');
 db.moz.plugin.console = {
   _console: null,
   _message_prefix : 'db.moz.plugin: ',
-  
+
   init: function (){
     if(this._console != null) return;
     this._console = Components.classes["@mozilla.org/consoleservice;1"]
                     .getService(Components.interfaces.nsIConsoleService);
   },
-  
+
   get_message: function(message,exception){
     if(!exception) return message;
 

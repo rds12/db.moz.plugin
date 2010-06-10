@@ -5,9 +5,10 @@ Namespace('db.moz.plugin');
 db.moz.plugin.jQuery = {
 
   chromeWindow: undefined,
-  
+  jQueryDefault: undefined,
+
   new_query: function(doc,$){
-    if(!$) $ = this.create().$;
+    if(!$) $ = this.jQueryDefault.$;
 
     return (function(){
       return function(selector,specified){
@@ -15,14 +16,15 @@ db.moz.plugin.jQuery = {
       }
     })();
   },
-  
+
   get_chrome: function(){
-    this.chromeWindow = this.chromeWindow || this.new_query(window.document);
+    this.chromeWindow = this.chromeWindow || 
+                        this.new_query(window.document);
 
     return this.chromeWindow;
   },
 
-  jQuerify: function(doc,win){
+  _querify: function(doc,win){
     const include = db.moz.plugin.include;
     const chromeWindow = window;
 
@@ -37,7 +39,7 @@ db.moz.plugin.jQuery = {
     })();
   },
 
-  create: function(aHTMLString){
+  stringToDocument: function(aHTMLString){
     const service = Components.classes["@mozilla.org/feed-unescapehtml;1"]
        .getService(Components.interfaces.nsIScriptableUnescapeHTML);
 
@@ -54,11 +56,23 @@ db.moz.plugin.jQuery = {
     doc.documentElement.appendChild(body);
 
     if(aHTMLString){
-      var elements = service.parseFragment(aHTMLString, false, null, body);    
+      var elements = service.parseFragment(aHTMLString, false, null, body);
       body.appendChild(elements);
     }
 
-    var win = this.jQuerify(doc);
-    return win;
+    return doc;
+  },
+
+  create: function(aHTMLString){
+    var doc = this.stringToDocument(aHTMLString);
+    var $ = this.new_query(doc);
+
+    return {'$' : $, 'jQuery' : $, 'doc': doc};
   }
 }
+
+db.moz.plugin.jQuery.jQueryDefault = (function(){
+  const that = db.moz.plugin.jQuery;
+  document = that.stringToDocument();
+  return that._querify(document);
+})();

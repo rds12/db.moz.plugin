@@ -362,7 +362,7 @@ db.moz.plugin.require = {
     for(var i=0;i<len; ++i){
       var arg = args[i];
       var status = this.jsfile('libraries/'+args[i]+'.lib');
-      returning = status && returning;
+      returning = returning && status;
     }
     return returning;
   },
@@ -379,7 +379,7 @@ db.moz.plugin.require = {
     
     for(var i=0; i<len; ++i){
       var status = this.jsfile('modules/'+module_name+'/'+args[i]);
-      returning = status && returning;
+      returning = returning && status;
     }
     
     return returning;
@@ -394,7 +394,7 @@ db.moz.plugin.require = {
     
     for(var i=0;i<len; ++i){
       var status = this.submodul(args[i],args[i]);
-      returning = status && returning;
+      returning = returning && status;
     }
     return returning;
   }
