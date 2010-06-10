@@ -21,13 +21,6 @@
         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul" 
         xmlns:html="http://www.w3.org/1999/xhtml">
 
-  <script type="application/x-javascript" 
-    src="chrome://db.moz.plugin/content/javascripts/library.js"/>
-
-  <script>
-    const prefs = db.moz.plugin.gui.preferences;
-  </script>
-
   <tabbox flex='1' selectedIndex='0'>
     <tabs>
       <tab flex='1' label="&tab.configset;" image="" />
@@ -44,4 +37,11 @@
       <tabpanel id="dbMozPluginTabpanelShortcuts" orient='vertical'/>
     </tabpanels>
   </tabbox>
+
+  <script type="application/x-javascript" 
+    src="chrome://db.moz.plugin/content/javascripts/library.js"/>
+
+  <script>
+    const prefs = db.moz.plugin.gui.preferences;
+  </script>
 </dialog>

@@ -494,7 +494,8 @@ db.moz.plugin.modules.register({
     // only if it is our own orbit.
     if(this.modules.location.options['type'] != 'own') return;
 
-    var allnone = $('a[href$=aller(1);]').attr('id','dbMozPluginAllNone');
+    var allnone = $('a[href$=aller(1);],a[href$=allerF(1);]')
+                  .attr('id','dbMozPluginAllNone');
     // yeah we have ids for all fleet commands :D
     // what happens if a command and ship id matches?
     var cmds = { 

@@ -8,6 +8,8 @@ db.moz.plugin.browser = {
 
     if(key && shortcut != '')
       key.setAttribute('key',shortcut);
+
+    this.register_modules();
   },
 
   onTeardown: function(event){
@@ -16,8 +18,6 @@ db.moz.plugin.browser = {
 
     var doc = event.originalTarget,
         win = doc.defaultView;
-
-    delete win['dbMozPluginRunner'];
   },
 
   onContentLoaded: function(event){
@@ -27,32 +27,10 @@ db.moz.plugin.browser = {
 
     var doc = event.originalTarget;
 
-    const require = db.moz.plugin.require;
-
     var win = doc.defaultView;
     var dom = win.wrappedJSObject;
 
-    // register basic modules
-    require.module('basic');
-    require.submodul('location','basic');
-
-    require.module('fleet');
-    require.submodul('shop','fleet');
-
-    require.module('planet');
-    require.submodul('infrastructure','orbit','planet');
-
-    require.module('system');
-
-    require.module('comm');
-
-    require.module('fowapi');
-
-    require.module('toolbar');
-
-    require.module('research');
-
-    db.moz.plugin.browser.fire_modules(dom,doc,win);
+    db.moz.plugin.browser.invoke_modules(dom,doc,win);
   },
 
   onContentInitialize: function(win){
@@ -102,7 +80,7 @@ db.moz.plugin.browser = {
     try{
       var location = doc.location;
 
-      // only http(s) is allowed
+      // only http(s) is allowed     
       if(!location.protocol.match(/^http(|s):/))
         return set_statusbar(false);
 
@@ -131,20 +109,42 @@ db.moz.plugin.browser = {
     }
   },
 
-  fire_modules: function(dom,doc,win){
+  invoke_modules: function(dom,doc,win){
     var runner = new db.moz.plugin.runner(dom,doc);
 
-    win['dbMozPluginRunner'] = runner;
-
     // load the modules.basic
-    runner.load_basic_modules(['basic']);
+    runner.invoke_modules(['basic']);
 
     // only go further if page is od
     if(!runner.modules.basic.is_od) return;
 
-    runner.load_basic_modules(['location','fleet','research',
+    runner.invoke_modules(['location','fleet','research',
       'infrastructure','orbit','planet','system','comm','fowapi',
       'fleet_shop','toolbar']);
+  },
+
+  register_modules: function(){
+    const require = db.moz.plugin.require;
+
+    // register basic modules
+    require.module('basic');
+    require.submodul('location','basic');
+
+    require.module('fleet');
+    require.submodul('shop','fleet');
+
+    require.module('planet');
+    require.submodul('infrastructure','orbit','planet');
+
+    require.module('system');
+
+    require.module('comm');
+
+    require.module('fowapi');
+
+    require.module('toolbar');
+
+    require.module('research');
   },
 
   show_statusbar: function(show){
