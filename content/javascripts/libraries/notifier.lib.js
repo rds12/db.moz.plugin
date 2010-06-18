@@ -7,8 +7,8 @@ db.moz.plugin.notifier = function(template_path,doc){
   this.binded_document = doc || window.content.document;
 
   var $ = db.moz.plugin.jQuery.new_query(),
-      event = new db.moz.plugin.basics.event(),
-      template = new db.moz.plugin.templates(template_path);
+      event = new db.moz.plugin.basics.event();
+  this.template = new db.moz.plugin.templates(template_path);
 
   this.rebind_notify_window = function(){
     var jQuery = $('body',this.binded_document),
@@ -17,8 +17,8 @@ db.moz.plugin.notifier = function(template_path,doc){
     // if notifier window is not avaible, append it!
     // necessary if page location changed
     if(!window.length){
-      var name = template.parse('notifierName') || 'Notifier',
-          close = template.parse('notifierClose') || 'close',
+      var name = this.template.parse('notifierName') || 'Notifier',
+          close = this.template.parse('notifierClose') || 'close',
           div = '<div class="dbMozPluginBox" id="dbMozPluginNotifyWindow">' +
         '<div>' + name + ': <div class="closer"><a href="javascript:">' + close + '</a></div></div>' +
         '<div id="dbMozPluginNotifyEntry"/>' +
@@ -41,7 +41,7 @@ db.moz.plugin.notifier = function(template_path,doc){
     try{
       var args = Array.prototype.slice.call(arguments),
           notifier = this.rebind_notify_window(),
-          message = template.parse(args);
+          message = this.template.parse(args);
 
       // set message
       notifier.entry.html(message);

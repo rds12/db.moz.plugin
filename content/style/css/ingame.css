@@ -1,3 +1,7 @@
+img {
+  border: 0 none;
+}
+
 .dbMozPluginBox {
   background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
   -moz-border-radius: 5px;

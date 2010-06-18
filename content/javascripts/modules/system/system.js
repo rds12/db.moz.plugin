@@ -14,6 +14,8 @@ db.moz.plugin.modules.register({
   // if fow is disabled
   viewable: false,
   identified_orbit: false,
+  planets: [],
+  regex_pname: /dlt\('.+?','(.+?):'\);setter/,
 
   initialize: function(){
     const basic = this.modules.basic;
@@ -25,11 +27,14 @@ db.moz.plugin.modules.register({
     // nothing to do with system? -> exit
     if(!(location.main == 'system' && location.sub == 'main')) return;
 
+    this.retrieve_planets();
     this.retrieve_is_system_viewable();
     this.gui_extending_orbit_clickable();
 
     basic.log('modules.system',null,true);
     basic.log(this.viewable,'viewable');
+    for(var i = 0; i < this.planets.length; ++i)
+      basic.log(this.planets[i],'planets['+i+']');
   },
 
   get_overview_bar: function(){
@@ -49,16 +54,35 @@ db.moz.plugin.modules.register({
   },
 
   retrieve_is_system_viewable: function(){
+    const $ = this.od.jQuery;
+
+    if(!this.planets.length) return;
+
+    var planet = $('#planet-' + this.planets[0].planet_id);
+    var hover = planet.parents('a:first').attr('onMouseover');
+    self.viewable = !/setter\('\s*','\s*','\s*','\s*','\s*'\)/.test(hover);
+  },
+
+  retrieve_planets: function(){
     const self = this;
     const $ = this.od.jQuery;
 
-    var planets = $('#maincontent img[src$=grafik/leer.gif]');
-    planets.each(function(i,e){
-      var e = $(e);
-      if(!/^\d+$/.test(e.attr('id'))) return;
-      var hover = e.parents('a:first').attr('onmouseover');
-      self.viewable = !/setter\('\s*','\s*','\s*','\s*','\s*'\)/.test(hover);
-      return false;
+    // system table
+    var system = $('#maincontent table[width="800"]:last');
+    system.attr('id','system-'+this.modules.location.options.system_id);
+
+    system.find('table td a img').each(function(i,e){
+      var e = $(e), pid = e.attr('id');
+      if(!/^\d+$/.test(pid)) return;
+
+      var text = e.parents('a:first').attr('id','planet-'+pid)
+                  .attr('onMouseover');
+      var pname = (text.match(self.regex_pname) || ['','undefined'])[1];
+
+      self.planets.push({
+        planet_id: pid,
+        planet_name: pname
+      });
     });
   },
 
@@ -76,22 +100,17 @@ db.moz.plugin.modules.register({
     const self = this;
     const $ = this.od.jQuery;
 
-    var planets = $('#maincontent img[src$=grafik/leer.gif]');
-    planets.each(function(i,e){
-      var e = $(e);
-      if(!/^\d+$/.test(e.attr('id'))) return;
-      
-      var hover = e.parents('a:first'),
-          regex = /dlt\('.+?','(.+?):'\);setter/,
-          pid = e.attr('id'),
-          pname = (hover.attr('onmouseover').match(regex) || ['','undefined'])[1], 
+    $(this.planets).each(function(i,planet){
+      var e = $('#planet-'+planet.planet_id), 
           orbit = e.parents('tr:first').siblings().find('td');
 
       // if orbit is none existing, append it
       if(!orbit.find('a:first').length)
-        orbit.append(self.template('clickableOrbit',pname,pid));
+        orbit.append(self.template(
+          'clickableOrbit', planet.planet_name, planet.planet_id
+        ));
 
-      orbit.find('a:first').attr('id','orbit-'+pid);
+      orbit.find('a:first').attr('id','orbit-'+planet.planet_id);
     });
     this.identified_orbit = true;
   }

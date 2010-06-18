@@ -35,6 +35,8 @@ db.moz.plugin.jQuery = {
         addEventListener: function(){}
       }
       include.jsfile('jquery.1.4.2',scope);
+      // seems to be a failer of recognition
+      scope.window.$.support.opacity = true;
       return scope.window;
     })();
   },

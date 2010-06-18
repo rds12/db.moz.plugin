@@ -53,6 +53,7 @@ db.moz.plugin.basics = {
   clone_all: function(object){
     if(this.is_array(object))   return object.slice(0);
     if(!this.is_object(object)) return object;
+    if(this.is_reg_exp(object)) return new RegExp(object);
     
     var cloned = {};
     
@@ -170,7 +171,15 @@ db.moz.plugin.basics = {
     }
     return 'not supported';
   },
-  
+
+  merge_hashes: function(hash1,hash2){
+    for(var key in hash2){
+      if(this.is_function(hash2[key])) continue;
+      hash1[key] = hash2[key];
+    }
+    return hash1;
+  },
+
   update: function(array, args) {
     var arrayLength = array.length, length = args.length;
     while (length--) array[arrayLength + length] = args[length];

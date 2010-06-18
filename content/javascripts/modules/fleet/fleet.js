@@ -226,13 +226,13 @@ db.moz.plugin.modules.register({
       });
       
       // set nearest planet
-      $.each(pos.min[0],function(i,value){
+      $(pos.min[0]).each(function(i,value){
         select.find('option:eq('+value+')')
               .attr('class','dbMozPluginPlanetNearest');
       });
 
       // set farthest planet
-      $.each(pos.max[0],function(i,value){
+      $(pos.max[0]).each(function(i,value){
         select.find('option:eq('+value+')')
               .attr('class','dbMozPluginPlanetFarthest');
       });
