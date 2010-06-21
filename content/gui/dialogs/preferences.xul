@@ -23,11 +23,16 @@
 
   <tabbox flex='1' selectedIndex='0'>
     <tabs>
-      <tab flex='1' label="&tab.configset;" image="" />
-      <tab flex='1' label="&tab.odhelper;" image="" />
-      <tab flex='1' label="&tab.odchanges;" image="" />
-      <tab flex='1' label="&tab.locations;" image="" />
-      <tab flex='1' label="&tab.shortcuts;" image="" />
+      <tab flex='1' label="&tab.configset;" 
+        image="chrome://db.moz.plugin.style/content/images/preferences.png" />
+      <tab flex='1' label="&tab.odhelper;" 
+        image="chrome://db.moz.plugin.style/content/images/software_update.png" />
+      <tab flex='1' label="&tab.odchanges;" 
+        image="chrome://db.moz.plugin.style/content/images/preferences_wallpaper.png" />
+      <tab flex='1' label="&tab.locations;" 
+        image="chrome://db.moz.plugin.style/content/images/home_folder.png" />
+      <tab flex='1' label="&tab.shortcuts;" 
+        image="chrome://db.moz.plugin.style/content/images/shortcuts.png" />
     </tabs>
     <tabpanels flex='1'>
       <tabpanel id="dbMozPluginTabpanelPreferences" orient='vertical'/>

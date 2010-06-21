@@ -17,7 +17,8 @@ EXCLUDE_FILES = [
   'versions/\*',
   'content/javascripts/various_stuff/\*', 
   'content/tests/\*', 
-  'content/experimental/\*'
+  'content/experimental/\*',
+  '*.svg'
 ]
 
 TIME = Time.now
