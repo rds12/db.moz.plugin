@@ -2,7 +2,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'comm',
   module_author:      'rds12',
-  module_version:     '2010-04-15',
+  module_version:     '2010-08-06',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -89,7 +89,8 @@ db.moz.plugin.modules.register({
     if(this.lib.preferences.get('preferences.comm.autocompletion') !== true)
       return;
 
-    const world = this.modules.basic.world; 
+    const world = this.modules.basic.world;
+    const host  = this.modules.basic.host;
     const $ = this.od.jQuery;
     const autocompleter = this.lib.ajax.autocompleter;
     const self = this;
@@ -98,8 +99,7 @@ db.moz.plugin.modules.register({
       input: $('#anschrift'),
       response: 'dbMozPluginCommAjaxResponse',
       get_url: function(username){
-        username = escape(username);
-        return self.template('ajaxUrl_'+world,username);
+        return self.template('ajaxUrl', host, world, escape(username));
       },
       parse_items: function($jq){
         var items = [self.template('playerNotFound')];
