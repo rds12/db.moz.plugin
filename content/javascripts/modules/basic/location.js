@@ -36,10 +36,6 @@ db.moz.plugin.modules.register({
     var place  = basics.parseQuery(this.od.doc.location.search);
     this.query = basics.clone_all(place);
 
-    // if place.op == planet than load function od_planet if defined
-
-    this.call(this.query.op,this.query);
-
     //TODO: in sitterstate exclude pages where the user has no privileges 
     //TODO: after sitter logou: 404 error will be shown, 
     // set location to sitter logout
@@ -47,6 +43,11 @@ db.moz.plugin.modules.register({
     if(basic.is_ad_page){
       this.main = 'commercial_break';
       this.sub  = '';
+    }else if(this.is_start_page()){
+      this.od_undefined();
+    }else{
+      // if place.op == planet than load function od_planet if defined
+      this.call(this.query.op,this.query);
     }
 
     this.gui_extending_quickjump_highlighting();
@@ -59,6 +60,11 @@ db.moz.plugin.modules.register({
     basic.log(this.main      ,'main');
     basic.log(this.sub       ,'sub');
     basic.log(this.options   ,'options');
+  },
+
+  is_start_page: function(){
+    // if vote button exists, it must be the startpage
+    return !!this.od.jQuery('a[href^=http://www.galaxy-news.de/]').length;
   },
 
   gui_extending_quickjump_highlighting: function(){
