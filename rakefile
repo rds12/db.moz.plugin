@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 require 'digest/md5'
 require 'digest/sha1'
+require 'rubygems'
+require 'net/github-upload'
+
 
 EXCLUDE_FILES = [
   '.gitignore', 
@@ -32,27 +35,38 @@ OPTIONS = {
 
 task :default => [:clean]
 
-KEYNAME = 'db.moz.plugin'
-BASICPATH = pwd
+REPONAME = 'db.moz.plugin'
+BASICPATH = File.dirname(__FILE__)
 
 TMP_FILES = {
   "Removing Temporary Files" => ["*~"],
 }
 
 
-desc("generating table entry for given date download wiki")
-task :wiki, :date do |t, args|
-  echo "> Generating Wiki Table Entry.."
-
-  generate_wiki_entry args[:date]
+desc("Generating Table Entry for Wiki")
+task :'generate:wiki', :version do |t, args|
+  generate_wiki_entry args[:version]
 end
 
-desc("build extension")
+
+desc('Generate upload.rdf')
+task :'generate:upload.rdf', :version do |t, args|
+  generate_upload_rdf args[:version]
+end
+
+
+desc('Upload Build to github.com')
+task :upload, :version do |t, args|
+  upload_github(args[:version])
+end
+
+
+desc("Build extension")
 task :build do
   echo "> Building Extension .."
   mkdir 'versions' unless File.exists?('versions')
 
-  file = generate_filename OPTIONS[:date]
+  file = generate_filename OPTIONS[:date], false
   
   echo 'generate install.rdf'
   replace_template 'template.install.rdf', OPTIONS
@@ -64,79 +78,25 @@ task :build do
   sh "zip -r #{file} . -x #{EXCLUDE_FILES.join(' ')}"
 end
 
-desc "publish newest build"
+
+
+desc "Publish newest Build"
 task :publish => :build do
+  version =  OPTIONS[:version]
   puts
   echo 'the build will be published now'
 
-  file = generate_filename OPTIONS[:date]
-  basename = File.basename file
-
-  hash = Digest::SHA1.hexdigest(File.read(file))
-  echo "hash is #{hash}"
-
-  echo 'generate update.rdf'
-  replace_template 'template.update.rdf', OPTIONS.merge(:hash => hash)
-
-  path = pwd # current path
-  # see https://bugzilla.mozilla.org/show_bug.cgi?id=396525#c8
-  sh "tools/mccoy/mccoy -command update -updateRDF #{path}/update.rdf -key '#{KEYNAME}'"
+  generate_upload_rdf version
 
   echo 'upload build and update.rdf'
-  sh "scp #{file} db:downloads/plugin"
+  upload_github version
   sh "scp update.rdf db:wiki/"
 
   # echo 'remove update.rdf'
   # rm 'update.rdf'
-  generate_wiki_entry OPTIONS[:date]
+  generate_wiki_entry version
 end
 
-def generate_filename(date)
-  "versions/db.moz.plugin.#{date}.xpi"
-end
-
-def human_readable_size(num)
-  for x in ['b','K','M','G','T']
-    return "%3.1f%s" % [num, x] if num < 1024.0 
-    num /= 1024.0
-  end
-end
-
-def replace_template(file,options)
-  content = ''
-  File.open(file,'r') do |f|
-    while line = f.gets
-      options.each{|key,value| line.gsub!("%#{key}",value);}
-      content << line
-    end
-  end
-  newfile = file.gsub('template.','')
-  newfile = File.open(newfile,'w')
-  newfile.write(content)
-  newfile.close
-end
-
-def generate_wiki_entry(date)
-  file = generate_filename date
-  
-  if !File.exists? file
-    puts
-    echo "file: #{file} not found"
-    exit
-  end
-  
-  f = File.read(file)
-
-  basename = File.basename(file)  
-  match = /(\d{4}).(\d{2}).(\d{2})/.match(file) 
-  wikidate = match[3] << '.' << match[2] << '.' << match[1]
-  filedate = match[0]
-
-  sha1 = Digest::SHA1.hexdigest(f)
-  size = human_readable_size f.size
-
-  puts "|{{.#{basename}}} |[[.changelog##{wikidate}|#{wikidate}]] |#{size} |#{sha1} |"
-end
 
 
 desc("Remove Temporary Files")
@@ -152,7 +112,9 @@ task :clean do
   end
 end
 
-desc("add tools, which are used to build the extension")
+
+
+desc("Add Tools, which are used to build the extension")
 task :tools do
   echo "> Installing needed Tools .."
   # see https://developer.mozilla.org/en/McCoy
@@ -168,39 +130,135 @@ task :tools do
 
   echo 'download mccoy'
   sh "wget 'http://www.oxymoronical.com/mccoy/releases/0.5/mccoy-0.5.en-US.linux-i686.tar.bz2'"
-  
+
   # see https://bugzilla.mozilla.org/show_bug.cgi?id=396525#c7
   echo 'download mccoy-command-line patch'
   sh "wget 'http://www.xuluwarrior.com/development/mccoy_cmdline_xuluwarrior.patch'"
-  
+
   echo "unpack mccoy"
   sh "tar xvf 'mccoy-0.5.en-US.linux-i686.tar.bz2'"
-  
+
   cd 'mccoy'
   cd 'chrome'
-  
+
   echo 'unpack mccoy content'
   sh "unzip 'mccoy.jar'"
-  
+
   echo 'apply mccoy-command-line patch'
   sh "patch 'content/mccoy.js' '../../mccoy_cmdline_xuluwarrior.patch'"
-  
+
   echo 'zip patched file'
   sh "zip -r 'mccoy.jar' 'content/'"
-  
+
   echo 'remove patch dir'
   rm_r 'content', :force => true
-  
+
   cd '../..'
-  
+
   echo 'remove downloaded files'
   rm %w(mccoy_cmdline_xuluwarrior.patch mccoy-0.5.en-US.linux-i686.tar.bz2)
 
-  echo "please generate a key with the name #{KEYNAME}"
+  echo "please generate a key with the name #{REPONAME}"
   sh 'chmod +X mccoy/mccoy' 
   sh 'mccoy/mccoy'
 end
 
+
+
 def echo(line)
   puts "[1;33m#{line}[0m"
+end
+
+
+def human_readable_size(num)
+  for x in ['b','K','M','G','T']
+    return "%3.1f%s" % [num, x] if num < 1024.0 
+    num /= 1024.0
+  end
+end
+
+
+def replace_template(file,options)
+  content = ''
+  File.open(file,'r') do |f|
+    while line = f.gets
+      options.each{|key,value| line.gsub!("%#{key}",value);}
+      content << line
+    end
+  end
+  newfile = file.gsub('template.','')
+  newfile = File.open(newfile,'w')
+  newfile.write(content)
+  newfile.close
+end
+
+
+def generate_filename(date, abort_unless_exists = true)
+  filename = "versions/db.moz.plugin.#{date}.xpi"
+  if abort_unless_exists && !File.exists?(filename)
+    puts
+    echo "file: #{filename} not found"
+    exit
+  end
+  filename
+end
+
+
+def generate_wiki_entry(date)
+  echo "> Generating Wiki Table Entry.."
+  filename = generate_filename date
+
+  basename = File.basename(filename)
+  match = /(\d{4}).(\d{2}).(\d{2})/.match(filename)
+  wikidate = match[3] << '.' << match[2] << '.' << match[1]
+  filedate = match[0]
+
+  f = File.read(filename)
+  sha1 = Digest::SHA1.hexdigest(f)
+  size = human_readable_size f.size
+
+  puts "|{{http://github.com/downloads/rds12/db.moz.plugin/#{basename}}} |[[.changelog##{wikidate}|#{wikidate}]] |#{size} |#{sha1} |"
+end
+
+
+def generate_upload_rdf(date)
+  echo "> Generate upload.rdf"
+
+  options = OPTIONS.merge(:date => date, :version => date)
+  filename = generate_filename options[:date]
+
+  hash = Digest::SHA1.hexdigest(File.read(filename))
+
+  echo "hash from #{filename} is #{hash}"
+
+  echo 'generate update.rdf'
+  replace_template 'template.update.rdf', options.merge(:hash => hash)
+  # see https://bugzilla.mozilla.org/show_bug.cgi?id=396525#c8
+  sh "#{BASICPATH}/tools/mccoy/mccoy -command update -updateRDF #{BASICPATH}/update.rdf -key '#{REPONAME}'"
+end
+
+
+def upload_github(date)
+  echo "> Upload Installer to GitHub"
+
+  filename = BASICPATH + '/' + generate_filename(date)
+
+  # @see http://github.com/Constellation/ruby-net-github-upload
+  login = `git config github.user`.chomp  # your login for github
+  token = `git config github.token`.chomp # your token for github
+  repos = REPONAME               # your repos name (like 'taberareloo')
+  gh = Net::GitHub::Upload.new(
+    :login => login,
+    :token => token
+  )
+
+  echo "Uploading file: #{filename}"
+
+  direct_link = gh.upload(
+    :repos => repos,
+    :file  => filename,
+    :content_type => 'text/html',
+    :description => "v#{date}, #{OPTIONS[:FFMinVersion]} ≤ Firefox ≤ #{OPTIONS[:FFMaxVersion]}"
+  )
+  echo('link: ' + direct_link.inspect)
 end
