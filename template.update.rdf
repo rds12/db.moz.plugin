@@ -13,7 +13,7 @@
                 <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
                 <em:minVersion>%FFMinVersion</em:minVersion>
                 <em:maxVersion>%FFMaxVersion</em:maxVersion>
-                <em:updateLink>http://db.wiki.seiringer.eu/_media/plugin/db.moz.plugin.%date.xpi</em:updateLink>
+                <em:updateLink>http://github.com/downloads/rds12/db.moz.plugin/db.moz.plugin.%version.xpi</em:updateLink>
                 <em:updateHash>sha1:%hash</em:updateHash>
               </RDF:Description>
             </em:targetApplication> 
