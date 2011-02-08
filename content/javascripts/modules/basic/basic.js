@@ -24,7 +24,8 @@ db.moz.plugin.modules.register({
 
   round_relation:   {
     'en1':     'round5',
-    'de7':     'round7'
+    'de7':     'round7',
+    'int8':    'round8'
   },
   world:              'unknown',
   host:               '',
@@ -43,7 +44,7 @@ db.moz.plugin.modules.register({
     var dom = this.od.dom;
     this.is_debug_enabled = !!this.lib.preferences.get('debug.enable');
 
-    // get extesion version!
+    // get extension version!
     this.extension_version = this.lib.basics.get_version();
 
     this.retrieve_od_whereabouts();
@@ -74,7 +75,7 @@ db.moz.plugin.modules.register({
 
     // logging variables
 
-    this.log('module.basic',null,true)
+    this.log('module.basic',null,true);
     this.log(this.is_od              ,'is_od');
     this.log(this.is_logged_in       ,'is_logged_in');
     this.log(this.is_premium         ,'is_premium');
@@ -112,7 +113,7 @@ db.moz.plugin.modules.register({
     match.shift();
 
     var factors = [86400, 3600, 60, 1];
-    match = this.od.jQuery.map(match,function(e,i){
+    match = this.od.jQuery(match).map(function(i,e){
       return parseInt(e) * factors[i];
     });
 
@@ -133,17 +134,18 @@ db.moz.plugin.modules.register({
       if(
         dom.Sekunde == undefined ||
         dom.Minute  == undefined ||
-        dom.stunde  == undefined
+        dom.Stunde  == undefined
       )throw 'db.moz.plugin: not in od';
 
       this.is_od = true;
 
       // references to the player_panel 
-      this.player_panel = $('body table table table[height=66]');
+      this.player_panel = $('body table table[width=410]');
 
       if( this.player_panel.length ){
         this.is_logged_in = true;
       }
+
     }catch(e){
       if(this.is_debug_enabled)
       this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
@@ -161,21 +163,21 @@ db.moz.plugin.modules.register({
     this.based_on = this.round_relation[this.world] || 'unknown';
 
     // retrieving player informations
-    var status = this.player_panel.find('tr:eq(2) td:eq(2) font');
+    var status = this.player_panel.find('tr:eq(2) td:eq(1) font');
     var status_text = status.html();
 
-    this.is_premium = /premium/i.exec(status_text) != undefined;
+    this.is_premium = /Premium/i.exec(status_text) != undefined;
     this.is_slim    = !this.is_premium;
-    this.is_sitter  = /op=settings/.exec(status_text) != undefined;
+    this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
 
     var player       = this.player_panel.find('a[href*=usershow]');
     this.player_id   = /(\d+)/.exec(player.attr('href'))[1];
     this.player_name = player.html();
-
-    var alliance       = this.player_panel.find('a[href*=allyshow]');
+    
+    var alliance       = this.player_panel.find('a[href*=alliances]');
     this.alliance_id   = /(\d+)/.exec(alliance.attr('href'))[1];
     this.alliance_name = alliance.html();
-
+    
     if(this.based_on == 'round5'){
       var race = this.player_panel.find('a[href*="anznummer"]');
       if(race.length)
@@ -230,7 +232,7 @@ db.moz.plugin.modules.register({
    *******/
 
   gui_extending_logo : function(){
-    var status = this.player_panel.find('tr:eq(1) td:eq(2)');
+    var status = this.player_panel.find('tr:eq(1) td:eq(1)');
 
     // wrapping div around font
     status.find('font').wrap('<div style="float:left;"></div>');
@@ -268,6 +270,6 @@ db.moz.plugin.modules.register({
 
     const $   = this.od.jQuery;
 
-    $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
+//    $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
   }
 });
