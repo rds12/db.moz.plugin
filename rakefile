@@ -26,7 +26,7 @@ OPTIONS = {
   :date    => TIME.strftime('%Y.%m.%d'),
   :version => TIME.strftime('%Y.%m.%d'),
   :FFMinVersion => '3.0.0',
-  :FFMaxVersion => '3.6.*'
+  :FFMaxVersion => '4.0.*'
 }
 
 task :default => [:clean]

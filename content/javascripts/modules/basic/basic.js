@@ -173,11 +173,11 @@ db.moz.plugin.modules.register({
     var player       = this.player_panel.find('a[href*=usershow]');
     this.player_id   = /(\d+)/.exec(player.attr('href'))[1];
     this.player_name = player.html();
-    
+
     var alliance       = this.player_panel.find('a[href*=alliances]');
     this.alliance_id   = /(\d+)/.exec(alliance.attr('href'))[1];
     this.alliance_name = alliance.html();
-    
+
     if(this.based_on == 'round5'){
       var race = this.player_panel.find('a[href*="anznummer"]');
       if(race.length)
