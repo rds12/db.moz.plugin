@@ -98,7 +98,7 @@ db.moz.plugin.browser = {
         return set_statusbar(false);
 
       var href = location.host;
-      var regexp = /(www|beta)(\d?).omega-day.com/i
+      var regexp = /www(\d?).omega-day.com/i
 
       var is_omegaday = regexp.test(href);
       return set_statusbar(is_omegaday);
