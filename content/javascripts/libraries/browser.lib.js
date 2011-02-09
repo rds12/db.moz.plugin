@@ -18,6 +18,8 @@ db.moz.plugin.browser = {
 
     var doc = event.originalTarget,
         win = doc.defaultView;
+
+    delete win['dbMozPluginContentInitialized'];
   },
 
   onContentLoaded: function(event){
@@ -34,13 +36,15 @@ db.moz.plugin.browser = {
     // onContentInitialize event won't be fired
     this.load_css(win.document);
 
+
     db.moz.plugin.browser.invoke_modules(dom,doc,win);
+
+    delete win['dbMozPluginContentInitialized'];
   },
 
-  // Firefox 3.6 and before: called on every page load
-  // Firefox 4 and later: only called once after tab creation
-  // FIXME: find another callback for Firefox 4
-  // seems to be a bug with win[dbMozPluginContentInitialized]
+  // Firefox 3.6 and before: called _after_ every content initialization
+  // Firefox 4 and later: called _before_ every content initialization
+  // FIXME: find another event for this callback in Firefox 4
   onContentInitialize: function(win){
     if(!this.check_if_omega_day(win.document))
       return;
@@ -49,6 +53,7 @@ db.moz.plugin.browser = {
     this.load_css(win.document);
   },
 
+  // also fired on images
   onContentFinished: function(){
     // not used
   },
