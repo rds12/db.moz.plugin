@@ -32,6 +32,10 @@ db.moz.plugin.browser = {
     var win = doc.defaultView;
     var dom = win.wrappedJSObject;
 
+    // load css here, because in Firefox 4 and later
+    // onContentInitialize event won't be fired
+    this.load_css(win.document);
+
     // register basic modules
     require.module('basic');
     require.submodul('location','basic');
@@ -55,6 +59,10 @@ db.moz.plugin.browser = {
     db.moz.plugin.browser.fire_modules(dom,doc,win);
   },
 
+  // Firefox 3.6 and before: called on every page load
+  // Firefox 4 and later: only called once after tab creation
+  // FIXME: find another callback for Firefox 4
+  // seems to be a bug with win[dbMozPluginContentInitialized]
   onContentInitialize: function(win){
     if(!this.check_if_omega_day(win.document))
       return;

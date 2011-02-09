@@ -63,13 +63,27 @@ db.moz.plugin.basics = {
   },
 
   get_version: function(){
-    const em = Components.classes["@mozilla.org/extensions/manager;1"]
-               .getService(Components.interfaces.nsIExtensionManager);
+    // get cached version
+    if(this.version !== undefined)
+      return this.version;
 
-    var addon   = em.getItemForID("rds12sog@gmail.com"),
-        version = addon ? addon.version : null;
+    var self = this;
 
-    return version ? version : 'unknown';
+    try {
+      // Firefox 4 and later; Mozilla 2 and later
+      Components.utils.import("resource://gre/modules/AddonManager.jsm");
+      AddonManager.getAddonByID("rds12sog@gmail.com", function(addon) {
+        self.version = addon.version;
+      });
+    } catch (ex) {
+      // Firefox 3.6 and before; Mozilla 1.9.2 and before
+      const em = Components.classes["@mozilla.org/extensions/manager;1"]
+                 .getService(Components.interfaces.nsIExtensionManager);
+      var addon = em.getItemForID("rds12sog@gmail.com");
+      self.version = addon ? addon.version : null;
+    }
+
+    return self.version ? self.version : 'unknown';
   },
 
   /**
