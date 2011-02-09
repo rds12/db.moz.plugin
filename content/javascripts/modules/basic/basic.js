@@ -270,6 +270,6 @@ db.moz.plugin.modules.register({
 
     const $   = this.od.jQuery;
 
-//    $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
+    $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
   }
 });

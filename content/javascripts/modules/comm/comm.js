@@ -18,7 +18,6 @@ db.moz.plugin.modules.register({
 
   od_inbox: function(){
     this.gui_fixing_favorites_sidebar();
-    this.gui_extending_numeration();
     this.gui_extending_link_parser();
 
     // both
@@ -41,24 +40,6 @@ db.moz.plugin.modules.register({
 
     // get favorites sidebar, with the notice input
     $('input[name=submit2]').parents('div:first').css('width','185');
-  },
-
-  // adding comm numeration
-  gui_extending_numeration: function(){
-    if(this.lib.preferences.get('preferences.comm.numeration') !== true)
-      return;
-
-    const $ = this.od.jQuery;
-    const self = this;
-
-    var offset = this.modules.location.options.start + 1;
-    $('form[method=post] div[style] tbody > tr').each(function(i,e){
-      var even = i%2 == 0;
-      if(!even) return;
-
-      // adding numer
-      $(e).prepend(self.template('numeration',offset + i/2));
-    });
   },
 
   gui_extending_link_parser: function(element){

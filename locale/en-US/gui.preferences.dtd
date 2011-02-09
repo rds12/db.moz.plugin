@@ -38,7 +38,6 @@
 <!ENTITY odchanges.tab.comm "Comm">
 
 <!ENTITY odchanges.comm.favorites "enlarge the favorites sidebar, so that an horizontal scrollbar won't appear [only premium]">
-<!ENTITY odchanges.comm.numerate "numerate each comm">
 <!ENTITY odchanges.comm.autocompletion "suggestions of an typed in player name">
 <!ENTITY odchanges.comm.parselinks "convert all text-links to real ones">
 
@@ -53,7 +52,7 @@
 <!ENTITY odchanges.fleet.caption.fleetOverview "Fleet overview">
 <!ENTITY odchanges.fleet.caption.dispatchMenu "Dispatch menu">
 
-<!ENTITY odchanges.miscellaneous.configurators "display planet and ship configurator links">
+<!ENTITY odchanges.miscellaneous.configurators "display ship configurator link">
 <!ENTITY odchanges.miscellaneous.quickjumpHighlighting "highlight all owned planets in the quickjump area, which are currently accessed on the page">
 <!ENTITY odchanges.miscellaneous.escHandler "if you press the esc key, [esc] indicated windows will be closed">
 <!ENTITY odchanges.miscellaneous.buylink "convert javascript buy links into normal links for multi tabbing">

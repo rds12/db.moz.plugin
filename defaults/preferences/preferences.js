@@ -90,9 +90,6 @@ pref("extensions.db.moz.plugin.preferences.fleet.focusDirectInput",true);
 // fix favorites width - ok
 pref("extensions.db.moz.plugin.preferences.comm.fixFavorites",true);
 
-// numerate each comm - ok
-pref("extensions.db.moz.plugin.preferences.comm.numeration",true);
-
 // suggestions of an typed in player name - ok 
 pref("extensions.db.moz.plugin.preferences.comm.autocompletion",true);
 

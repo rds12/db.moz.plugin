@@ -39,7 +39,6 @@
 <!ENTITY odchanges.tab.comm "Comm">
 
 <!ENTITY odchanges.comm.favorites "Vergrößere die Favoriten, damit kein horizontaler Scrollbalken entsteht [nur Premium]">
-<!ENTITY odchanges.comm.numerate "Nummeriere jede Comm">
 <!ENTITY odchanges.comm.autocompletion "Bei der Eingabe werden Spielernamen vorgeschlagen">
 <!ENTITY odchanges.comm.parselinks "Wandle im Text vorhandene Links in richtige Links um">
 
@@ -54,7 +53,7 @@
 <!ENTITY odchanges.fleet.caption.fleetOverview "Flottenübersicht">
 <!ENTITY odchanges.fleet.caption.dispatchMenu "Versendemenü">
 
-<!ENTITY odchanges.miscellaneous.configurators "Links für Planeten- und Schiffkonfigurator">
+<!ENTITY odchanges.miscellaneous.configurators "Link zum Schiffkonfigurator">
 <!ENTITY odchanges.miscellaneous.quickjumpHighlighting "Hebe alle Planeten im Quickjump-Bereich hervor, die in der aktuellen Seite vorhanden sind">
 <!ENTITY odchanges.miscellaneous.escHandler "Wenn du die Esc-Taste drückst werden alle mit [Esc] gekennzeichneten Fenster geschlossen">
 <!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, um diese in Tabs öffnen zu können">

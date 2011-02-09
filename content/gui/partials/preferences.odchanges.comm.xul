@@ -14,10 +14,6 @@
       <checkbox id='preferences.comm.fixFavorites'
                 label='&odchanges.comm.favorites;' />
 
-      <!-- numeration -->
-      <checkbox id='preferences.comm.numeration'
-                label='&odchanges.comm.numerate;' />
-
       <!-- autocompletion -->
       <checkbox id='preferences.comm.autocompletion'
                 label='&odchanges.comm.autocompletion;' />
