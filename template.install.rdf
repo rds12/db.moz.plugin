@@ -8,6 +8,9 @@
     <em:version>%version</em:version>
     <em:description>smart firefox extension for omegaday</em:description>
     <em:creator>rds12</em:creator>
+    <em:developer>rds12</em:developer>
+    <em:developer>Sebell</em:developer>
+
     <em:id>rds12sog@gmail.com</em:id>
     <em:iconURL>chrome://db.moz.plugin.style/content/images/logo.ico</em:iconURL>
     <em:updateURL>http://db.wiki.seiringer.eu/update.rdf</em:updateURL>
