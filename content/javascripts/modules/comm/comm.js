@@ -2,7 +2,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'comm',
   module_author:      'rds12',
-  module_version:     '2010-08-06',
+  module_version:     '2011-02-09',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 

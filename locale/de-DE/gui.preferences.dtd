@@ -68,7 +68,6 @@
 
 <!ENTITY odchanges.planet.invaderStatisics "Zeige die Anzahl der laufenden Invasionen, Resonationen und Besatzungen an">
 <!ENTITY odchanges.planet.clickableOrbit "Wenn ein Link zum Orbit fehlt wird dieser hinzugefügt">
-<!ENTITY odchanges.planet.resizeImages "Verkleinere und gruppiere die Gebäude nach Orbit-Typ und Boden-Typ">
 <!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol zu sehen ist [nur Premium]">
 <!ENTITY odchanges.planet.dailyIncome "Berechne die Tageseinahmen und zeige sie an">
 <!ENTITY odchanges.planet.buildableShips "Berechne die Anzahl baubarer Schiffe und zeige sie an">

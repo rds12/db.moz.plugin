@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'infrastructure',
   module_author:      'rds12',
-  module_version:     '2010-05-01',
+  module_version:     '2011-02-10',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -52,7 +52,6 @@ db.moz.plugin.modules.register({
     this.modules.basic.log(this.production,'production');
     this.modules.basic.log(this.deposit,'deposit');
 
-    this.gui_extending_images();
     this.gui_extending_post_symbol();
     this.gui_extending_day_tax_income();
     this.gui_extending_buildable_ships();
@@ -161,49 +160,6 @@ db.moz.plugin.modules.register({
     return match[1] + factor + match[2] + match[3] + ",'')";
   },
 
-  gui_extending_images: function(){
-    if(this.lib.preferences.get('preferences.infrastructure.resizeImages') !== true)
-      return;
-
-    if(this.modules.location.options['scan']) return;
-    // Bug#5:
-    // if odhelper is installed and the building resize option is set,
-    // odhelper will remove the building-table, but our plugin is a bit 
-    // faster, which leads to complete deletion of the infrastructure.
-    // And because odhelper does the exact same thing, we do nothing
-    if(this.modules.basic.is_odhelper_enabled && 
-       true == this.lib.preferences.extern('extensions.odhelp.extResizeBuild')) 
-    return false;
-
-    const $ = this.od.jQuery;
-    const self = this;
-    
-    var div  = $('#1000').parents('div:eq(0)').css('position','relative');
-
-    // group the buildings
-    div.append('<div id="dbMozPluginInfrastructurePlanet"/>');
-    div.append('<div id="dbMozPluginInfrastructureOrbit"/>')
-
-    var planet = $('#dbMozPluginInfrastructurePlanet');
-    var orbit  = $('#dbMozPluginInfrastructureOrbit');
-
-    div.css('text-align','left').find('img').each(function(i,img){
-      img = $(img)
-      // group building into orbit or planet
-      if(img.attr('onclick').match(/\d+\,\'w/)){
-        orbit.append(img);
-      }else{
-        planet.append(img)
-      }
-      // resize image by half
-      img.attr({width: '50', height: '45'});
-      
-      // remove rpg text
-      var text = self.truncate_rpg_text(img.attr('onmouseover'),img)
-      img.attr('onmouseover',text);
-    });
-  },
-  
   gui_extending_post_symbol: function(){
     if(this.lib.preferences.get('preferences.infrastructure.postSymbol') !== true)
       return;

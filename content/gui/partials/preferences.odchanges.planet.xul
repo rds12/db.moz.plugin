@@ -40,10 +40,6 @@
     <groupbox>
       <caption label="&odchanges.planet.caption.infrastructure;"/>
 
-      <!-- resize and group images -->
-      <checkbox id="preferences.infrastructure.resizeImages"
-                label='&odchanges.planet.resizeImages;' />
-
       <!-- opaque planet picture -->
       <checkbox id="preferences.infrastructure.postSymbol"
                 label='&odchanges.planet.postSymbol;' />

@@ -67,7 +67,6 @@
 
 <!ENTITY odchanges.planet.invaderStatisics "display number of running invasions, resonations and occupiers">
 <!ENTITY odchanges.planet.clickableOrbit "append link to orbit if not present">
-<!ENTITY odchanges.planet.resizeImages "resize and group images by base or orbit type">
 <!ENTITY odchanges.planet.postSymbol "opaque the planet picture in the holopad, so that the 'you got a mail' symbol can be seen [only premium]">
 <!ENTITY odchanges.planet.dailyIncome "calculate the daily income and display it">
 <!ENTITY odchanges.planet.buildableShips "calculate the number of buildable ships and display it">

@@ -20,6 +20,7 @@ pref("extensions.db.moz.plugin.preferences.overall.disableQuickjumpOverflow",tru
 pref("extensions.db.moz.plugin.preferences.research.totalPoints",true);
 
 
+
 /** Shop Settings */
 
 // convert in fleet shop all javascript requests in normal links - ok
@@ -38,9 +39,6 @@ pref("extensions.db.moz.plugin.preferences.system.clickableOrbit",true);
 
 // show statistics of invaders - ok
 pref("extensions.db.moz.plugin.preferences.planet.invaderStatisics",true);
-
-// group images into base and orbit types and resize them - ok
-pref("extensions.db.moz.plugin.preferences.infrastructure.resizeImages",true);
 
 // opaque left upper planet image in holopad and add post symbol - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.postSymbol",true);
