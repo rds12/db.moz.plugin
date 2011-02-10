@@ -58,9 +58,9 @@ db.moz.plugin.modules.register({
 
     if(!this.planets.length) return;
 
-    var planet = $('#' + this.planets[0].planet_id);
+    var planet = $('#planet-' + this.planets[0].planet_id);
     var hover = planet.parents('a:first').attr('onMouseover');
-    self.viewable = !/setter\('\s*','\s*','\s*','\s*','\s*'\)/.test(hover);
+    this.viewable = !/setter\('\s*','\s*','\s*','\s*','\s*'\)/.test(hover);
   },
 
   retrieve_planets: function(){

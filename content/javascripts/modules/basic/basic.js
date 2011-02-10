@@ -166,7 +166,11 @@ db.moz.plugin.modules.register({
     var status = this.player_panel.find('tr:eq(2) td:eq(1) font');
     var status_text = status.html();
 
-    this.is_premium = /Premium/i.exec(status_text) != undefined;
+    // rds12@2011-02-10 NOTE:
+    // the substring 'premium' also exists in the wiki link, therefore
+    // we test a bit more detailed
+    //this.is_premium = /Premium/i.exec(status_text) != undefined;
+    this.is_premium = />Premium/i.exec(status_text) != undefined;
     this.is_slim    = !this.is_premium;
     this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
 
