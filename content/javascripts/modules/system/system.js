@@ -7,13 +7,12 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'system',
   module_author:      'rds12',
-  module_version:     '2010-04-17',
+  module_version:     '2011-02-16',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
   // if fow is disabled
   viewable: false,
-  identified_orbit: false,
   planets: [],
   regex_pname: /dlt\('.+?','(.+?):'\);setter/,
 
@@ -29,7 +28,6 @@ db.moz.plugin.modules.register({
 
     this.retrieve_planets();
     this.retrieve_is_system_viewable();
-    this.gui_extending_orbit_clickable();
 
     basic.log('modules.system',null,true);
     basic.log(this.viewable,'viewable');
@@ -49,7 +47,7 @@ db.moz.plugin.modules.register({
     if(!header.length)header = $('#message .messageBox_Middle');
 
     header.wrapInner(this.template('overviewBar'));
-
+    header = null;
     return $('#dbMozPluginSystemOverviewBar');
   },
 
@@ -61,6 +59,8 @@ db.moz.plugin.modules.register({
     var planet = $('#' + this.planets[0].planet_id);
     var hover = planet.parents('a:first').attr('onMouseover');
     this.viewable = !/setter\('\s*','\s*','\s*','\s*','\s*'\)/.test(hover);
+    planet = null;
+    hover = null;
   },
 
   retrieve_planets: function(){
@@ -83,9 +83,15 @@ db.moz.plugin.modules.register({
         planet_id: pid,
         planet_name: pname
       });
+      e = null;
+      pid = null;
+      text = null;
+      pname = null;
     });
-  },
-
+    system = null;
+  }
+  
+/* OLD 
   gui_extending_orbit_clickable: function(force){
     const prefs = this.lib.preferences;
 
@@ -114,4 +120,5 @@ db.moz.plugin.modules.register({
     });
     this.identified_orbit = true;
   }
+*/
 });

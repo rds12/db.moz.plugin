@@ -310,7 +310,7 @@ db.moz.plugin.modules.register({
     // get first ship
     var range = undefined;
     if(type == 'first'){
-      range = { start: 0, end: 1 }
+      range = { start: 0, end: 1 };
     }
 
     var ships = this.get_ships({'range': range});
@@ -443,7 +443,7 @@ db.moz.plugin.modules.register({
 
   cmd_uncamouflage: function(){
     // append query for uncamouflage
-    this.od.dom.location.search += '&enttarnen=all' 
+    this.od.dom.location.search += '&enttarnen=all'; 
   },
 
   cmd_un_select_ships: function(){

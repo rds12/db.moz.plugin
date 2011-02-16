@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fowapi',
   module_author:      'rds12',
-  module_version:     '2010-05-04',
+  module_version:     '2011-02-16',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -119,6 +119,7 @@ db.moz.plugin.modules.register({
 
     if(odh_status != 'responseStatusOK')
       return invalid(odh_status);
+    odh_status = null;
 
     var $ = xhr.responseHTML.$; 
     valid('responseStatusOK');
@@ -128,6 +129,8 @@ db.moz.plugin.modules.register({
 
     if(sid != xhr_sid)
       return invalid('responseStatusMismatch',sid,xhr_sid);
+    sid = null;
+    xhr_sid = null;
 
     if(!$.find('system > planet').length)
       valid('responseStatusUnscouted');
@@ -175,7 +178,7 @@ db.moz.plugin.modules.register({
 
     // force orbit to get identified, for gate pictures
     // because user can disable this feature
-    this.modules.system.gui_extending_orbit_clickable(true);
+//    this.modules.system.gui_extending_orbit_clickable(true);
 
     planets.each(function(i,element){
       var element = $(element),

@@ -31,7 +31,7 @@ db.moz.plugin.modules.register({
   },
 
   od_system_main: function(){
-    this.gui_extending_navigation_system_bar();
+//    this.gui_extending_navigation_system_bar();
     this.gui_extending_database_system_search();
   },
 
@@ -95,7 +95,7 @@ db.moz.plugin.modules.register({
 
     header.append(this.template('searchInDatabaseShort',url));
   },
-
+/*
   gui_extending_navigation_system_bar: function(){
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;
@@ -108,7 +108,7 @@ db.moz.plugin.modules.register({
 
     header.append(this.template('systemNavigation',system_id-1,system_id+1));
   },
-
+*/
   gui_extending_database_orbit_search: function(){
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;

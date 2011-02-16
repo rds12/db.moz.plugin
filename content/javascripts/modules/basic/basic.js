@@ -101,6 +101,7 @@ db.moz.plugin.modules.register({
     var ints = ['%02d:%02d:%02d:%02d'];
     for(var i=1;i<5;++i) 
       ints.push(parseInt(matches[i]));
+    matches = null;
     return basics.sprintf.apply(this,ints);
   },
 
@@ -116,9 +117,10 @@ db.moz.plugin.modules.register({
     match = this.od.jQuery(match).map(function(i,e){
       return parseInt(e) * factors[i];
     });
+    factors = null;
 
     var value = match[0] + match[1] + match[2] + match[3];
-
+    match = null;
     return value;
   },
 
@@ -161,10 +163,12 @@ db.moz.plugin.modules.register({
     this.world    = (/Debug:\s+.*?W:(\w+)/.exec(debug) || ['','unknown'])[1];
     this.host     = this.od.doc.location.host;
     this.based_on = this.round_relation[this.world] || 'unknown';
+    debug = null;
 
     // retrieving player informations
     var status = this.player_panel.find('tr:eq(2) td:eq(1) font');
     var status_text = status.html();
+    status = null;
 
     // rds12@2011-02-10 NOTE:
     // the substring 'premium' also exists in the wiki link, therefore
@@ -173,14 +177,17 @@ db.moz.plugin.modules.register({
     this.is_premium = />Premium/i.exec(status_text) != undefined;
     this.is_slim    = !this.is_premium;
     this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
+    status_text = null;
 
     var player       = this.player_panel.find('a[href*=usershow]');
     this.player_id   = /(\d+)/.exec(player.attr('href'))[1];
     this.player_name = player.html();
+    player = null;
 
     var alliance       = this.player_panel.find('a[href*=alliances]');
     this.alliance_id   = /(\d+)/.exec(alliance.attr('href'))[1];
     this.alliance_name = alliance.html();
+    alliance = null;
 
     if(this.based_on == 'round5'){
       var race = this.player_panel.find('a[href*="anznummer"]');
@@ -190,6 +197,7 @@ db.moz.plugin.modules.register({
       var race = this.player_panel.find('a[onclick*="op=rassen"]');
       this.race_id = /func=(\d+)/.exec(race.attr('onclick'))[1];
     }
+    race = null;
   },
 
   retrieve_page_status: function(){ 
@@ -201,6 +209,7 @@ db.moz.plugin.modules.register({
     try{
       var form = $('form[name=Interruptform]');
       this.is_ad_page = !!form.length;
+      form = null;
     }catch(e){}
 
     // reload page if ad apears. only for test purpose
@@ -208,6 +217,7 @@ db.moz.plugin.modules.register({
     if(!this.is_ad_page)return;
 
     if(value) this.reload_page();
+    value = null;
   },
 
   reload_page: function(){
@@ -229,6 +239,7 @@ db.moz.plugin.modules.register({
     }
 
     this.debug_window.append(template);
+    template = null;
   },
 
   /*******
@@ -243,6 +254,7 @@ db.moz.plugin.modules.register({
 
     // adding info that db.moz.plugin was loaded
     status.append(this.template('logo',this.extension_version));
+    status = null;
   },
 
   gui_extending_debug : function(){
@@ -257,6 +269,7 @@ db.moz.plugin.modules.register({
 
     var debug = $('body');
     debug.append(this.template('debugWindow'));
+    debug = null;
 
     this.debug_window = $('#odMozPluginDebugWindow');
     if(!visibilty) this.debug_window.hide();
@@ -265,6 +278,7 @@ db.moz.plugin.modules.register({
     $('#odMozPluginDebugToggler').click(function(event){
       var element = $('#odMozPluginDebugWindow').toggle();
       prefs.set('debug.visible',element.is(':visible'));
+      element = null;
     });
   },
 

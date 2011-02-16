@@ -6,7 +6,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'location',
   module_author:      'rds12',
-  module_version:     '2010-04-07',
+  module_version:     '2011-02-16',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   

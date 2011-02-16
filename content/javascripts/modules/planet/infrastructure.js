@@ -75,7 +75,7 @@ db.moz.plugin.modules.register({
     this.deposit.smallish_population = smallish;
 
     var production = function(name){
-      return dom[name+'prog'] * dom[name+'faktor'] * smallish / 100
+      return dom[name+'prog'] * dom[name+'faktor'] * smallish / 100;
     }
 
     this.production.ore = production('erz');
