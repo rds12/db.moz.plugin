@@ -178,7 +178,6 @@ db.moz.plugin.modules.register({
 
     // force orbit to get identified, for gate pictures
     // because user can disable this feature
-//    this.modules.system.gui_extending_orbit_clickable(true);
 
     planets.each(function(i,element){
       var element = $(element),

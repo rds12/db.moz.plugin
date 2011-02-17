@@ -30,10 +30,6 @@
       <!-- system, search in database -->
       <checkbox id='preferences.system.searchInDatabase'
                 label='&odchanges.system.searchInDatabase;' />
-
-      <!-- system, navigation bar -->
-      <checkbox id='preferences.system.navigationBar'
-                label='&odchanges.system.navigationBar;' />
     </groupbox>
 
     <!-- infrastructure -->

@@ -36,7 +36,6 @@ db.moz.plugin.modules.register({
   },
 
   od_planet_orbit: function(){
-    this.gui_extending_navigation_orbit_bar();
     this.gui_extending_database_orbit_search();
   },
 
@@ -95,20 +94,7 @@ db.moz.plugin.modules.register({
 
     header.append(this.template('searchInDatabaseShort',url));
   },
-/*
-  gui_extending_navigation_system_bar: function(){
-    const prefs = this.lib.preferences,
-          $ = this.od.jQuery;
 
-    if(prefs.get('preferences.system.navigationBar') !== true)
-      return;
-
-    var header = this.modules.system.get_overview_bar(),
-        system_id = parseInt(this.modules.location.options.system_id);
-
-    header.append(this.template('systemNavigation',system_id-1,system_id+1));
-  },
-*/
   gui_extending_database_orbit_search: function(){
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;
@@ -125,18 +111,5 @@ db.moz.plugin.modules.register({
     url = this.modules.fowapi.replace_placeholders(url,planet_id);
 
     header.append(this.template('searchInDatabaseShort',url));
-  },
-
-  gui_extending_navigation_orbit_bar: function(){
-    const prefs = this.lib.preferences,
-          $ = this.od.jQuery;
-
-    if(prefs.get('preferences.orbit.navigationBar') !== true)
-      return;
-
-    var header = this.modules.orbit.get_overview_bar(),
-        planet_id = parseInt(this.modules.location.options.planet_id);
-
-    header.append(this.template('orbitNavigation',planet_id-1,planet_id+1));
   }
 });

@@ -17,10 +17,6 @@
       <!-- planet, search in database -->
       <checkbox id='preferences.orbit.searchInDatabase'
                 label='&odchanges.orbit.searchInDatabase;' />
-
-      <!-- orbit, navigation bar -->
-      <checkbox id='preferences.orbit.navigationBar'
-                label='&odchanges.orbit.navigationBar;' />
     </groupbox>
   </tabpanel>
 </overlay>
