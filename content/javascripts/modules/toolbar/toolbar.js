@@ -53,9 +53,12 @@ db.moz.plugin.modules.register({
     if(!player_id) return;
 
     url = this.modules.fowapi.replace_placeholders(url,player_id);
-
+    player_id = null;
+    
     header.append(this.template('searchInDatabase',url));
     header.wrapInner(this.template('relativize'));
+    header = null;
+    url = null;
   },
 
   gui_extending_database_alliance_search: function(){
@@ -72,9 +75,12 @@ db.moz.plugin.modules.register({
     if(!alliance_id) return;
 
     url = this.modules.fowapi.replace_placeholders(url,alliance_id);
+    alliance_id = null;
 
     header.append(this.template('searchInDatabase',url));
     header.wrapInner(this.template('relativize'));
+    header = null;
+    url = null;
   },
 
   gui_extending_database_system_search: function(){
@@ -91,8 +97,11 @@ db.moz.plugin.modules.register({
     if(!system_id) return;
 
     url = this.modules.fowapi.replace_placeholders(url,system_id);
+    system_id = null;
 
     header.append(this.template('searchInDatabaseShort',url));
+    header = null;
+    url = null;
   },
 
   gui_extending_database_orbit_search: function(){
@@ -109,7 +118,10 @@ db.moz.plugin.modules.register({
     if(!planet_id) return;
 
     url = this.modules.fowapi.replace_placeholders(url,planet_id);
+    planet_id = null;
 
     header.append(this.template('searchInDatabaseShort',url));
+    header = null;
+    url = null;
   }
 });

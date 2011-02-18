@@ -43,8 +43,8 @@ db.moz.plugin.modules.register({
 
     const $ = this.od.jQuery;
 
-    var /*div = $('#9999992'),*/ trs = $('#planlist tr[id]');
-    if(/*!div.length ||*/ !trs.length) return;
+    var trs = $('#planlist tr[id]');
+    if(!trs.length) return;
 
     var regex = {
       stats: { inva: 0, reso: 0, occupiers: 0},
@@ -61,10 +61,11 @@ db.moz.plugin.modules.register({
     trs.each(function(i,e){
       regex.add($(e).children('td:eq(5)').html());
     });
+    trs = null;
     
-    /*div.parents('td:eq(0)').prepend*/
     $('body').append(this.template(
       'invacount',regex.stats.inva,regex.stats.reso,regex.stats.occupiers
     ));
+    regex = null;
   }
 });

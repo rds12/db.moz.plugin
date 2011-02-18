@@ -41,6 +41,7 @@ db.moz.plugin.modules.register({
 
     // get text from br sibling
     var text = $(br.get(0).nextSibling);
+    br = null;
 
     // text has format: 'some_text: 123.435.565 + 123424'
     var points = text.text().split(':')
@@ -59,15 +60,21 @@ db.moz.plugin.modules.register({
         x = parseInt(addends[0].replace(/[^\d]/g,'')),
         y = parseInt(addends[1].replace(/[^\d]/g,'')),
         sum = x + y;
-
-    // format numbers
-    var x = format(x), y = format(y), sum = format(sum);
+    addends = null;
 
     // delete old entry
     text.remove();
 
     // append new sum
-    var text = this.template('totalResearchPoints',points[0],x,y,sum);
+    var text = this.template('totalResearchPoints',points[0],format(x),format(y),format(sum));
     research_box.append(text);
+    
+    research_box = null;    
+    points = null;
+    format = null;
+    x = null;
+    y = null;
+    sum = null;
+    text = null;
   }
 });
