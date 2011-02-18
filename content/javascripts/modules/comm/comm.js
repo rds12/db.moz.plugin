@@ -2,7 +2,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'comm',
   module_author:      'rds12',
-  module_version:     '2011-02-09',
+  module_version:     '2011-02-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -19,14 +19,11 @@ db.moz.plugin.modules.register({
   od_inbox: function(){
     this.gui_fixing_favorites_sidebar();
     this.gui_extending_link_parser();
-
     // both
-    this.gui_extending_ajax();
     this.gui_fixing_input_width();
   },
 
   od_outbox: function(){
-    this.gui_extending_ajax();
     this.gui_fixing_input_width();
   },
 
@@ -53,42 +50,19 @@ db.moz.plugin.modules.register({
     $('form[method=post] div[style] tbody > tr').each(function(i,e){
       var odd = i%2 == 1;
       if(!odd) return;
+      odd = null;
 
       var element = $(e).find('td').attr('colspan',4),
           html = element.html();
 
       element.html(parseToLink(html,self.template('parseLink'),function(link){
-        // forbid links that include an image path to an smily,
+        // forbid links that include an image path to an smiley,
         // because this would screw up the image
         var match = link.match(/spielgrafik/);
         return match === null;
       }));
-    });
-  },
-
-  gui_extending_ajax: function(){
-    if(this.lib.preferences.get('preferences.comm.autocompletion') !== true)
-      return;
-
-    const world = this.modules.basic.world;
-    const host  = this.modules.basic.host;
-    const $ = this.od.jQuery;
-    const autocompleter = this.lib.ajax.autocompleter;
-    const self = this;
-
-    new autocompleter($, {
-      input: $('#anschrift'),
-      response: 'dbMozPluginCommAjaxResponse',
-      get_url: function(username){
-        return self.template('ajaxUrl', host, world, escape(username));
-      },
-      parse_items: function($jq){
-        var items = [self.template('playerNotFound')];
-        $jq('a[href*=eintrag_now]:lt(5)').each(function(i,e){
-          items.push($jq(e).html());
-        });
-        return items;
-      }
+      element = null;
+      html = null;
     });
   },
 
@@ -99,7 +73,7 @@ db.moz.plugin.modules.register({
     const $ = this.od.jQuery;
 
     $('textarea[name=nachricht]').css({width: '600px'});
-    $('#maincontent table[width]:eq(1)').removeAttr('width')
+    $('#maincontent table[width]:eq(1)').removeAttr('width');
   }
 
 });

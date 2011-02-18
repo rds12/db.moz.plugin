@@ -39,7 +39,6 @@
 <!ENTITY odchanges.tab.comm "Comm">
 
 <!ENTITY odchanges.comm.favorites "Vergrößere die Favoriten, damit kein horizontaler Scrollbalken entsteht [nur Premium]">
-<!ENTITY odchanges.comm.autocompletion "Bei der Eingabe werden Spielernamen vorgeschlagen">
 <!ENTITY odchanges.comm.parselinks "Wandle im Text vorhandene Links in richtige Links um">
 
 <!ENTITY odchanges.comm.caption.comm "Comm">
@@ -47,14 +46,12 @@
 <!ENTITY odchanges.fleet.hideMergedShips "Verstecke alle Schiffe, die in einer Flotte sind">
 <!ENTITY odchanges.fleet.unselectButton "Füge einen 'unselect' Button zu der Allianzflotte">
 <!ENTITY odchanges.fleet.dblclickSend "Ein Doppelclick auf eine Checkbox selektiert alle Schiffe mit dem gleichen Ziel und öffnet ein Fenster mit einem Sende-Button">
-<!ENTITY odchanges.fleet.flytimes "Wenn eine Flotte nicht fliegt werden die Flugzeiten in den Auswahlmenüs angezeigt">
 <!ENTITY odchanges.fleet.orbitLink "Füge einen Link zum Orbit hinzu, wo die Flotte derzeit hinfliegt">
 
 <!ENTITY odchanges.fleet.caption.fleetOverview "Flottenübersicht">
 <!ENTITY odchanges.fleet.caption.dispatchMenu "Versendemenü">
 
 <!ENTITY odchanges.miscellaneous.configurators "Link zum Schiffkonfigurator">
-<!ENTITY odchanges.miscellaneous.quickjumpHighlighting "Hebe alle Planeten im Quickjump-Bereich hervor, die in der aktuellen Seite vorhanden sind">
 <!ENTITY odchanges.miscellaneous.escHandler "Wenn du die Esc-Taste drückst werden alle mit [Esc] gekennzeichneten Fenster geschlossen">
 <!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, um diese in Tabs öffnen zu können">
 
@@ -67,7 +64,6 @@
 <!ENTITY odchanges.orbit.caption.orbit "Orbit">
 
 <!ENTITY odchanges.planet.invaderStatisics "Zeige die Anzahl der laufenden Invasionen, Resonationen und Besatzungen an">
-<!ENTITY odchanges.planet.clickableOrbit "Wenn ein Link zum Orbit fehlt wird dieser hinzugefügt">
 <!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol zu sehen ist [nur Premium]">
 <!ENTITY odchanges.planet.dailyIncome "Berechne die Tageseinahmen und zeige sie an">
 <!ENTITY odchanges.planet.buildableShips "Berechne die Anzahl baubarer Schiffe und zeige sie an">

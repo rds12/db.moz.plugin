@@ -7,13 +7,11 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet',
   module_author:      'rds12',
-  module_version:     '2010-05-01',
+  module_version:     '2011-02-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
   // fleet properties
-  is_flying: false,
-  
   initialize: function(){
     const basic = this.modules.basic;
     const location = this.modules.location;
@@ -27,9 +25,6 @@ db.moz.plugin.modules.register({
     this.call(location.sub);
     
     basic.log('module.fleet',null,true);
-    basic.log(this.is_flying ,'is_flying');
-    //FIXME: retrieve flying state without #gui_dispatch_menu_extending_flytimes 
-    //> could be disabled!
   },
   
   is_fleet_overview:function(){
@@ -45,7 +40,6 @@ db.moz.plugin.modules.register({
     this.select_reset();
     
     var element = $('input[type=checkbox][value="'+fleet_id+'"]');
-    
     // retrieving place and time
     var place = null, time = null, counter = 0;
     place = element.parents('tr:eq(0)').find('td:eq(2)').html();
@@ -59,12 +53,14 @@ db.moz.plugin.modules.register({
       var box = e.find('input[type=checkbox]');
       if(!box.length) return true;
       
-      var place2 = e.find('td:eq(2)').html();
-      var  time2 = e.find('td:eq(4)').html();
-      if(!(place == place2 && time == time2)) return true;
+      if(!(place == e.find('td:eq(2)').html() && time == e.find('td:eq(4)').html())) return true;
       box.attr('checked',true);
       counter++;
+      e = null;
+      box = null;
     });
+    place = null;
+    time = null;
     
     // show send window, if event was set
     if(!event) return;
@@ -73,11 +69,15 @@ db.moz.plugin.modules.register({
     var offset = element.offset(), 
         send = $('#dbMozPluginFleetQuickSend').empty()
                .append(self.template('sendWindowInput',counter));
+    counter = null;
 
     var button = send.css({
       // align left from the checkbox and on the same height 
       top: offset.top, left: (offset.left - send.width() - element.width()) 
     }).show().find(':button');
+    element = null;
+    offset = null;
+    send = null;
     
     // Bug#6: 
     // $('form:first').submit();
@@ -85,7 +85,8 @@ db.moz.plugin.modules.register({
     // therefore we have to inject the onclick event
 
     var name = parent_form.attr('name');
-    button.attr('onclick','document.'+name+'.submit();')
+    button.attr('onclick','document.'+name+'.submit();');
+    name = null;
   },
   
   select_reset: function(){
@@ -116,17 +117,18 @@ db.moz.plugin.modules.register({
       });
 
       $(e).parents('td:eq(0)').prepend(s);
+      s = null;
     });
+    form = null;
   },
 
   gui_overview_extending_checkboxes: function(){
     if(this.lib.preferences.get('preferences.fleet.dblClickSendButton') !== true)
       return;
 
-    const $ = this.od.jQuery;
-    var self = this;
+    const $ = this.od.jQuery, self = this;
     // create window for the dynamic send button
-    $('body').append(self.template('sendWindow'));
+    $('body').append(this.template('sendWindow'));
 
     // event select same!
     $('input:checkbox').each(function(){
@@ -136,112 +138,6 @@ db.moz.plugin.modules.register({
     });
   },
   
-  gui_dispatch_menu_extending_flytimes: function(){
-    if(this.lib.preferences.get('preferences.fleet.flytimes') !== true)
-      return;
-
-    const dom = this.od.dom;
-    const $   = this.od.jQuery;
-    
-    function get_times(fncode){
-      var times = /flytime[ab]?\s+=\s+new\s+MakeArray\((.+?)\);/.exec(fncode);
-      if(!times) return undefined;
-      times = times[1].split(',');
-      
-      for(var key in times){
-        var temp = /<b>(.*?)<\/b>/.exec(times[key]);
-        times[key] = temp == undefined ? '' : temp[1] ;
-      }
-      return times;
-    }
-    
-    var self = this;
-    
-    function write_in_select(select_event,times){
-      if(self.is_flying) return;
-      
-      // select_event = switch_page([ab]?)
-      var select = $('form select[onchange="'+select_event+'();"]');
-      if(!select.length) return;
-      
-      var fncode = dom[select_event].toString(); 
-      var times  = get_times(fncode);
-      
-      if(!times){
-        self.is_flying = true;
-        return;
-      }
-      
-      // [Index,MinMaxValue]
-      var pos = {min: [[],Number.MAX_VALUE],max: [[],0]}
-      
-      // * first option will be ignored, only a info text
-      // * adding time to the options of select
-      // * hide all options which aren't in the same galaxie as
-      //   the ship
-      select.find('option:gt(0)').each(function(index,e){
-        //shift index, due to gt(0)
-        index++;
-
-        var format = self.modules.basic.format_time(times[index]);
-
-        // hide option, if ship is not in galaxy, but let the
-        // options index intact, so that omega-day can use
-        // his static array construction
-        if(!format){
-          $(e).hide();
-          return;
-        }
-
-        var time = self.modules.basic.parse_time(times[index]);
-
-        if(time == 0){
-          $(e).attr('class','dbMozPluginPlanetActual');
-        }
-
-        if(time > 0){
-          // determine nearest planet
-          if(time < pos.min[1]){
-            pos.min = [[index],time];
-          }else if(time == pos.min[1]){
-            // if time is matching the current nearest
-            // add a index to the stack
-            pos.min[0].push(index);
-          }
-
-          // determine farthest planet
-          if(time > pos.max[1]){
-            pos.max = [[index],time];
-          }else if(time == pos.max[1]){
-            // if time is matching the current farthest
-            // add a index to the stack
-            pos.max[0].push(index);
-          }
-        }
-
-        // add time as attribute
-        $(e).attr('time',time).html(
-          format + '&nbsp;&nbsp;' + $(e).text()
-        );
-      });
-      
-      // set nearest planet
-      $(pos.min[0]).each(function(i,value){
-        select.find('option:eq('+value+')')
-              .attr('class','dbMozPluginPlanetNearest');
-      });
-
-      // set farthest planet
-      $(pos.max[0]).each(function(i,value){
-        select.find('option:eq('+value+')')
-              .attr('class','dbMozPluginPlanetFarthest');
-      });
-    }
-    
-    write_in_select('switch_page');
-    write_in_select('switch_pagea');
-    write_in_select('switch_pageb');
-  },
   
   gui_dispatch_menu_extending_orbit_link: function(){
     if(this.lib.preferences.get('preferences.fleet.orbitLink') !== true)
@@ -258,6 +154,8 @@ db.moz.plugin.modules.register({
     $('#dbMozPluginDispatchMenuSelections').append(
       this.template('goToOrbitLink',pid)
     );
+    e = null;
+    pid = null;
   },
 
   gui_overview_extending_hide_merged_ships: function(){
@@ -265,13 +163,12 @@ db.moz.plugin.modules.register({
       return;
 
     const self = this,
-          $ = this.od.jQuery;
-
+        $ = this.od.jQuery;
+    
     $('#div3 table tr:eq(1) td').append(self.template('hiddenShips'));
 
     var is_fleet_hidden = false,
-        window = $('#dbMozPluginHiddenShips'),
-        link = window.find('a').click(function(){
+        link = $('#dbMozPluginHiddenShips').find('a').click(function(){
           toggle_merged_fleets();
         });
 
@@ -281,14 +178,14 @@ db.moz.plugin.modules.register({
       $('#div3 table table table:first tr').each(function(){
         // check if galaxy is set
         // if not, ship belongs to a fleet
-        var tr = $(this),
-            is_merged = !tr.find('td:eq(2)').text();
+        var is_merged = !$(this).find('td:eq(2)').text();
 
         // is ship merged in fleet?
         if(!is_merged) return;
+        is_merged = null;
   
-        if(is_fleet_hidden) tr.show();
-        else tr.hide();
+        if(is_fleet_hidden) $(this).show();
+        else $(this).hide();
 
         number_of_hidings++;
       });
@@ -297,9 +194,13 @@ db.moz.plugin.modules.register({
 
       var text = is_fleet_hidden ? 'showHiddenShips' : 'hideMergedShips';
       link.html(self.template(text,number_of_hidings));
+      number_of_hidings = null;
+      text = null;
     }
 
     toggle_merged_fleets();
+    is_fleet_hidden = null;
+
   },
 
   gui_dispatch_menu_extending_focus_direct_input: function(){
@@ -316,6 +217,7 @@ db.moz.plugin.modules.register({
     if(!input) return;
 
     input.focus();
+    input = null;
   },
 
   od_overview: function(){
@@ -327,10 +229,5 @@ db.moz.plugin.modules.register({
   od_dispatch_menu: function(){
     this.gui_dispatch_menu_extending_focus_direct_input();
     this.gui_dispatch_menu_extending_orbit_link();
-    this.gui_dispatch_menu_extending_flytimes();
-  },
-
-  od_dispatched: function(){
-    //
   }
 });

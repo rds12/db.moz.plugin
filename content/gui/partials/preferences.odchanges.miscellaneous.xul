@@ -14,10 +14,6 @@
       <checkbox id="preferences.overall.configurators"
                 label='&odchanges.miscellaneous.configurators;' />
   
-      <!-- quickjump highlighting -->
-      <checkbox id="preferences.overall.quickjump"
-                label='&odchanges.miscellaneous.quickjumpHighlighting;' />
-  
       <!-- [esc] close-handler -->
       <checkbox id="preferences.overall.closeHandler"
                 label='&odchanges.miscellaneous.escHandler;' />

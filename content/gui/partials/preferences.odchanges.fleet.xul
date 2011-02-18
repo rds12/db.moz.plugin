@@ -33,10 +33,6 @@
       <checkbox id='preferences.fleet.focusDirectInput'
                 label='&odchanges.fleet.focusDirectInput;' />
 
-      <!-- flytimes -->
-      <checkbox id='preferences.fleet.flytimes'
-                label='&odchanges.fleet.flytimes;' />
-
       <!-- orbit link -->
       <checkbox id='preferences.fleet.orbitLink'
                 label='&odchanges.fleet.orbitLink;' />

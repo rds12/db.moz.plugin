@@ -37,8 +37,6 @@ db.moz.plugin.modules.register({
     this.query = basics.clone_all(place);
 
     //TODO: in sitterstate exclude pages where the user has no privileges 
-    //TODO: after sitter logou: 404 error will be shown, 
-    // set location to sitter logout
 
     if(basic.is_ad_page){
       this.main = 'commercial_break';
@@ -50,7 +48,6 @@ db.moz.plugin.modules.register({
       this.call(this.query.op,this.query);
     }
 
-    this.gui_extending_quickjump_highlighting();
     this.gui_extending_close_event();
     this.gui_extending_disable_quickjump_overflow();
 
@@ -66,29 +63,7 @@ db.moz.plugin.modules.register({
     // if vote button exists, it must be the startpage
     return !!this.od.jQuery('a[href^=http://www.galaxy-news.de/]').length;
   },
-
-  gui_extending_quickjump_highlighting: function(){
-    if(this.lib.preferences.get('preferences.overall.quickjump') !== true)
-      return;
-
-    const self = this,
-          $ = this.od.jQuery;
-
-    // if the planet order was changed, don't scroll to the first
-    // planet
-    var selected = false;
-    var selectors = function(){
-      selected = self.gui_extending_selected_planet_round5(selected) || selected;
-      selected = self.gui_extending_selected_planet(selected) || selected;
-      selected = self.gui_extending_selected_system(selected) || selected;
-    }
-
-    // quickjump will be loaded with xhr, therefore delay the gui extending
-    // to be sure that the loading process is finished before this call.
-    selectors();
-    $('div.quickjump').bind('DOMNodeInserted',selectors);
-  },
-  
+ 
   gui_extending_close_event: function(){
     if(this.lib.preferences.get('preferences.overall.closeHandler') !== true)
       return;
@@ -106,65 +81,6 @@ db.moz.plugin.modules.register({
         $(e).css('visibility','hidden');
       });
     });
-  },
-
-  gui_highlight_quick_jump: function(element,selected){
-    const $ = this.od.jQuery;
-    const self = this;
-    
-    return !!$(element).each(function(i,e){
-      // highlight the planet/system tr
-      $(e).addClass('tablecolor');
-      if(i == 0 && !selected) {
-        // scroll to the first matched planet
-        self.gui_quick_jump_scroll_to(e);
-      }
-    }).length;
-  },
-  
-  gui_quick_jump_scroll_to: function(element){
-    const $ = this.od.jQuery;
-    var element = $(element);
-    if(!element.length) return;
-    var parent = $('.quickjump');
-    
-    var o1 = element.offset(), o2 = parent.offset(), 
-       top = o1.top - o2.top;
-    parent.scrollTop(top);
-  },
-  
-  // highlight all systems in quickjump
-  gui_extending_selected_system: function(selected){
-    var system_id = this.options['system_id'];
-    if(!system_id) return false;
-    const $ = this.od.jQuery;
-    
-    var e = $('#xjx_quick_jump_cnt a[href$="sys='+system_id+'"]').map(function(){
-      return $(this).parents('tr:first');
-    });
-    return this.gui_highlight_quick_jump(e,selected);
-  },
-  
-  gui_extending_selected_planet: function(selected){
-    var planet_id = this.options['planet_id']; 
-    if(!planet_id) return false;
-    
-    return this.gui_highlight_quick_jump(
-      '#xjx_planet_quick_jump\\['+planet_id+'_row\\]',selected
-    );
-  },
-  
-  // round 5, compatibility
-  gui_extending_selected_planet_round5: function(selected){
-    if(this.modules.basic.based_on != 'round5') return false;
-    
-    var planet_id = this.options['planet_id']; 
-    if(!planet_id) return false;
-    
-    const $ = this.od.jQuery;
-    
-    var e = $('div.quickjump a[href$="index='+planet_id+'"]');
-    return this.gui_highlight_quick_jump(e.parents('tr:eq(0)'),selected);
   },
 
   gui_extending_disable_quickjump_overflow: function(){
@@ -192,11 +108,13 @@ db.moz.plugin.modules.register({
       this.sub = 'dispatched';
       return;
     }
+    dispatch = null;
     
     var a = place['index'] || $('form[name=form1]').attr('action') || false;
     if(a !== false) a = a.match(/\d+/)[0];
     this.options['from_planet'] = a;
     this.options['fleet_ids']   = $('form input[name=ships]').val().split(',');
+    a = null;
   },
   
   od_undefined: function(place){
@@ -218,6 +136,7 @@ db.moz.plugin.modules.register({
       if(page <= 0) page = 1;
       this.options.start = (page-1) * 15;
       this.options.end   = page * 15;
+      page = null;
     }
     
     var cases = {
@@ -229,6 +148,7 @@ db.moz.plugin.modules.register({
     };
     
     this.options['type'] = cases[place['nachrichtentyp']] || 'all';
+    cases = null;
   },
   
   od_planlist: function(place){
@@ -259,22 +179,26 @@ db.moz.plugin.modules.register({
       f: 'enemies'
     };
     this.options['type'] = cases[place['typ']] || 'own';
+    cases = null;
   },
   
   od_main: function(place){
     const $   = this.od.jQuery;
-    
-    var html  = $('form input[name=page]');
-    var flash = $('#Flashmain');
-    
+
     this.main = 'galaxy';
     this.sub  = 'gui';
+    
+    var flash = $('#Flashmain');
     if(!flash.length) this.sub  = 'flash';
+    flash = null;
+
+    var html  = $('form input[name=page]');
     if(html.length > 0){
       this.sub  = 'html';
       this.options['start'] = place['first'] || 0;
       this.options['end']   = place['last']  || 30;
     }
+    html = null;
     
     this.options['galaxy_id'] = $('form input[name=viewgalaxy]').val();
   },
@@ -289,6 +213,7 @@ db.moz.plugin.modules.register({
     };
     this.main = 'research';
     this.sub  = cases[place['tree']] || cases['geb'];
+    cases = null;
   },
   
   od_werft2: function(place){
@@ -343,12 +268,14 @@ db.moz.plugin.modules.register({
     };
     
     this.options['atleast'] = cases[place['selec1']] || '0' ;
+    cases = null;
     
     var cases = {
       'checked+7': 'alliance',
       'checked+8': 'meta'
     };
     this.options['intern']  = cases[place['selec1']] || 'no' ;
+    cases = null;
   },
   
   od_shop1: function(place){
@@ -386,6 +313,7 @@ db.moz.plugin.modules.register({
     
     this.options['type'] = cases[place['selec1']] || 'all';
     this.options['direct'] = place['selec1'] == 'checked+10';
+    cases = null;
   },
   
   od_ptrade: function(place){
@@ -412,8 +340,8 @@ db.moz.plugin.modules.register({
     };
     this.options['type'] = cases[place['selec1']] || 'all';
     this.options['direct'] = place['selec1'] == 'checked+11';
-    this.options['auction_sale'] = $('form input[name=showzwangsversteigerung]')
-      .val();
+    this.options['auction_sale'] = $('form input[name=showzwangsversteigerung]').val();
+    cases = null;
   },
   
   od_logshow: function(place){
@@ -423,6 +351,7 @@ db.moz.plugin.modules.register({
       2:  'login_sitter'
     };
     this.sub  = cases['loginlog'] || 'login_counselor'; 
+    cases = null;
   },
   
   od_handp: function(place){
@@ -437,6 +366,7 @@ db.moz.plugin.modules.register({
     };
     
     this.options = cases[place['nur']] || 'all';
+    cases = null;
   },
   
   od_uberweisungen: function(place){
@@ -452,6 +382,7 @@ db.moz.plugin.modules.register({
     
     this.options['type'] = cases[place['ausgehende']] || 'incoming';
     this.options['alliance'] = place['allianzen'] == '1';
+    cases = null;
   },
   
   od_verluste: function(place){
@@ -519,6 +450,7 @@ db.moz.plugin.modules.register({
       t:    'trading'
     };
     this.sub = cases[place['sub']] || 'total';
+    cases = null;
     
     this.options['start'] = place['first'] || 0;
     this.options['end']   = place['last']  || 30;

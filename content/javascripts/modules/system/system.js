@@ -90,35 +90,4 @@ db.moz.plugin.modules.register({
     });
     system = null;
   }
-  
-/* OLD 
-  gui_extending_orbit_clickable: function(force){
-    const prefs = this.lib.preferences;
-
-    if(!force && prefs.get('preferences.system.clickableOrbit') !== true)
-      return;
-
-    // orbit already identified?
-    // a little hack for fowapi
-    if(this.identified_orbit === true)
-      return;
-
-    const self = this;
-    const $ = this.od.jQuery;
-
-    $(this.planets).each(function(i,planet){
-      var e = $('#planet-'+planet.planet_id), 
-          orbit = e.parents('tr:first').siblings().find('td');
-
-      // if orbit is none existing, append it
-      if(!orbit.find('a:first').length)
-        orbit.append(self.template(
-          'clickableOrbit', planet.planet_name, planet.planet_id
-        ));
-
-      orbit.find('a:first').attr('id','orbit-'+planet.planet_id);
-    });
-    this.identified_orbit = true;
-  }
-*/
 });

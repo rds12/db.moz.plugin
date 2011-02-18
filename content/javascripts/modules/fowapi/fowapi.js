@@ -145,6 +145,8 @@ db.moz.plugin.modules.register({
         scanText = this.format_scan_date(
           self.mask_text(scanDate.text()),
           self.mask_text(scanDate.attr('current')));
+    $ = null;
+    scanDate = null;
 
     return valid('responseLastScan', scanText);
   },
@@ -167,6 +169,7 @@ db.moz.plugin.modules.register({
         self.template('systemComment',comment)
       );
     }
+    comment = null;
   },
 
   gui_extending_planet_hover: function(planets){

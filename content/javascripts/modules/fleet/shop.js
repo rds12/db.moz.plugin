@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'fleet_shop',
   module_author:      'rds12',
-  module_version:     '2010-03-30',
+  module_version:     '2011-02-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
 
@@ -35,6 +35,7 @@ db.moz.plugin.modules.register({
           link = e.siblings('form:first').attr('action');
 
       e.attr({'href': link, 'target':'_blank'});
+      e = null;
     });
   }
 });

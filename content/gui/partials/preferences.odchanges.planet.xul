@@ -23,10 +23,6 @@
     <groupbox>
       <caption label="&odchanges.planet.caption.system;"/>
 
-      <!-- make orbit clickable -->
-      <checkbox id="preferences.system.clickableOrbit"
-                label='&odchanges.planet.clickableOrbit;' />                
-
       <!-- system, search in database -->
       <checkbox id='preferences.system.searchInDatabase'
                 label='&odchanges.system.searchInDatabase;' />

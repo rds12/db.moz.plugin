@@ -7,7 +7,7 @@ db.moz.plugin.modules.register({
   // module description
   module_name:        'infrastructure',
   module_author:      'rds12',
-  module_version:     '2011-02-10',
+  module_version:     '2011-02-17',
   module_website:     'http://db.wiki.seiringer.eu',
   module_enable:      true,
   
@@ -115,6 +115,7 @@ db.moz.plugin.modules.register({
 
         e.parents('td:first').prepend(
           self.template('numberBuildableShips',min));
+        e = null;
       });
     }
 
@@ -126,6 +127,7 @@ db.moz.plugin.modules.register({
         append_values();
         rebind();
       });
+      window = null;
     }
 
     rebind();
@@ -147,6 +149,7 @@ db.moz.plugin.modules.register({
     ress_min(self.deposit.tungsten, e.attr('wolfram'));
     ress_min(self.deposit.fluoride, e.attr('flour'));
 
+    ress_min = null;
     return min;
   },
 
@@ -156,6 +159,7 @@ db.moz.plugin.modules.register({
 
     var min = this.get_minimal_material(img),
         factor = this.template('numberBuildableShips',min);
+    min = null;
 
     return match[1] + factor + match[2] + match[3] + ",'')";
   },
@@ -170,6 +174,7 @@ db.moz.plugin.modules.register({
     
     var matches = /post.gif/.test(img);
     if(!matches) return;
+    matches = null;
     
     $('#lefttop').wrap('<div style="position:relative"/>')
                  .parents('div:eq(0)').prepend(this.template('postsymbol',img));
@@ -190,5 +195,8 @@ db.moz.plugin.modules.register({
     var income = this.deposit.tax * 24,
         format = this.lib.basics.format_number;
     entry.next('font').find('b').append(' * 24 &rarr; '+ format(income));
+    entry = null;
+    income = null;
+    format = null;
   }
 });

@@ -73,18 +73,6 @@ a {
   cursor: pointer;
 }
 
-.dbMozPluginPlanetNearest {
-  background-color: green;
-}
-
-.dbMozPluginPlanetFarthest {
-  background-color: red;
-}
-
-.dbMozPluginPlanetActual {
-	background-color: yellow;
-}
-
 #dbMozPluginInfrastructurePlanet {
   position: absolute; 
   width: 50px; 

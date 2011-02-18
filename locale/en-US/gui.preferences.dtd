@@ -38,7 +38,6 @@
 <!ENTITY odchanges.tab.comm "Comm">
 
 <!ENTITY odchanges.comm.favorites "enlarge the favorites sidebar, so that an horizontal scrollbar won't appear [only premium]">
-<!ENTITY odchanges.comm.autocompletion "suggestions of an typed in player name">
 <!ENTITY odchanges.comm.parselinks "convert all text-links to real ones">
 
 <!ENTITY odchanges.comm.caption.comm "Comm">
@@ -46,14 +45,12 @@
 <!ENTITY odchanges.fleet.hideMergedShips "hide all ships that are currently merged into a fleet">
 <!ENTITY odchanges.fleet.unselectButton "add a unselect button to the alliance fleet">
 <!ENTITY odchanges.fleet.dblclickSend "a double click on a checkbox will select all ships with the same destination and opens a window with a send button">
-<!ENTITY odchanges.fleet.flytimes "if a fleet is not flying display all avaible flytimes in the selection boxes">
 <!ENTITY odchanges.fleet.orbitLink "add a link to the orbit where the fleet is heading to">
 
 <!ENTITY odchanges.fleet.caption.fleetOverview "Fleet overview">
 <!ENTITY odchanges.fleet.caption.dispatchMenu "Dispatch menu">
 
 <!ENTITY odchanges.miscellaneous.configurators "display ship configurator link">
-<!ENTITY odchanges.miscellaneous.quickjumpHighlighting "highlight all owned planets in the quickjump area, which are currently accessed on the page">
 <!ENTITY odchanges.miscellaneous.escHandler "if you press the esc key, [esc] indicated windows will be closed">
 <!ENTITY odchanges.miscellaneous.buylink "convert javascript buy links into normal links for multi tabbing">
 
@@ -66,7 +63,6 @@
 <!ENTITY odchanges.orbit.caption.orbit "Orbit">
 
 <!ENTITY odchanges.planet.invaderStatisics "display number of running invasions, resonations and occupiers">
-<!ENTITY odchanges.planet.clickableOrbit "append link to orbit if not present">
 <!ENTITY odchanges.planet.postSymbol "opaque the planet picture in the holopad, so that the 'you got a mail' symbol can be seen [only premium]">
 <!ENTITY odchanges.planet.dailyIncome "calculate the daily income and display it">
 <!ENTITY odchanges.planet.buildableShips "calculate the number of buildable ships and display it">
