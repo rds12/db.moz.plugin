@@ -32,7 +32,7 @@ db.moz.plugin.modules.register({
 
     $('a[href^=javascript:kauf]').each(function(i,e){
       var e = $(e),
-          link = e.siblings('form:first').attr('action');
+          link = e.siblings('form:first').attr('action') + '&ships=' + e.siblings('form:first').find('input[name=ships]').val();
 
       e.attr({'href': link, 'target':'_blank'});
       e = null;
