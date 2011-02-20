@@ -32,7 +32,7 @@ db.moz.plugin.runner = function(dom, doc){
 
         var module_class = this.lib.modules.get(module_name);
         var module = new module_class;
-
+        module_class = null;
         // Bug#2:
         // We encountered a problem in the modul concept where
         // every simple datatyp was copied by the constructor 
@@ -51,9 +51,7 @@ db.moz.plugin.runner = function(dom, doc){
           return this.template.engine.parse.apply(null,arguments);
         }
 
-        module.template.engine = new this.lib.templates(
-          'modules/modules.'+module.module_name
-        );
+        module.template.engine = new this.lib.templates('modules/modules.'+module.module_name);
 
         module.call = function(name,value,prefix){
           prefix = prefix || 'od_';
@@ -67,17 +65,19 @@ db.moz.plugin.runner = function(dom, doc){
             this.lib.console.error('module.'+this.module_name+'.'+fname
             +': calling failed', e);
           }
+          fname = null;
           return false;
         }
 
         module.initialize();
 
         this.modules[module_name] = module;
+        module = null;
       }catch(e){
         this.lib.console.error('runner.invoke_modules('
             + module_name + ') failed to load',e);
         returning = false;
-      } 
+      }
     }
     return returning;
   }

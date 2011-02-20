@@ -55,6 +55,7 @@ db.moz.plugin.modules.register({
     this.gui_extending_post_symbol();
     this.gui_extending_day_tax_income();
     this.gui_extending_buildable_ships();
+    this.gui_extending_buildable_buidings();
   },
 
   retrieve_infrastructure_values: function(){
@@ -77,6 +78,7 @@ db.moz.plugin.modules.register({
     var production = function(name){
       return dom[name+'prog'] * dom[name+'faktor'] * smallish / 100;
     }
+    smallish = null;
 
     this.production.ore = production('erz');
     this.production.metal = production('metall');
@@ -86,6 +88,7 @@ db.moz.plugin.modules.register({
     this.production.credits = 0; // TODO: parse dom;
     this.production.industry = 0; // TODO: parse dom;
     this.production.research = 0; // TODO: parse dom;
+    production = null;
   },
 
   gui_extending_buildable_ships: function(){
@@ -110,11 +113,8 @@ db.moz.plugin.modules.register({
 
     var append_values = function(){
       $('a[onclick^=buildship]').each(function(i,e){
-        var e = $(e),
-            min = self.get_minimal_material(e);
-
-        e.parents('td:first').prepend(
-          self.template('numberBuildableShips',min));
+        e = $(e);
+        e.parents('td:first').prepend(self.template('numberBuildableShips',self.get_minimal_material(e)));
         e = null;
       });
     }
@@ -127,12 +127,44 @@ db.moz.plugin.modules.register({
         append_values();
         rebind();
       });
-      window = null;
     }
-
     rebind();
   },
 
+  gui_extending_buildable_buidings: function(){
+    if(this.lib.preferences.get('preferences.infrastructure.buildableBuildings') !== true)
+      return;
+
+    if(this.modules.location.options['scan']) return;
+    const $ = this.od.jQuery;
+    const self = this;
+
+    var append_values = function(){
+      $('img[onclick^=planet_techklick]').each(function(i,e){
+        e = $(e);
+        var min = self.get_minimal_material(e);
+
+        var regex = /planet_picover\((.+?), '(.+?)', '(.+?)'\)/,
+            pic_hover = e.attr('onmouseover') || '',
+            match = pic_hover.match(regex) || [,'',''];
+
+        regex = null;
+        pic_hover = null;
+        
+        // delete first element
+        match.shift();
+
+        match[1] = self.template('numberBuildableBuildings',min) + match[1];
+        e.attr('onmouseover','planet_picover(' + match[0] + ",'" + match[1] + "','" + match[2] + "')");
+
+        min = null;
+        match = null;
+      });
+    }
+    append_values();
+  },
+
+  
   get_minimal_material: function(e){
     const self = this;
     var min = Number.MAX_VALUE;
@@ -140,6 +172,7 @@ db.moz.plugin.modules.register({
     var ress_min = function(dividend,divisor){
       var tmp = divisor == 0? Number.MAX_VALUE : dividend / divisor;
       min = Math.min(min,tmp);
+      tmp = null;
     }
 
     ress_min(self.deposit.credits, e.attr('credits'));
@@ -157,8 +190,8 @@ db.moz.plugin.modules.register({
     var match = text.match(/(picover\(\d+,\s+')(.+?)(')/);
     if(!match) return text;
 
-    var min = this.get_minimal_material(img),
-        factor = this.template('numberBuildableShips',min);
+    var min = this.get_minimal_material(img);
+    var factor = this.template('numberBuildableShips',min);
     min = null;
 
     return match[1] + factor + match[2] + match[3] + ",'')";
@@ -176,8 +209,7 @@ db.moz.plugin.modules.register({
     if(!matches) return;
     matches = null;
     
-    $('#lefttop').wrap('<div style="position:relative"/>')
-                 .parents('div:eq(0)').prepend(this.template('postsymbol',img));
+    $('#lefttop').wrap('<div style="position:relative"/>').parents('div:eq(0)').prepend(this.template('postsymbol',img));
   },
   
   gui_extending_day_tax_income: function(){
@@ -190,11 +222,15 @@ db.moz.plugin.modules.register({
     const dom = this.od.dom;
     
     var entry = $('img[src*=credits_us]:last');
-    if(!entry.length) return;
 
-    var income = this.deposit.tax * 24,
-        format = this.lib.basics.format_number;
-    entry.next('font').find('b').append(' * 24 &rarr; '+ format(income));
+    var income = null, format = null;
+
+    if(entry.length) {
+      income = this.deposit.tax * 24;
+      format = this.lib.basics.format_number;
+      entry.next('font').find('b').append(' * 24 &rarr; '+ format(income));
+    }
+
     entry = null;
     income = null;
     format = null;

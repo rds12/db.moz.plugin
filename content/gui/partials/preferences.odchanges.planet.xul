@@ -43,6 +43,10 @@
       <!-- number of buildable ships -->
       <checkbox id="preferences.infrastructure.buildableShips"
                 label='&odchanges.planet.buildableShips;' />
+
+      <!-- number of buildable buildings -->
+      <checkbox id="preferences.infrastructure.buildableBuildings"
+                label='&odchanges.planet.buildableBuildings;' />                
     </groupbox>
   </tabpanel>
 </overlay>

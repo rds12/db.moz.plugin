@@ -36,9 +36,9 @@ db.moz.plugin.modules.register({
     if(!this.is_fleet_overview()) return false;
     const $ = this.od.jQuery;
     const self = this;
-    
+
     this.select_reset();
-    
+
     var element = $('input[type=checkbox][value="'+fleet_id+'"]');
     // retrieving place and time
     var place = null, time = null, counter = 0;
@@ -126,7 +126,9 @@ db.moz.plugin.modules.register({
     if(this.lib.preferences.get('preferences.fleet.dblClickSendButton') !== true)
       return;
 
-    const $ = this.od.jQuery, self = this;
+    const self = this;
+    const $ = this.od.jQuery;
+
     // create window for the dynamic send button
     $('body').append(this.template('sendWindow'));
 

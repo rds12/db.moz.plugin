@@ -8,6 +8,8 @@ db.moz.plugin.browser = {
 
     if(key && shortcut != '')
       key.setAttribute('key',shortcut);
+    key = null;
+    shortcut = null;
 
     this.register_modules();
   },
@@ -16,9 +18,8 @@ db.moz.plugin.browser = {
     // if you close a tab direct, this won't get fired
     if(!this.check_event(event,true)) return;
 
-    var doc = event.originalTarget,
-        win = doc.defaultView;
-
+    var win = doc.defaultView;
+    
     delete win['dbMozPluginContentInitialized'];
   },
 
@@ -27,17 +28,16 @@ db.moz.plugin.browser = {
     // and test if omegaday host
     if(!this.check_event(event,true)) return;
 
-    var doc = event.originalTarget;
-
-    var win = doc.defaultView;
-    var dom = win.wrappedJSObject;
+    var doc = event.originalTarget,
+        win = doc.defaultView,
+        dom = win.wrappedJSObject;
 
     // load css here, because in Firefox 4 and later
     // onContentInitialize event won't be fired
     this.load_css(win.document);
 
-
-    db.moz.plugin.browser.invoke_modules(dom,doc,win);
+    db.moz.plugin.browser.invoke_modules(dom,doc);
+    doc = null;
 
     delete win['dbMozPluginContentInitialized'];
   },
@@ -77,6 +77,7 @@ db.moz.plugin.browser = {
 
     if( omegaday_check === true )
       return this.check_if_omega_day(doc);
+    doc = null;
 
     return true;
   },
@@ -87,6 +88,7 @@ db.moz.plugin.browser = {
     var set_statusbar = function(is_omegaday){
       var focused = doc == window.content.document;
       if(focused) self.show_statusbar(is_omegaday);
+      focused = null;
       return is_omegaday;
     }
 
@@ -97,10 +99,12 @@ db.moz.plugin.browser = {
       if(!location.protocol.match(/^http(|s):/))
         return set_statusbar(false);
 
-      var href = location.host;
-      var regexp = /(www|beta)(\d?).omega-day.com/i
+      var href = location.host,
+          regexp = /(www|beta)(\d?).omega-day.com/i,
+          is_omegaday = regexp.test(href);
+      href = null;
+      regexp = null;
 
-      var is_omegaday = regexp.test(href);
       return set_statusbar(is_omegaday);
     }catch(e){
       return false;
@@ -117,12 +121,15 @@ db.moz.plugin.browser = {
       var head = doc.getElementsByTagName('head') || [doc.documentElement];
       if(!head || !head[0]) return false;
       head[0].appendChild(link);
+      link = null;
+      head = null;
+      
     }catch(e){
       return false;
     }
   },
 
-  invoke_modules: function(dom,doc,win){
+  invoke_modules: function(dom,doc){
     var runner = new db.moz.plugin.runner(dom,doc);
 
     // load the modules.basic
@@ -134,6 +141,7 @@ db.moz.plugin.browser = {
     runner.invoke_modules(['location','fleet','research',
       'infrastructure','orbit','planet','system','comm','fowapi',
       'fleet_shop','toolbar']);
+    runner = null;
   },
 
   register_modules: function(){
@@ -158,6 +166,7 @@ db.moz.plugin.browser = {
     require.module('toolbar');
 
     require.module('research');
+    require = null;
   },
 
   show_statusbar: function(show){

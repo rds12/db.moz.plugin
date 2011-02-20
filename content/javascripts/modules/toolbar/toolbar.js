@@ -31,7 +31,6 @@ db.moz.plugin.modules.register({
   },
 
   od_system_main: function(){
-//    this.gui_extending_navigation_system_bar();
     this.gui_extending_database_system_search();
   },
 
@@ -50,14 +49,14 @@ db.moz.plugin.modules.register({
         player_id = this.modules.location.options.player_id,
         url = prefs.get('preferences.configset.tbExtToolUserUri');
 
-    if(!player_id) return;
+    if(player_id) {
+      url = this.modules.fowapi.replace_placeholders(url,player_id);
+      header.append(this.template('searchInDatabase',url));
+      header.wrapInner(this.template('relativize'));
+    }
 
-    url = this.modules.fowapi.replace_placeholders(url,player_id);
-    player_id = null;
-    
-    header.append(this.template('searchInDatabase',url));
-    header.wrapInner(this.template('relativize'));
     header = null;
+    player_id = null;
     url = null;
   },
 
@@ -68,18 +67,18 @@ db.moz.plugin.modules.register({
     if(prefs.get('preferences.alliance.searchInDatabase') !== true)
       return;
 
-    var header = $('#maincontent table table tr:first td'),
+    var header = $('#maincontent .view');
         alliance_id = this.modules.location.options.alliance_id,
         url = prefs.get('preferences.configset.tbExtToolAllyUri');
 
-    if(!alliance_id) return;
+    if(alliance_id) {
+      url = this.modules.fowapi.replace_placeholders(url,alliance_id);
+      header.append(this.template('searchInDatabase',url));
+      header.wrapInner(this.template('relativize'));
+    }
 
-    url = this.modules.fowapi.replace_placeholders(url,alliance_id);
-    alliance_id = null;
-
-    header.append(this.template('searchInDatabase',url));
-    header.wrapInner(this.template('relativize'));
     header = null;
+    alliance_id = null;
     url = null;
   },
 
@@ -94,13 +93,13 @@ db.moz.plugin.modules.register({
         system_id = this.modules.location.options.system_id,
         url = prefs.get('preferences.configset.tbExtToolSysUri');
 
-    if(!system_id) return;
+    if(system_id) {
+      url = this.modules.fowapi.replace_placeholders(url,system_id);
+      header.append(this.template('searchInDatabaseShort',url));
+    }
 
-    url = this.modules.fowapi.replace_placeholders(url,system_id);
-    system_id = null;
-
-    header.append(this.template('searchInDatabaseShort',url));
     header = null;
+    system_id = null;
     url = null;
   },
 
@@ -115,13 +114,13 @@ db.moz.plugin.modules.register({
         planet_id = this.modules.location.options.planet_id,
         url = prefs.get('preferences.configset.tbExtToolPlanUri');
 
-    if(!planet_id) return;
+    if(planet_id) {
+      url = this.modules.fowapi.replace_placeholders(url,planet_id);
+      header.append(this.template('searchInDatabaseShort',url));
+    }
 
-    url = this.modules.fowapi.replace_placeholders(url,planet_id);
-    planet_id = null;
-
-    header.append(this.template('searchInDatabaseShort',url));
     header = null;
+    planet_id = null;
     url = null;
   }
 });

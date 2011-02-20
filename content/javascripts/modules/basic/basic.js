@@ -157,24 +157,18 @@ db.moz.plugin.modules.register({
     const $   = this.od.jQuery;
 
     // which round and world?
-    var debug = $('head').html();
-    this.world    = (/Debug:\s+.*?W:(\w+)/.exec(debug) || ['','unknown'])[1];
+    this.world    = (/Debug:\s+.*?W:(\w+)/.exec($('head').html()) || ['','unknown'])[1];
     this.host     = this.od.doc.location.host;
     this.based_on = this.round_relation[this.world] || 'unknown';
-    debug = null;
 
     // retrieving player informations
-    var status = this.player_panel.find('tr:eq(2) td:eq(1) font');
-    var status_text = status.html();
-    status = null;
+    var status = this.player_panel.find('tr:eq(2) td:eq(1) font'),
+        status_text = status.html();
 
-    // rds12@2011-02-10 NOTE:
-    // the substring 'premium' also exists in the wiki link, therefore
-    // we test a bit more detailed
-    //this.is_premium = /Premium/i.exec(status_text) != undefined;
     this.is_premium = />Premium/i.exec(status_text) != undefined;
     this.is_slim    = !this.is_premium;
     this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
+    status = null;
     status_text = null;
 
     var player       = this.player_panel.find('a[href*=usershow]');
@@ -187,12 +181,13 @@ db.moz.plugin.modules.register({
     this.alliance_name = alliance.html();
     alliance = null;
 
+    var race = null;
     if(this.based_on == 'round5'){
-      var race = this.player_panel.find('a[href*="anznummer"]');
+      race = this.player_panel.find('a[href*="anznummer"]');
       if(race.length)
       this.race_id = /anznummer=(\d+)/.exec(race.attr('href'))[1];
     }else{// this works for >=round7
-      var race = this.player_panel.find('a[onclick*="op=rassen"]');
+      race = this.player_panel.find('a[onclick*="op=rassen"]');
       this.race_id = /func=(\d+)/.exec(race.attr('onclick'))[1];
     }
     race = null;
@@ -205,16 +200,15 @@ db.moz.plugin.modules.register({
     // checking if the form with the name Interruptform
     // is existing, than it is the ad page
     try{
-      var form = $('form[name=Interruptform]');
-      this.is_ad_page = !!form.length;
-      form = null;
+      this.is_ad_page = !!$('form[name=Interruptform]').length;
     }catch(e){}
 
     // reload page if ad apears. only for test purpose
     var value = this.lib.preferences.get('reload_page_if_ad');
-    if(!this.is_ad_page)return;
 
-    if(value) this.reload_page();
+    if(this.is_ad_page && value)
+      this.reload_page();
+
     value = null;
   },
 
@@ -228,14 +222,13 @@ db.moz.plugin.modules.register({
     if(!this.debug_window) return;
 
     const basics = this.lib.basics;
-    var template = ''; 
 
+    var template = null;
     if(header){
       template = this.template('debugHeader',message);
     }else{
       template = this.template('debugMessage',label,basics.inspect(message));
     }
-
     this.debug_window.append(template);
     template = null;
   },
@@ -246,11 +239,7 @@ db.moz.plugin.modules.register({
 
   gui_extending_logo : function(){
     var status = this.player_panel.find('tr:eq(1) td:eq(1)');
-
-    // wrapping div around font
     status.find('font').wrap('<div style="float:left;"></div>');
-
-    // adding info that db.moz.plugin was loaded
     status.append(this.template('logo',this.extension_version));
     status = null;
   },
@@ -265,9 +254,7 @@ db.moz.plugin.modules.register({
 
     const visibilty = prefs.get('debug.visible');
 
-    var debug = $('body');
-    debug.append(this.template('debugWindow'));
-    debug = null;
+    $('body').append(this.template('debugWindow'));
 
     this.debug_window = $('#odMozPluginDebugWindow');
     if(!visibilty) this.debug_window.hide();

@@ -299,7 +299,7 @@ db.moz.plugin.modules.register({
           match[1] += '<br><br>' + orbitText;
 
         // new mouseover
-        orbit.attr('onmouseover',match.join(''))
+        orbit.attr('onmouseover',match.join(''));
       }
 
       hover.attr('onmouseover',parsed.join(''));
@@ -338,13 +338,13 @@ db.moz.plugin.modules.register({
     var counter = 0;
 
     var add_tr = function(e,is_header,i){
-      var class = is_header ? 'tablecolor' : '';
+      var classes = is_header ? 'tablecolor' : '';
 
       // toggle between highlighting and not
       if(is_header) counter = 0;
-      else class = (++counter) % 2 ? 'tabletranslight' : ''; 
+      else classes = (++counter) % 2 ? 'tabletranslight' : ''; 
 
-      var tr = $('<tr/>').addClass(class);
+      var tr = $('<tr/>').addClass(classes);
 
       e.children().each(function(i,e){
         var nodeName = e.nodeName, e = $(e);

@@ -40,6 +40,9 @@ pref("extensions.db.moz.plugin.preferences.infrastructure.dailyIncome",true);
 // calculate number of buildable ships - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.buildableShips",true);
 
+//calculate number of buildable buildings - ok
+pref("extensions.db.moz.plugin.preferences.infrastructure.buildableBuildings",true);
+
 // disable overflow
 pref("extensions.db.moz.plugin.preferences.planet.disableOverflow",true);
 

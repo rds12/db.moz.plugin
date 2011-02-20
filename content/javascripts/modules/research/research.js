@@ -44,7 +44,7 @@ db.moz.plugin.modules.register({
     br = null;
 
     // text has format: 'some_text: 123.435.565 + 123424'
-    var points = text.text().split(':')
+    var points = text.text().split(':');
 
     // length must be 2, otherwise something failed 
     if(points.length != 2) return;

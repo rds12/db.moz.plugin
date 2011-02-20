@@ -44,8 +44,15 @@ db.moz.plugin.modules.register({
     }else if(this.is_start_page()){
       this.od_undefined();
     }else{
-      // if place.op == planet than load function od_planet if defined
-      this.call(this.query.op,this.query);
+      if(this.query.url != undefined) {
+        var match = this.query.url.split('/');
+        this.call(match[1],match);
+        match = null;
+      } else {
+        // if place.op == planet than load function od_planet if defined
+        this.call(this.query.op,this.query);
+      }
+      
     }
 
     this.gui_extending_close_event();
@@ -68,8 +75,8 @@ db.moz.plugin.modules.register({
     if(this.lib.preferences.get('preferences.overall.closeHandler') !== true)
       return;
 
-    const win = this.od.doc;
-    const $ = this.od.jQuery;
+    var win = this.od.doc,
+          $ = this.od.jQuery;
 
     // add the text '[Esc]' to all window closer
     $('a[href$=.closeDialog()]').prepend('[Esc] ');
@@ -81,18 +88,20 @@ db.moz.plugin.modules.register({
         $(e).css('visibility','hidden');
       });
     });
+
+    win = null;
+    $ = null;
   },
 
   gui_extending_disable_quickjump_overflow: function(){
     if(this.lib.preferences.get('preferences.overall.disableQuickjumpOverflow') !== true)
       return;
 
-    const $ = this.od.jQuery;
-    $('div.quickjump').css({height: '', overflow: ''});
+    this.od.jQuery('div.quickjump').css({height: '', overflow: ''});
   },
 
   od_send: function(place){
-    const $   = this.od.jQuery;
+    var $ = this.od.jQuery;
     
     this.main = 'fleet';
     this.sub  = 'dispatch_menu';
@@ -106,15 +115,16 @@ db.moz.plugin.modules.register({
     var dispatch = $('td#maincontent table div[style*="overflow: auto"]');
     if(dispatch.length){
       this.sub = 'dispatched';
-      return;
+    } else {
+      var a = place['index'] || $('form[name=form1]').attr('action') || false;
+      if(a !== false) a = a.match(/\d+/)[0];
+      this.options['from_planet'] = a;
+      this.options['fleet_ids']   = $('form input[name=ships]').val().split(',');
+      a = null;
     }
+
     dispatch = null;
-    
-    var a = place['index'] || $('form[name=form1]').attr('action') || false;
-    if(a !== false) a = a.match(/\d+/)[0];
-    this.options['from_planet'] = a;
-    this.options['fleet_ids']   = $('form input[name=ships]').val().split(',');
-    a = null;
+    $ = null;
   },
   
   od_undefined: function(place){
@@ -250,13 +260,11 @@ db.moz.plugin.modules.register({
   },
   
   od_shop: function(place){
-    const $   = this.od.jQuery;
-    
     this.main = 'shop';
     this.sub  = 'resources';
     this.options['start'] = place['first'] || 0;
     this.options['end']   = place['last']  || 30;
-    this.options['galaxy_id'] = $('form input[name=gala]').val();
+    this.options['galaxy_id'] = this.od.jQuery('form input[name=gala]').val();
       
     var cases = {
       'checked+1': '0',
@@ -291,13 +299,11 @@ db.moz.plugin.modules.register({
   },
   
   od_trade: function(place){
-    const $   = this.od.jQuery;
-    
     this.main = 'shop';
     this.sub  = 'ships';
     this.options['start'] = place['first'] || 0;
     this.options['end']   = place['last']  || 30;
-    this.options['galaxy_id'] = $('form input[name=gala]').val();
+    this.options['galaxy_id'] = this.od.jQuery('form input[name=gala]').val();
       
     var cases = {
       'checked+1': 'all',
@@ -420,11 +426,9 @@ db.moz.plugin.modules.register({
   },
   
   od_to: function(place){
-    const $   = this.od.jQuery;
-    
     this.main = 'quest';
     this.sub  = 'main';
-    this.options['galaxy_id'] = $('form input[name=gala]').val();
+    this.options['galaxy_id'] = this.od.jQuery('form input[name=gala]').val();
   },
   
   od_scanner: function(place){
@@ -441,7 +445,7 @@ db.moz.plugin.modules.register({
   },
   
   od_score: function(place){
-    this.main = 'highscore';    
+    this.main = 'highscore';
     var cases = {
       g:    'total',
       i:    'empire',
@@ -457,7 +461,7 @@ db.moz.plugin.modules.register({
   },
   
   od_ally: function(place){
-    this.main = 'highscore';    
+    this.main = 'highscore';
     this.sub  = 'alliances';
     
     this.options['start'] = place['first'] || 0;
@@ -465,7 +469,7 @@ db.moz.plugin.modules.register({
   },
   
   od_metalist: function(place){
-    this.main = 'highscore';    
+    this.main = 'highscore';
     this.sub  = 'metas';
     
     this.options['start'] = place['first'] || 0;
@@ -495,10 +499,10 @@ db.moz.plugin.modules.register({
     this.sub  = 'statistics';
   },
   
-  od_allyshow: function(place){
+  od_alliances: function(match){
     this.main = 'alliance';
     this.sub  = 'overview';
-    this.options['alliance_id'] = place['welch'];
+    this.options['alliance_id'] = match[2];
   },
   
   od_meta: function(place){
