@@ -65,7 +65,6 @@
 
 <!ENTITY odchanges.planet.invaderStatisics "Zeige die Anzahl der laufenden Invasionen, Resonationen und Besatzungen an">
 <!ENTITY odchanges.planet.postSymbol "Mache den Planeten im Holopad transparent, so dass das Commsymbol zu sehen ist [nur Premium]">
-<!ENTITY odchanges.planet.dailyIncome "Berechne die Tageseinahmen und zeige sie an">
 <!ENTITY odchanges.planet.buildableShips "Berechne die Anzahl baubarer Schiffe und zeige sie an">
 <!ENTITY odchanges.planet.buildableBuildings "Berechne die Anzahl baubarer Gebäude und zeige sie an">
 

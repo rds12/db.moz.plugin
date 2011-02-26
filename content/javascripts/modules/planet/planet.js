@@ -43,7 +43,7 @@ db.moz.plugin.modules.register({
 
     const $ = this.od.jQuery;
 
-    var trs = $('#planlist tr[id]');
+    var trs = $('#maincontent table tr:eq(1) table td[valign="top"] tr[id]');
     if(!trs.length) return;
 
     var regex = {
@@ -61,11 +61,25 @@ db.moz.plugin.modules.register({
     trs.each(function(i,e){
       regex.add($(e).children('td:eq(5)').html());
     });
-    trs = null;
     
-    $('body').append(this.template(
-      'invacount',regex.stats.inva,regex.stats.reso,regex.stats.occupiers
-    ));
+    var table = $('#maincontent table tr:eq(1) table td:eq(0)');
+    if( regex.stats.inva > 0)
+      table.append(this.template('invacount_red',regex.stats.inva));
+    else
+      table.append(this.template('invacount',regex.stats.inva));
+
+    if( regex.stats.reso > 0)
+      table.append(this.template('resocount_red',regex.stats.reso));
+    else
+      table.append(this.template('resocount',regex.stats.reso));
+
+    if( regex.stats.occupiers > 0)
+      table.append(this.template('occupierscount_red',regex.stats.occupiers));
+    else
+      table.append(this.template('occupierscount',regex.stats.occupiers));
+
+    table = null;
+    trs = null;
     regex = null;
   }
 });

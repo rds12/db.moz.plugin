@@ -8,18 +8,21 @@ db.moz.plugin.ajax = function(){
 };
 
 db.moz.plugin.ajax.check_url = function(uri){
-  var regex = /^(\w+):/i,
-      protocol = (regex.exec(uri) || ['',''])[1];
-
   if(!uri){
     return ['requestEmptyUrl'];
   }
 
+  var regex = /^(\w+):/i,
+      protocol = (regex.exec(uri) || ['',''])[1];
+  regex = null;
+  
   if(!protocol.match(/^http(|s)$/i)){
     return ['requestUnknownProtocol', protocol];
   }
+
+  protocol = null;
   return ['requestUrlOk'];
-}
+};
 
 db.moz.plugin.ajax.od_helper_ok = function(xhr){
   if(!xhr || !xhr.responseXML || !xhr.responseHTML || !xhr.responseHTML.$) 
@@ -35,15 +38,17 @@ db.moz.plugin.ajax.od_helper_ok = function(xhr){
   // is odh:header present?
   if(!$ || auth == '' || !status || version == '')
     return 'responseStatusInvalid';
-
-  var status = status[0];
+  version = null;
 
   if(!auth.match(/true/))
     return 'responseStatusLogin';
+  auth = null;
 
+  var status = status[0];
   if(status != '200'){
     return 'responseStatusNotOK';
   }
+  status = null;
 
   return 'responseStatusOK';
 }

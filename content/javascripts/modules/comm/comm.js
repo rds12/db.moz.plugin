@@ -19,7 +19,6 @@ db.moz.plugin.modules.register({
   od_inbox: function(){
     this.gui_fixing_favorites_sidebar();
     this.gui_extending_link_parser();
-    // both
     this.gui_fixing_input_width();
   },
 
@@ -67,13 +66,11 @@ db.moz.plugin.modules.register({
   },
 
   gui_fixing_input_width: function(){
-    if(this.lib.preferences.get('preferences.comm.fixWidth') !== true)
-      return;
-
+    if(this.lib.preferences.get('preferences.comm.fixWidth') !== true) return;
     const $ = this.od.jQuery;
 
-    $('textarea[name=nachricht]').css({width: '600px'});
+    $('#maincontent table[width]:eq(0)').attr('width','90%');
     $('#maincontent table[width]:eq(1)').removeAttr('width');
+    $('textarea[name=nachricht]').css({width: '600px'});
   }
-
 });

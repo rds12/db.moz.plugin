@@ -21,6 +21,7 @@ db.moz.plugin.templates = function(localepath){
     while(match = regex.exec(string)){
       matches[match[1]] = true;
     }
+    regex = null;
 
     for(var key in matches){
       var value = locales[key];
@@ -28,9 +29,11 @@ db.moz.plugin.templates = function(localepath){
 
       var repl  = new RegExp('#{'+key+'}','g');
       string = string.replace(repl,value);
+      value = null;
+      repl = null;
     }
-    return string
-  }
+    return string;
+  };
 
   this.parse = function(){
     // local_path to properties
@@ -41,7 +44,6 @@ db.moz.plugin.templates = function(localepath){
       return '';
     }
     // loading the content of locales
-    var test = args[0];
     args[0] = self.get_template_string(args[0]);
 
     if(args[0] == undefined){
@@ -49,8 +51,8 @@ db.moz.plugin.templates = function(localepath){
       return '';
     }
     return db.moz.plugin.basics.sprintf.apply(null,args);
-  }
-}
+  };
+};
 
 db.moz.plugin.templates.cached = null;
 db.moz.plugin.templates.get = function(location){

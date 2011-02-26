@@ -34,9 +34,6 @@ pref("extensions.db.moz.plugin.preferences.planet.invaderStatisics",true);
 // opaque left upper planet image in holopad and add post symbol - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.postSymbol",true);
 
-// calculate daily income - ok
-pref("extensions.db.moz.plugin.preferences.infrastructure.dailyIncome",true);
-
 // calculate number of buildable ships - ok
 pref("extensions.db.moz.plugin.preferences.infrastructure.buildableShips",true);
 

@@ -39,29 +39,24 @@ db.moz.plugin.preferences = {
       },
 
       get: function(prefname){
-        const prefs = this.branch;
-
         var type = this.type(prefname),
             value = undefined;
 
         if(type == this.INVALID) return undefined;
 
-        if(type == this.STRING) value = prefs.getCharPref(prefname);
-        if(type == this.BOOLEAN)   value = prefs.getBoolPref(prefname);
-        if(type == this.INT)    value = prefs.getIntPref(prefname);
+        if(type == this.STRING)  value = this.branch.getCharPref(prefname);
+        if(type == this.BOOLEAN) value = this.branch.getBoolPref(prefname);
+        if(type == this.INT)     value = this.branch.getIntPref(prefname);
+        type = null;
 
         return value;
       },
 
       set: function(name,value){
-        const basics = db.moz.plugin.basics;
-        const type   = basics.get_type(value);
-        const prefs  = this.branch;
-
-        switch(type){
-          case 'Boolean': prefs.setBoolPref(name,value); return true;
-          case 'Number' : prefs.setIntPref (name,value); return true;
-          case 'String' : prefs.setCharPref(name,value); return true;
+        switch(db.moz.plugin.basics.get_type(value)){
+          case 'Boolean': this.branch.setBoolPref(name,value); return true;
+          case 'Number' : this.branch.setIntPref (name,value); return true;
+          case 'String' : this.branch.setCharPref(name,value); return true;
         }
 
         return false;
@@ -84,8 +79,7 @@ db.moz.plugin.preferences = {
     
     var args = db.moz.plugin.basics.flatt_args(arguments);
     // assigned was only one variable, and this variable wasn't a array.
-    var complex_assigned = 
-        !(arguments.length == 1 && !(basics.is_array(arguments[0])));
+    var complex_assigned = !(arguments.length == 1 && !(basics.is_array(arguments[0])));
     var returning = {};
     
     for(var i=0,len=args.length;i<len;++i){
@@ -96,7 +90,8 @@ db.moz.plugin.preferences = {
 
       if(!complex_assigned) return value;
       returning[prefname] = value;
-    }    
+    }
+    args = null;
     return (complex_assigned ? returning:undefined);
   },
   

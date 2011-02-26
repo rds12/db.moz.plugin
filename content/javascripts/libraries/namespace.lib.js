@@ -1,15 +1,15 @@
 /* 
 Script: Namespace.js
-	Namespace utility
+  Namespace utility
 
 Copyright:
-	Copyright (c) 2009 Maxime Bouroumeau-Fuseau
+  Copyright (c) 2009 Maxime BouroumeauFuseau
 
 License:
-	MIT-style license.
-	
+  MIT-style license.
+  
 Version:
-	1.1
+  1.1
 */
 var Namespace = (function() {
 

@@ -28,8 +28,8 @@ db.moz.plugin.modules.register({
   },
   
   is_fleet_overview:function(){
-    const l = this.modules.location;
-    return l.main == 'fleet' && l.sub == 'overview'; 
+    const loc = this.modules.location;
+    return loc.main == 'fleet' && loc.sub == 'overview'; 
   },
   
   select_same: function(fleet_id,event){
@@ -49,7 +49,7 @@ db.moz.plugin.modules.register({
     var parent_form = element.parents('form:eq(0)');
     
     parent_form.find('tr:visible').each(function(i,e){
-      var e = $(e);
+      e = $(e);
       var box = e.find('input[type=checkbox]');
       if(!box.length) return true;
       
@@ -66,14 +66,14 @@ db.moz.plugin.modules.register({
     if(!event) return;
 
     // set new input button with the number of selected fleets
-    var offset = element.offset(), 
+    var offset = element.offset(),
         send = $('#dbMozPluginFleetQuickSend').empty()
                .append(self.template('sendWindowInput',counter));
     counter = null;
 
+    // align left from the checkbox and on the same height 
     var button = send.css({
-      // align left from the checkbox and on the same height 
-      top: offset.top, left: (offset.left - send.width() - element.width()) 
+      top: offset.top, left: (offset.left - send.width() - element.width())
     }).show().find(':button');
     element = null;
     offset = null;
@@ -83,10 +83,8 @@ db.moz.plugin.modules.register({
     // $('form:first').submit();
     // has no effect, im not sure why, but it won't work,
     // therefore we have to inject the onclick event
-
-    var name = parent_form.attr('name');
-    button.attr('onclick','document.'+name+'.submit();');
-    name = null;
+    button.attr('onclick','document.'+parent_form.attr('name')+'.submit();');
+    button = null;
   },
   
   select_reset: function(){
@@ -178,8 +176,7 @@ db.moz.plugin.modules.register({
       var number_of_hidings = 0;
 
       $('#div3 table table table:first tr').each(function(){
-        // check if galaxy is set
-        // if not, ship belongs to a fleet
+        // check if galaxy is set if not, ship belongs to a fleet
         var is_merged = !$(this).find('td:eq(2)').text();
 
         // is ship merged in fleet?
@@ -206,9 +203,7 @@ db.moz.plugin.modules.register({
   },
 
   gui_dispatch_menu_extending_focus_direct_input: function(){
-    if(true !== this.lib.preferences.get('preferences.fleet.focusDirectInput'))
-      return;
-
+    if(true !== this.lib.preferences.get('preferences.fleet.focusDirectInput')) return;
     const $ = this.od.jQuery;
 
     /* yet another case where a jQuery build in function won't 

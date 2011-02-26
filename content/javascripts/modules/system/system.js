@@ -72,18 +72,16 @@ db.moz.plugin.modules.register({
     system.attr('id','system-'+this.modules.location.options.system_id);
 
     system.find('table td a img').each(function(i,e){
-      var e = $(e), pid = e.attr('id');
+      var pid = $(e).attr('id');
       if(!/^\d+$/.test(pid)) return;
 
-      var text = e.parents('a:first').attr('id','planet-'+pid)
-                  .attr('onMouseover');
+      var text = $(e).parents('a:first').attr('id','planet-'+pid).attr('onMouseover');
       var pname = (text.match(self.regex_pname) || ['','undefined'])[1];
 
       self.planets.push({
         planet_id: pid,
         planet_name: pname
       });
-      e = null;
       pid = null;
       text = null;
       pname = null;

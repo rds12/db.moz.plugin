@@ -58,7 +58,7 @@ db.moz.plugin.modules.register({
     this.gui_extending_close_event();
     this.gui_extending_disable_quickjump_overflow();
 
-    basic.log('module.location',null,true)
+    basic.log('module.location',null,true);
     basic.log(this.query.op  ,'op');
     basic.log(this.query     ,'query');
     basic.log(this.main      ,'main');

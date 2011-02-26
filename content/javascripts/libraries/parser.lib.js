@@ -12,8 +12,9 @@ db.moz.plugin.parser = {
     // originial: doc = window._content.document;
     // but _content is deprecated
     var doc = doc || window.content.document;
+
     // Part 1 : get the history entry (nsISHEntry) associated with the document
-    var webnav;
+    var webNav = null;
     try {
       // Get the DOMWindow for the requested document.  If the DOMWindow
       // cannot be found, then just use the _content window...
@@ -25,24 +26,37 @@ db.moz.plugin.parser = {
       }
       var ifRequestor = win.QueryInterface(Components.interfaces.nsIInterfaceRequestor);
       webNav = ifRequestor.getInterface(Components.interfaces.nsIWebNavigation);
+
+      win = null;
+      ifRequestor = null;
     } catch(err) {
       // If nsIWebNavigation cannot be found, just get the one for the whole window...
       webNav = getWebNavigation();
     }
+
+    var shEntry = null;
     try {
       var PageLoader = webNav.QueryInterface(Components.interfaces.nsIWebPageDescriptor);
       var pageCookie = PageLoader.currentDescriptor;
-      var shEntry = pageCookie.QueryInterface(Components.interfaces.nsISHEntry);
+      shEntry = pageCookie.QueryInterface(Components.interfaces.nsISHEntry);
+      PageLoader = null;
+      pageCookie = null;
     } catch(err) {
       // If no page descriptor is available, just use the URL...
     }
+    webNav = null;
+
     //// Part 2 : open a nsIChannel to get the HTML of the doc
     var url = doc.URL;
     var urlCharset = doc.characterSet;
     var ios = Components.classes["@mozilla.org/network/io-service;1"]
                         .getService(Components.interfaces.nsIIOService);
-  
+
     var channel = ios.newChannel( url, urlCharset, null );
+    doc = null;
+    url = null;
+    urlCharset = null;
+    ios = null;
     channel.loadFlags |= Components.interfaces.nsIRequest.VALIDATE_NEVER;
     channel.loadFlags |= Components.interfaces.nsIRequest.LOAD_FROM_CACHE;
   //    channel.loadFlags |= Components.interfaces.nsICachingChannel.LOAD_ONLY_FROM_CACHE;
@@ -51,10 +65,14 @@ db.moz.plugin.parser = {
       // Use the cache key to distinguish POST entries in the cache (see nsDocShell.cpp)
       var cacheChannel = channel.QueryInterface(Components.interfaces.nsICachingChannel);
       cacheChannel.cacheKey = shEntry.cacheKey;
+      cacheChannel = null;
     } catch(e) {}
+    shEntry = null;
   
     var stream = channel.open();
-    const scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
+    var scriptableStream = Components.classes["@mozilla.org/scriptableinputstream;1"]
+                                 .createInstance(Components.interfaces.nsIScriptableInputStream);
+
     scriptableStream.init( stream );
   
     var s = "";
@@ -65,6 +83,10 @@ db.moz.plugin.parser = {
     } catch(e) {}
     scriptableStream.close();
     stream.close();
+
+    stream = null;
+    scriptableStream = null;
+    channel = null;
     return s;
   },
 
@@ -98,8 +120,7 @@ db.moz.plugin.parser = {
 
     var open = function(url){
       try{
-        iframe.webNavigation.loadURI(url,
-          Components.interfaces.nsIWebNavigation,null,null,null);
+        iframe.webNavigation.loadURI(url,Components.interfaces.nsIWebNavigation,null,null,null);
       }catch(e){
         failed(false);
       }
@@ -150,10 +171,11 @@ db.moz.plugin.parser = {
       destroy();
     }
 
+    var iframe = null
     try{
       // create iframe
-      var event = new db.moz.plugin.basics.event,
-          iframe = create(); 
+      var event = new db.moz.plugin.basics.event;
+      iframe = create();
   
       setCallback(callback);
       open(url);
@@ -191,6 +213,7 @@ db.moz.plugin.parser = {
       notifier.notify(status);
       return false;
     }
+    status = null;
 
     notifier.notify('parserGetSource');
     var source = this.getSourceFromPage(doc);
@@ -207,7 +230,7 @@ db.moz.plugin.parser = {
     var iframe = this.createIframe(parserUri,function(event){
       notifier.notify('parserLoaded');
       var input = $('textarea[name='+inputName+']:first',
-        iframe.get().contentDocument);
+                    iframe.get().contentDocument);
 
       // check if input element is avaible
       if(!input.length){
@@ -219,6 +242,7 @@ db.moz.plugin.parser = {
       input.val(source);
 
       var form = input.parents('form:first');
+      input = null;
 
       if(!form.length){
         notifier.notify('parserTargetFormNotFound',inputName);
@@ -236,6 +260,7 @@ db.moz.plugin.parser = {
     },function(timeout){
       var mess = timeout? 'parserTimeout' : 'parserFailure';
       notifier.notify(mess);
+      mess = null;
     });
 
     return true;
@@ -245,12 +270,12 @@ db.moz.plugin.parser = {
     const ajax = db.moz.plugin.ajax,
           prefs = db.moz.plugin.preferences;
 
-    var source = this.getSourceFromPage(),
-        inputName = prefs.get('preferences.configset.parserTargetElement'),
+    var inputName = prefs.get('preferences.configset.parserTargetElement'),
         parserUri = prefs.get('preferences.configset.parserTargetUri'),
         postBody = {check: 'yes'};
 
-    postBody[inputName] = source;
+    postBody[inputName] = this.getSourceFromPage();
+    inputName = null;
 
     new ajax(parserUri, {
       method: 'post',
@@ -264,6 +289,9 @@ db.moz.plugin.parser = {
         alert('retrieveFormEntries: failure');
       }
     });
+
+    parserUri = null;
+    postBody = null;
   },
 
   copyToClipboard: function(source, notifier){
@@ -288,6 +316,7 @@ db.moz.plugin.parser = {
     if(source){
       notifier.notify('parserCopiedToClipboard');
     }
+    notifier = null;
   },
 
   parseSite: function(doc, force){
@@ -317,7 +346,10 @@ db.moz.plugin.parser = {
       // get source
       var source = this.getSourceFromPage(doc);
       this.copyToClipboard(source);
+      source = null;
     }
+    doc = null;
+    already_copied = null;
   },
 
   is_disabled: function(){

@@ -36,10 +36,6 @@
       <checkbox id="preferences.infrastructure.postSymbol"
                 label='&odchanges.planet.postSymbol;' />
 
-      <!-- daily income -->
-      <checkbox id="preferences.infrastructure.dailyIncome"
-                label='&odchanges.planet.dailyIncome;' />
-
       <!-- number of buildable ships -->
       <checkbox id="preferences.infrastructure.buildableShips"
                 label='&odchanges.planet.buildableShips;' />

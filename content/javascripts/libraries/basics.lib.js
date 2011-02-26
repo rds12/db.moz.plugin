@@ -82,6 +82,7 @@ db.moz.plugin.basics = {
                  .getService(Components.interfaces.nsIExtensionManager);
       var addon = em.getItemForID("rds12sog@gmail.com");
       self.version = addon ? addon.version : null;
+      
     }
 
     return self.version ? self.version : 'unknown';
@@ -328,7 +329,7 @@ db.moz.plugin.include = {
 db.moz.plugin.require = {
   // the defaults must be loaded, to be able to run this unit.
   _loaded_javascripts: {
-    'libraries/namespace.lib': true,
+//    'libraries/namespace.lib': true,
     'libraries/console.lib'  : true,
     'libraries/basics.lib'   : true
   },

@@ -49,36 +49,35 @@ db.moz.plugin.runner = function(dom, doc){
         module.modules = this.modules;
         module.template = function(){
           return this.template.engine.parse.apply(null,arguments);
-        }
+        };
 
         module.template.engine = new this.lib.templates('modules/modules.'+module.module_name);
 
         module.call = function(name,value,prefix){
           prefix = prefix || 'od_';
-          const fname = prefix + name;
+          var fname = prefix + name;
           try{
             if(!this[fname]) return false;
             this[fname](value,name);
             return true;
           }catch(e){
             if(this.lib.preferences.get('debug.enable'))
-            this.lib.console.error('module.'+this.module_name+'.'+fname
-            +': calling failed', e);
+            this.lib.console.error('module.'+this.module_name+'.'+ fname +': calling failed', e);
           }
           fname = null;
           return false;
-        }
+        };
 
         module.initialize();
 
         this.modules[module_name] = module;
         module = null;
       }catch(e){
-        this.lib.console.error('runner.invoke_modules('
-            + module_name + ') failed to load',e);
+        this.lib.console.error('runner.invoke_modules(' + module_name + ') failed to load',e);
         returning = false;
       }
+      module_name = null;
     }
     return returning;
-  }
+  };
 };

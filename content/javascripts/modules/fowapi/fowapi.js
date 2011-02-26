@@ -30,7 +30,6 @@ db.moz.plugin.modules.register({
     if(!(location.main == 'system' && location.sub == 'main')) return;
 
     this.system_viewable = this.modules.system.viewable;
-
     this.gui_extending_fow(location.options.system_id);
 
     basic.log('modules.fowapi',null,true);
@@ -50,19 +49,15 @@ db.moz.plugin.modules.register({
   },
 
   parse_system_unless_updated: function(odh){
-    if(true !== this.lib.preferences.get('preferences.system.autoParsing'))
-      return;
+    if(true !== this.lib.preferences.get('preferences.system.autoParsing')) return;
 
     // don't parse fow systems
     if(!this.system_viewable) return false;
 
-    var current = odh.find('system > scanDate').attr('current');
-
     // 1 - up-to-date, 2 - _not_ up-to-date
-    if(current != '2') return;
+    if(odh.find('system > scanDate').attr('current') != '2') return;
 
     this.log(this.template('responseAutoParse'));
-    var doc = this.od.doc;
 
     /*
      * We have a Site named A.
@@ -81,7 +76,7 @@ db.moz.plugin.modules.register({
      * Page A is still active.
      */
     // force parsing, because location is unset
-    db.moz.plugin.parser.parseSite(doc,!doc.location);
+    db.moz.plugin.parser.parseSite(this.od.doc,!this.od.doc.location);
   },
 
   mask_text: function(text){
@@ -121,7 +116,7 @@ db.moz.plugin.modules.register({
       return invalid(odh_status);
     odh_status = null;
 
-    var $ = xhr.responseHTML.$; 
+    var $ = xhr.responseHTML.$;
     valid('responseStatusOK');
 
     var sid = this.modules.location.options.system_id,
@@ -129,6 +124,7 @@ db.moz.plugin.modules.register({
 
     if(sid != xhr_sid)
       return invalid('responseStatusMismatch',sid,xhr_sid);
+
     sid = null;
     xhr_sid = null;
 
@@ -142,9 +138,7 @@ db.moz.plugin.modules.register({
       valid('responseStatusFowSystem');
 
     var scanDate = $.find('system > scanDate'),
-        scanText = this.format_scan_date(
-          self.mask_text(scanDate.text()),
-          self.mask_text(scanDate.attr('current')));
+        scanText = this.format_scan_date(self.mask_text(scanDate.text()),self.mask_text(scanDate.attr('current')));
     $ = null;
     scanDate = null;
 
@@ -203,6 +197,11 @@ db.moz.plugin.modules.register({
           info = new RegExp('^(' + regex.join(')(') + ')$'),
           parsed = text.match(info);
 
+      planet = null;
+      text = null;
+      regex = null;
+      info = null;
+
       if(!parsed) return;
 
       var mask_text= function(text){
@@ -237,6 +236,10 @@ db.moz.plugin.modules.register({
           tungsten = mask(element.find('wolfram')),
           fluoride = mask(element.find('fluor'));
 
+      element = null;
+      scanDate = null;
+      orbit = null;
+
       // is system in fow, replace api-datas with od-datas
       if(!self.system_viewable){
         parsed[1] = self.template('fowPlanetMouseover', owner,
@@ -246,6 +249,18 @@ db.moz.plugin.modules.register({
         // #3: alliance_id, #4: race
         parsed[5] = [owner,owner_id,alliance_tag,alliance_id,race].join("','");
       }
+
+      owner = null;
+      owner_id = null;
+      race = null;
+      alliance_tag = null;
+      alliance_id = null;
+      size = null;
+      population = null;
+      ore = null;
+      crystal = null;
+      tungsten = null;
+      fluoride = null;
 
       // adding a picture bar to every planet
       hover.addClass('dbMozPluginPlanet').append('<div/>');
@@ -260,6 +275,10 @@ db.moz.plugin.modules.register({
         picture_bar.prepend(self.template('planetToolbarScanned'));
       }
 
+      scanDateText = null;
+      scanDateCurrent = null;
+      scanImg = null;
+
       // if comment is avaible, append it 
       if(!comment.match(/^\s*$/)){
         // 2010.05.04: disabled inline comments in planet-overviews 
@@ -267,15 +286,19 @@ db.moz.plugin.modules.register({
 
         picture_bar.prepend(self.template('planetToolbarComment',comment));
       }
+      picture_bar = null;
+      comment = null;
 
-      var type = (orbitType.match(/M|G|R/i) || [''])[0].toUpperCase() , 
+      var type = (orbitType.match(/M|G|R/i) || [''])[0].toUpperCase(),
       pictures = {
         G: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/tor.gif',
         M: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/sprung.gif',
         R: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/riss.gif'
       };
+      orbitType = null;
 
-      var orbit = $('#orbit-'+pid);
+      orbit = $('#orbit-'+pid);
+      pid = null;
       // if fow-system and gate type was set
       if(!self.system_viewable && type != '' && orbit.length){
 
@@ -285,11 +308,15 @@ db.moz.plugin.modules.register({
         // resize it to normal size
         orbit.find('img').attr('src',pictures[type])
              .css({width: '100px', height: '90px'});
+        type = null;
+        pictures = null;
 
         // extending orbit text
         var regex = /^(dlt\(')(.+?)(','.+)$/,
             orbit_hover = orbit.attr('onmouseover') || '',
             match = orbit_hover.match(regex) || ['','','',''];
+        regex = null;
+        orbit_hover = null;
 
         // delete first element
         match.shift();
@@ -300,9 +327,13 @@ db.moz.plugin.modules.register({
 
         // new mouseover
         orbit.attr('onmouseover',match.join(''));
+        match = null;
       }
+      orbit = null;
+      orbitText = null;
 
       hover.attr('onmouseover',parsed.join(''));
+      parsed = null;
     })
   },
   
@@ -325,12 +356,18 @@ db.moz.plugin.modules.register({
       var colspan = e.attr('colspan'),
           rowspan = e.attr('rowspan'),
           system_id = self.modules.location.options.system_id,
-          href = e.attr('href'),
-          href = href ? self.replace_placeholders(href,system_id) : null;
+          href = e.attr('href');
+
+      href = href ? self.replace_placeholders(href,system_id) : null;
 
       if(href)td.wrapInner('<a href="'+href+'" />');
-      if(colspan) td.attr('colspan',colspan)
-      if(rowspan) td.attr('rowspan',rowspan)
+      if(colspan) td.attr('colspan',colspan);
+      if(rowspan) td.attr('rowspan',rowspan);
+
+      colspan = null;
+      rowspan = null;
+      system_id =null;
+      href = null;
 
       return td;
     }
@@ -338,13 +375,14 @@ db.moz.plugin.modules.register({
     var counter = 0;
 
     var add_tr = function(e,is_header,i){
-      var classes = is_header ? 'tablecolor' : '';
+      var style_class = is_header ? 'tablecolor' : '';
 
       // toggle between highlighting and not
       if(is_header) counter = 0;
-      else classes = (++counter) % 2 ? 'tabletranslight' : ''; 
+      else style_class = (++counter) % 2 ? 'tabletranslight' : '';
 
-      var tr = $('<tr/>').addClass(classes);
+      var tr = $('<tr/>').addClass(style_class);
+      style_class = null;
 
       e.children().each(function(i,e){
         var nodeName = e.nodeName, e = $(e);
@@ -354,10 +392,13 @@ db.moz.plugin.modules.register({
         var td = add_td(e,nodeName == 'th',i);
 
         tr.append(td);
+        nodeName = null;
+        td = null;
       });
 
       return tr;
     }
+    counter = null;
 
     system_info.children().each(function(i,e){
       var nodeName = e.nodeName;
@@ -367,14 +408,14 @@ db.moz.plugin.modules.register({
 
       var tr = add_tr($(e),nodeName == 'thr',i);
       fow_table.append(tr);
+      nodeName = null;
+      tr = null;
     });
   },
 
   gui_extending_append_fow_window: function(){
-    const $ = this.od.jQuery;
     $('body').append(this.template('statusWindow'));
-    
-    this.window = $('#dbMozPluginFowWindow');
+    this.window = this.od.jQuery('#dbMozPluginFowWindow');
   },
 
   gui_extending_fow: function(system_id){
@@ -393,6 +434,7 @@ db.moz.plugin.modules.register({
     // fow api enabled?
     var enabled = prefs.get('preferences.configset.extDisableFow');
     if(enabled != true) return;
+    enabled = null;
 
     this.gui_extending_append_fow_window();
 
@@ -430,5 +472,6 @@ db.moz.plugin.modules.register({
         self.log(self.template('requestFailed'));
       }
     });
+    uri = null;
   }
 });

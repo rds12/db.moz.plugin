@@ -19,8 +19,8 @@ db.moz.plugin.browser = {
     if(!this.check_event(event,true)) return;
 
     var win = doc.defaultView;
-    
-    delete win['dbMozPluginContentInitialized'];
+   
+//    delete win['dbMozPluginContentInitialized'];
   },
 
   onContentLoaded: function(event){
@@ -39,7 +39,7 @@ db.moz.plugin.browser = {
     db.moz.plugin.browser.invoke_modules(dom,doc);
     doc = null;
 
-    delete win['dbMozPluginContentInitialized'];
+//    delete win['dbMozPluginContentInitialized'];
   },
 
   // Firefox 3.6 and before: called _after_ every content initialization
