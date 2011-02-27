@@ -120,7 +120,8 @@ db.moz.plugin.parser = {
 
     var open = function(url){
       try{
-        iframe.webNavigation.loadURI(url,Components.interfaces.nsIWebNavigation,null,null,null);
+        iframe.webNavigation.loadURI(url,
+          Components.interfaces.nsIWebNavigation,null,null,null);
       }catch(e){
         failed(false);
       }
@@ -174,8 +175,8 @@ db.moz.plugin.parser = {
     var iframe = null
     try{
       // create iframe
-      var event = new db.moz.plugin.basics.event;
-      iframe = create();
+      var event = new db.moz.plugin.basics.event,
+          iframe = create(); 
   
       setCallback(callback);
       open(url);
@@ -257,11 +258,13 @@ db.moz.plugin.parser = {
 
       notifier.notify('parserTargetOnSubmit');
       form.get(0).submit();
+      delete form;
     },function(timeout){
       var mess = timeout? 'parserTimeout' : 'parserFailure';
       notifier.notify(mess);
       mess = null;
     });
+    delete source;
 
     return true;
   },
