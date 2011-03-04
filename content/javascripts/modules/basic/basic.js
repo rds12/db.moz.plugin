@@ -41,6 +41,7 @@ db.moz.plugin.modules.register({
   debug_window:       undefined,
 
   initialize: function(){
+
     // Debug enabled?
     this.is_debug_enabled = !!this.lib.preferences.get('debug.enable');
     // get extension version!
@@ -93,19 +94,19 @@ db.moz.plugin.modules.register({
   },
 
   format_time: function(time){
-    const basics = db.moz.plugin.basics;
     var matches = /(\d+):(\d+):(\d+):(\d+)/.exec(time);
     if(!matches) return false;
+    
     var ints = ['%02d:%02d:%02d:%02d'];
     for(var i=1;i<5;++i) 
       ints.push(parseInt(matches[i]));
-    matches = null;
+    
+    const basics = db.moz.plugin.basics;
     return basics.sprintf.apply(this,ints);
   },
 
   parse_time: function(time){
     var match = /(\d+):(\d+):(\d+):(\d+)/.exec(time);
-
     if(!match) return Number.NaN;
 
     //remove first element
@@ -115,16 +116,13 @@ db.moz.plugin.modules.register({
     match = this.od.jQuery(match).map(function(i,e){
       return parseInt(e) * factors[i];
     });
-    factors = null;
 
     var value = match[0] + match[1] + match[2] + match[3];
-    match = null;
     return value;
   },
 
   retrieve_od_whereabouts:function(){
     const dom = this.od.dom;
-    const $   = this.od.jQuery;
 
     this.player_panel = undefined;
     try{
@@ -139,6 +137,7 @@ db.moz.plugin.modules.register({
 
       this.is_od = true;
       // references to the player_panel 
+      const $   = this.od.jQuery;
       this.player_panel = $('body table table[width=410]');
 
       if( this.player_panel.length ){
@@ -150,9 +149,8 @@ db.moz.plugin.modules.register({
       this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
     }
   },
-
+  
   retrieve_common_informations: function(){
-    const dom = this.od.dom;
     const $   = this.od.jQuery;
 
     // which round and world?
@@ -170,6 +168,7 @@ db.moz.plugin.modules.register({
     }
     this.is_slim = !this.is_premium;
     this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
+
     status = null;
     status_text = null;
 
@@ -185,18 +184,17 @@ db.moz.plugin.modules.register({
 
     var race = null;
     if(this.based_on == 'round5'){
-      race = this.player_panel.find('a[href*="anznummer"]');
+      var race = this.player_panel.find('a[href*="anznummer"]');
       if(race.length)
       this.race_id = /anznummer=(\d+)/.exec(race.attr('href'))[1];
     }else{// this works for >=round7
-      race = this.player_panel.find('a[onclick*="op=rassen"]');
+      var race = this.player_panel.find('a[onclick*="op=rassen"]');
       this.race_id = /func=(\d+)/.exec(race.attr('onclick'))[1];
     }
     race = null;
   },
 
   retrieve_page_status: function(){ 
-    const dom = this.od.dom;
     const $   = this.od.jQuery;
 
     // checking if the form with the name Interruptform
@@ -227,9 +225,9 @@ db.moz.plugin.modules.register({
 
     var template = null;
     if(header){
-      template = this.template('debugHeader',message);
+      var template = this.template('debugHeader',message);
     }else{
-      template = this.template('debugMessage',label,basics.inspect(message));
+      var template = this.template('debugMessage',label,basics.inspect(message));
     }
     this.debug_window.append(template);
     template = null;
@@ -247,13 +245,11 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_debug : function(){
-    const dom = this.od.dom;
-    const $   = this.od.jQuery;
-    const prefs = this.lib.preferences;
-
     // if debug is disabled -> return
     if(!this.is_debug_enabled){return;}
 
+    const $   = this.od.jQuery;
+    const prefs = this.lib.preferences;
     const visibilty = prefs.get('debug.visible');
 
     $('body').append(this.template('debugWindow'));
@@ -273,8 +269,7 @@ db.moz.plugin.modules.register({
     if(this.lib.preferences.get('preferences.overall.configurators') !== true)
       return;
 
-    const $   = this.od.jQuery;
-
+    const $ = this.od.jQuery;
     $('#dbMozPluginLogo').prepend(this.template('configuratorLinks'));
   }
 });

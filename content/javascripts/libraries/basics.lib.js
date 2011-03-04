@@ -302,8 +302,7 @@ db.moz.plugin.basics.event.keys = function(event){
 }
 
 db.moz.plugin.include = {
-  _subscript_loader: Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-                     .getService(Components.interfaces.mozIJSSubScriptLoader),
+  _subscript_loader: Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader),
                      
   jspath: function(js_name){
     return 'chrome://db.moz.plugin/content/javascripts/'+ js_name +'.js'; 

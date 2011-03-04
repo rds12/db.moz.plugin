@@ -25,8 +25,7 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_research: function(){
-    if(this.lib.preferences.get('preferences.research.totalPoints') !== true)
-      return;
+    if(this.lib.preferences.get('preferences.research.totalPoints') !== true) return;
 
     // player is not premium? do nothing
     if(!this.modules.basic.is_premium) return;
@@ -35,7 +34,6 @@ db.moz.plugin.modules.register({
 
     // get reference point
     var research_box = $('#returntim').parent('td');
-
     var span = research_box.find('span');
     if(!span.length) return;
 

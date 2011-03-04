@@ -75,8 +75,8 @@ db.moz.plugin.modules.register({
     if(this.lib.preferences.get('preferences.overall.closeHandler') !== true)
       return;
 
-    var win = this.od.doc,
-          $ = this.od.jQuery;
+    const win = this.od.doc;
+    const $ = this.od.jQuery;
 
     // add the text '[Esc]' to all window closer
     $('a[href$=.closeDialog()]').prepend('[Esc] ');
@@ -88,9 +88,6 @@ db.moz.plugin.modules.register({
         $(e).css('visibility','hidden');
       });
     });
-
-    win = null;
-    $ = null;
   },
 
   gui_extending_disable_quickjump_overflow: function(){
@@ -101,7 +98,7 @@ db.moz.plugin.modules.register({
   },
 
   od_send: function(place){
-    var $ = this.od.jQuery;
+    const $ = this.od.jQuery;
     
     this.main = 'fleet';
     this.sub  = 'dispatch_menu';
@@ -124,7 +121,6 @@ db.moz.plugin.modules.register({
     }
 
     dispatch = null;
-    $ = null;
   },
   
   od_undefined: function(place){

@@ -20,7 +20,7 @@ db.moz.plugin.browser = {
 
     var win = doc.defaultView;
    
-//    delete win['dbMozPluginContentInitialized'];
+    delete win['dbMozPluginContentInitialized'];
   },
 
   onContentLoaded: function(event){
@@ -39,7 +39,7 @@ db.moz.plugin.browser = {
     db.moz.plugin.browser.invoke_modules(dom,doc);
     doc = null;
 
-//    delete win['dbMozPluginContentInitialized'];
+    delete win['dbMozPluginContentInitialized'];
   },
 
   // Firefox 3.6 and before: called _after_ every content initialization
@@ -61,6 +61,7 @@ db.moz.plugin.browser = {
   onLocationChange: function(win){
     // set the visibility of statusbar
     this.check_if_omega_day(win.document);
+
   },
 
   onTabSelection: function(event){
@@ -77,7 +78,6 @@ db.moz.plugin.browser = {
 
     if( omegaday_check === true )
       return this.check_if_omega_day(doc);
-    doc = null;
 
     return true;
   },

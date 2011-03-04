@@ -3,7 +3,7 @@ img {
 }
 
 .dbMozPluginBox {
-  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+  background-image: url(http://www.omega-day.com/spielgrafik/grafik/allgemein/sterne-blue.gif);
   -moz-border-radius: 5px;
   border: 1px solid #156080;
 }
@@ -26,7 +26,7 @@ img {
 }
 
 #dbMozPluginDebug #odMozPluginDebugWindow {
-  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+  background-image: url(http://www.omega-day.com/spielgrafik/grafik/allgemein/sterne-blue.gif);
   opacity: 0.7;
 }
 
@@ -54,7 +54,7 @@ img {
 
 #dbMozPluginCommAjaxResponse > div:hover, 
 #dbMozPluginCommAjaxResponse > div[hover]{
-  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-bluelight.gif);
+  background-image: url(http://www.omega-day.com/spielgrafik/grafik/allgemein/sterne-bluelight.gif);
 }
 
 #dbMozPluginOrbitStatistics {
@@ -172,7 +172,7 @@ div.menu-item {
   margin: 2px;
   text-align: center;
   -moz-border-radius: 4px;
-  background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-blue.gif);
+  background-image: url(http://www.omega-day.com/spielgrafik/grafik/allgemein/sterne-blue.gif);
 }
 
 div.menu-item > a {
@@ -198,7 +198,7 @@ div.menu-item > a:hover{
 }
 
 #dbMozPluginNotifyWindow > div:first-child {
-	background-image: url(http://www.omega-day.com/game/grafik/allgemein/sterne-bluelight.gif);
+	background-image: url(http://www.omega-day.com/spielgrafik/grafik/allgemein/sterne-bluelight.gif);
 	border-bottom: 1px solid #156080;
 	margin-bottom: 0.2em;
 	position: relative;

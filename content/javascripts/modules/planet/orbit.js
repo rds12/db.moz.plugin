@@ -61,7 +61,6 @@ db.moz.plugin.modules.register({
     if(!header.length)header = $('#message .messageBox_Middle');
 
     header.wrapInner(this.template('overviewBar'));
-    header = null;
 
     return $('#dbMozPluginOrbitOverviewBar');
   },
@@ -344,6 +343,7 @@ db.moz.plugin.modules.register({
     var ships  = this.get_ships();
     var stats = {
       length: ships.length,
+      
       ships:  ships,
       imgs:{}
     };
@@ -442,6 +442,7 @@ db.moz.plugin.modules.register({
     if(!exists) return;
     exists = null;
 
+    var keys = this.shortcuts;
     try{
       //cmd_<orbit-operation>
       this['cmd_'+ keys[key]]();
@@ -567,7 +568,7 @@ db.moz.plugin.modules.register({
     $('td[namsn]:first').parents('div:first').parents(':first').prepend(ele);
 
     for(var key in stats.imgs){
-      count = stats.imgs[key];
+      var count = stats.imgs[key];
       ele.append(this.template('statisticsEntry',key,count,count*100.0/max));
     }
     ele.append(this.template('statisticsLastEntry'));

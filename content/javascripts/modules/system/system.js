@@ -42,9 +42,8 @@ db.moz.plugin.modules.register({
     if(header.length) return header;
 
     header = $('#sysid').parents('td:first');
-
     // input not found? maybe planet is not existing anymore
-    if(!header.length)header = $('#message .messageBox_Middle');
+    if(!header.length) header = $('#message .messageBox_Middle');
 
     header.wrapInner(this.template('overviewBar'));
     header = null;

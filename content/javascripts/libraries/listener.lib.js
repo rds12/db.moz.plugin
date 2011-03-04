@@ -96,7 +96,6 @@ db.moz.plugin.listener = {
       onStateChange: function(aWebProgress, aRequest, aFlag, aStatus){
         // If you use myListener for more than one tab/window, use
         // aWebProgress.DOMWindow to obtain the tab/window which triggers the state change
-
         if(aFlag & STATE_START){
           //db.moz.plugin.browser.onContentInitialize(aWebProgress.DOMWindow);
         }

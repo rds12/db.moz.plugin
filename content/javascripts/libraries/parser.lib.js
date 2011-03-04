@@ -258,13 +258,11 @@ db.moz.plugin.parser = {
 
       notifier.notify('parserTargetOnSubmit');
       form.get(0).submit();
-      delete form;
     },function(timeout){
       var mess = timeout? 'parserTimeout' : 'parserFailure';
       notifier.notify(mess);
       mess = null;
     });
-    delete source;
 
     return true;
   },

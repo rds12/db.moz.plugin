@@ -73,6 +73,7 @@ db.moz.plugin.modules.register({
 
     var smallish = Math.floor(this.deposit.population / 100000);
     this.deposit.smallish_population = smallish;
+
     var production = function(name){
       return dom[name+'prog'] * dom[name+'faktor'] * smallish / 100;
     }
@@ -210,4 +211,4 @@ db.moz.plugin.modules.register({
     $('#lefttop').wrap('<div style="position:relative"/>').parents('div:eq(0)')
                  .prepend(this.template('postsymbol',img));
   }
-  });
+});

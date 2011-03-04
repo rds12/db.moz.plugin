@@ -114,6 +114,7 @@ db.moz.plugin.modules.register({
 
     if(odh_status != 'responseStatusOK')
       return invalid(odh_status);
+
     odh_status = null;
 
     var $ = xhr.responseHTML.$;
@@ -139,6 +140,7 @@ db.moz.plugin.modules.register({
 
     var scanDate = $.find('system > scanDate'),
         scanText = this.format_scan_date(self.mask_text(scanDate.text()),self.mask_text(scanDate.attr('current')));
+
     $ = null;
     scanDate = null;
 
@@ -239,7 +241,6 @@ db.moz.plugin.modules.register({
       element = null;
       scanDate = null;
       orbit = null;
-
       // is system in fow, replace api-datas with od-datas
       if(!self.system_viewable){
         parsed[1] = self.template('fowPlanetMouseover', owner,
@@ -289,8 +290,8 @@ db.moz.plugin.modules.register({
       picture_bar = null;
       comment = null;
 
-      var type = (orbitType.match(/M|G|R/i) || [''])[0].toUpperCase(),
-      pictures = {
+      var type = (orbitType.match(/M|G|R/i) || [''])[0].toUpperCase();
+      var pictures = {
         G: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/tor.gif',
         M: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/sprung.gif',
         R: 'http://www.omega-day.com/spielgrafik/grafik/allgemein/riss.gif'
