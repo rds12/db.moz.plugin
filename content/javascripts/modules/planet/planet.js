@@ -20,6 +20,10 @@ db.moz.plugin.modules.register({
     
     // nothing to do with planet? -> exit
     if(location.main != 'planet') return;
+
+    if(basic.is_debug_enabled) {
+        this.modules.basic.log('modules.planet',null,true);
+    }
     
     this.call(location.sub);
   },

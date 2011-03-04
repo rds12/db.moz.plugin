@@ -53,17 +53,16 @@ db.moz.plugin.gui.update_menus = function(){
       disabled = parser.is_disabled() ||
                  !browser.check_if_omega_day(doc);
 
-  items.attr('disabled',disabled ? 'true': 'false')
-}
+  items.attr('disabled',disabled ? 'true': 'false');
+};
 
 db.moz.plugin.gui.statusbar.cmd_open_context_menu = function(event){
   const $ = db.moz.plugin.jQuery.get_chrome();
 
   db.moz.plugin.gui.update_menus();
 
-  $("#dbMozPluginStatusContextMenu").get(0).
-      openPopup(event.target,"before_start",0,0,true,true)
-}
+  $("#dbMozPluginStatusContextMenu").get(0).openPopup(event.target,"before_start",0,0,true,true);
+};
 
 db.moz.plugin.gui.preferences = (function(){
   const $ = db.moz.plugin.jQuery.get_chrome(),
@@ -163,7 +162,7 @@ db.moz.plugin.gui.preferences = (function(){
           avaible = !!entry.length;
 
       // check if not set
-      if(!avaible) continue
+      if(!avaible) continue;
 
       var saved = save_value(branch,name,entry.text()),
           name_text = saved.is_same? 'guiConfigEntry' : 'guiConfigEntryNew';

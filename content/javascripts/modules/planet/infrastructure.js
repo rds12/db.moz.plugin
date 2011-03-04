@@ -48,9 +48,11 @@ db.moz.plugin.modules.register({
     // get all planet
     this.retrieve_infrastructure_values();
 
-    this.modules.basic.log('infrastructure',null,true);
-    this.modules.basic.log(this.production,'production');
-    this.modules.basic.log(this.deposit,'deposit');
+    if(basic.is_debug_enabled) {
+        this.modules.basic.log('modules.infrastructure',null,true);
+        this.modules.basic.log(this.production,'production');
+        this.modules.basic.log(this.deposit,'deposit');
+    }
 
     this.gui_extending_post_symbol();
     this.gui_extending_buildable_ships();

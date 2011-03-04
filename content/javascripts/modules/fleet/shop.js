@@ -21,6 +21,10 @@ db.moz.plugin.modules.register({
     if(location.main != 'shop') return;
     if(location.sub  != 'ships') return;
 
+    if(basic.is_debug_enabled) {
+        basic.log('modules.shop',null,true);
+    }    
+    
     this.gui_extending_convert_javascript_to_link();
   },
 

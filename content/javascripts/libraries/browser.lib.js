@@ -8,8 +8,6 @@ db.moz.plugin.browser = {
 
     if(key && shortcut != '')
       key.setAttribute('key',shortcut);
-    key = null;
-    shortcut = null;
 
     this.register_modules();
   },
@@ -19,7 +17,6 @@ db.moz.plugin.browser = {
     if(!this.check_event(event,true)) return;
 
     var win = doc.defaultView;
-   
     delete win['dbMozPluginContentInitialized'];
   },
 
@@ -37,9 +34,7 @@ db.moz.plugin.browser = {
     this.load_css(win.document);
 
     db.moz.plugin.browser.invoke_modules(dom,doc);
-    doc = null;
-
-    delete win['dbMozPluginContentInitialized'];
+//    delete win['dbMozPluginContentInitialized'];
   },
 
   // Firefox 3.6 and before: called _after_ every content initialization
@@ -88,7 +83,6 @@ db.moz.plugin.browser = {
     var set_statusbar = function(is_omegaday){
       var focused = doc == window.content.document;
       if(focused) self.show_statusbar(is_omegaday);
-      focused = null;
       return is_omegaday;
     }
 
@@ -100,10 +94,8 @@ db.moz.plugin.browser = {
         return set_statusbar(false);
 
       var href = location.host,
-          regexp = /(www|beta)(\d?).omega-day.com/i,
+          regexp = /(www.|beta.|)(\d?)omega-day.com/i,
           is_omegaday = regexp.test(href);
-      href = null;
-      regexp = null;
 
       return set_statusbar(is_omegaday);
     }catch(e){
@@ -121,8 +113,6 @@ db.moz.plugin.browser = {
       var head = doc.getElementsByTagName('head') || [doc.documentElement];
       if(!head || !head[0]) return false;
       head[0].appendChild(link);
-      link = null;
-      head = null;
       
     }catch(e){
       return false;
@@ -138,10 +128,14 @@ db.moz.plugin.browser = {
     // only go further if page is od
     if(!runner.modules.basic.is_od) return;
 
-    runner.invoke_modules(['location','fleet','research',
-      'infrastructure','orbit','planet','system','comm','fowapi',
-      'fleet_shop','toolbar']);
-    runner = null;
+    // load the modules.location
+    runner.invoke_modules(['location']);
+    runner.invoke_modules(runner.modules.location.jsfile);
+    
+
+//    runner.invoke_modules(['location','fleet','research',
+//      'infrastructure','orbit','planet','system','comm','fowapi',
+//      'fleet_shop','toolbar']);
   },
 
   register_modules: function(){
@@ -166,7 +160,6 @@ db.moz.plugin.browser = {
     require.module('toolbar');
 
     require.module('research');
-    require = null;
   },
 
   show_statusbar: function(show){

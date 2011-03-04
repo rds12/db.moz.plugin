@@ -29,10 +29,12 @@ db.moz.plugin.modules.register({
     this.retrieve_planets();
     this.retrieve_is_system_viewable();
 
-    basic.log('modules.system',null,true);
-    basic.log(this.viewable,'viewable');
-    for(var i = 0; i < this.planets.length; ++i)
-      basic.log(this.planets[i],'planets['+i+']');
+    if(basic.is_debug_enabled) {
+        basic.log('modules.system',null,true);
+        basic.log(this.viewable,'viewable');
+        for(var i = 0; i < this.planets.length; ++i)
+            basic.log(this.planets[i],'planets['+i+']');
+    }
   },
 
   get_overview_bar: function(){

@@ -17,14 +17,14 @@ db.moz.plugin.modules.register({
     const location = this.modules.location;
     
     if(location == undefined) throw 'location not avaible';
+    if(location.main != this.module_name) return;
     if(!basic.is_logged_in) return;
     
-    // nothing to do with fleet? -> exit
-    if(location.main != 'fleet') return;
-    
+    if(basic.is_debug_enabled) {
+        basic.log('modules.' + this.module_name,null,true);
+    }    
+
     this.call(location.sub);
-    
-    basic.log('module.fleet',null,true);
   },
   
   is_fleet_overview:function(){

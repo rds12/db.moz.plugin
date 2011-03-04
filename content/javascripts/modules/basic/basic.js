@@ -41,7 +41,6 @@ db.moz.plugin.modules.register({
   debug_window:       undefined,
 
   initialize: function(){
-
     // Debug enabled?
     this.is_debug_enabled = !!this.lib.preferences.get('debug.enable');
     // get extension version!
@@ -49,8 +48,7 @@ db.moz.plugin.modules.register({
 
     this.retrieve_od_whereabouts();
 
-    if(!this.is_od) return;    
-    if(!this.is_logged_in) return;
+    if(!this.is_od || !this.is_logged_in) return;    
 
     // trying to access ODHelpers instance
     try {
@@ -75,22 +73,24 @@ db.moz.plugin.modules.register({
     
     // logging variables
     
-    this.log('module.basic',null,true);
-    this.log(this.is_od              ,'is_od');
-    this.log(this.is_logged_in       ,'is_logged_in');
-    this.log(this.is_premium         ,'is_premium');
-    this.log(this.is_slim            ,'is_slim');
-    this.log(this.is_sitter          ,'is_sitter');
-    this.log(this.is_ad_page         ,'is_ad_page');
-    this.log(this.is_odhelper_enabled,'is_odhelper_enabled');
-    this.log(this.world              ,'world');
-    this.log(this.host               ,'host');
-    this.log(this.based_on           ,'based_on');
-    this.log(this.player_id          ,'player_id');
-    this.log(this.player_name        ,'player_name');
-    this.log(this.race_id            ,'race_id');
-    this.log(this.alliance_id        ,'alliance_id');
-    this.log(this.alliance_name      ,'alliance_name');
+    if(this.is_debug_enabled) {
+      this.log('module.basic',null,true);
+      this.log(this.is_od              ,'is_od');
+      this.log(this.is_logged_in       ,'is_logged_in');
+      this.log(this.is_premium         ,'is_premium');
+      this.log(this.is_slim            ,'is_slim');
+      this.log(this.is_sitter          ,'is_sitter');
+      this.log(this.is_ad_page         ,'is_ad_page');
+      this.log(this.is_odhelper_enabled,'is_odhelper_enabled');
+      this.log(this.world              ,'world');
+      this.log(this.host               ,'host');
+      this.log(this.based_on           ,'based_on');
+      this.log(this.player_id          ,'player_id');
+      this.log(this.player_name        ,'player_name');
+      this.log(this.race_id            ,'race_id');
+      this.log(this.alliance_id        ,'alliance_id');
+      this.log(this.alliance_name      ,'alliance_name');
+    }
   },
 
   format_time: function(time){
@@ -136,17 +136,17 @@ db.moz.plugin.modules.register({
       )throw 'db.moz.plugin: not in od';
 
       this.is_od = true;
-      // references to the player_panel 
+      // references to the player_panel
       const $   = this.od.jQuery;
-      this.player_panel = $('body table table[width=410]');
+      this.player_panel = $('.top-status-bar table[width=410]');
 
       if( this.player_panel.length ){
         this.is_logged_in = true;
       }
 
     }catch(e){
-      if(this.is_debug_enabled)
-      this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
+//      if(this.is_debug_enabled)
+//          this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
     }
   },
   

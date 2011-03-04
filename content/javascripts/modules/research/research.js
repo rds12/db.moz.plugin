@@ -21,6 +21,10 @@ db.moz.plugin.modules.register({
     // nothing to do with research? -> exit
     if(location.main != 'research') return;
 
+    if(basic.is_debug_enabled) {
+        basic.log('modules.research',null,true);
+    }
+    
     this.gui_extending_research();
   },
 

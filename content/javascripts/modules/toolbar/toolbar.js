@@ -39,6 +39,10 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_database_player_search: function(){
+    if(this.modules.basic.is_debug_enabled) {
+      this.modules.basic.log('modules.toolbar',null,true);
+    }
+
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;
 
@@ -83,6 +87,10 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_database_system_search: function(){
+    if(this.modules.basic.is_debug_enabled) {
+      this.modules.basic.log('modules.toolbar',null,true);
+    }
+
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;
 
@@ -104,6 +112,10 @@ db.moz.plugin.modules.register({
   },
 
   gui_extending_database_orbit_search: function(){
+    if(this.modules.basic.is_debug_enabled) {
+      this.modules.basic.log('modules.toolbar',null,true);
+    }
+
     const prefs = this.lib.preferences,
           $ = this.od.jQuery;
 

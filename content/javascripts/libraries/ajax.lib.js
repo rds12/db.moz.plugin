@@ -216,7 +216,7 @@ db.moz.plugin.ajax.autocompleter = function($,options){
   });
 
   // make default selection
-  response.attr('selected',-1)
+  response.attr('selected',-1);
 
   var make_position = function(){
     var o = input.offset();

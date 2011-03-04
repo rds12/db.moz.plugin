@@ -24,6 +24,10 @@ db.moz.plugin.modules.register({
     // nothing to do with planet? -> exit
     if(!(location.main == 'planet' && location.sub == 'orbit')) return;
 
+    if(basic.is_debug_enabled) {
+        basic.log('modules.orbit',null,true);
+    }    
+
     this.retrieve_shortcuts();
     this.gui_extending_shortcuts();
     this.gui_extending_ships_statistic();

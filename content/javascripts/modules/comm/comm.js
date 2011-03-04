@@ -13,6 +13,12 @@ db.moz.plugin.modules.register({
     if(location == undefined) throw 'location not avaible';
     if(!basic.is_logged_in) return;
 
+    if(location.main != 'comm') return;
+
+    if(basic.is_debug_enabled) {
+        basic.log('modules.comm',null,true);
+    }    
+
     this.call(location.sub);
   },
 

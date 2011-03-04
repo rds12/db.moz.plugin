@@ -124,7 +124,7 @@ db.moz.plugin.basics = {
    */
   flatt_args: function(args){
     var flatted = [];
-    for(var i=0,len=args.length;i<len;++i){
+    for(var i=0;i<args.length;++i){
       var value = args[i];
       if(!this.is_elementar_type(value)) continue;
       
@@ -291,7 +291,7 @@ db.moz.plugin.basics.event.keys = function(event){
     isAlt    : event.which == 18 || event.altKey,
     isShift  : event.which == 16 || event.shiftKey,
     isControl: false
-  }
+  };
   // check if any of the above events were triggered
   for(var key in o){ 
     if(!o[key]) continue;
@@ -299,7 +299,7 @@ db.moz.plugin.basics.event.keys = function(event){
     break;
   }
   return o;
-}
+};
 
 db.moz.plugin.include = {
   _subscript_loader: Components.classes["@mozilla.org/moz/jssubscript-loader;1"].getService(Components.interfaces.mozIJSSubScriptLoader),
@@ -323,7 +323,7 @@ db.moz.plugin.include = {
     }
     return true;
   }
-}
+};
 
 db.moz.plugin.require = {
   // the defaults must be loaded, to be able to run this unit.
@@ -438,8 +438,8 @@ db.moz.plugin.basics.format_number = function(number){
     numbers.unshift(modulo);
   }
 
-  return signed + numbers.join('.')
-}
+  return signed + numbers.join('.');
+};
 
 /**
  * sprintf() for JavaScript v.0.4
@@ -479,7 +479,7 @@ db.moz.plugin.basics.sprintf = function () {
       if (/[^s]/.test(m[7]) && (typeof(a) != 'number')){
         var bool = false, b = null;
         if(typeof(a) == 'string'){
-          b = parseInt(a)
+          b = parseInt(a);
           bool = b.toString() == a;
         }
         if(!bool) throw("Expecting number but found " + typeof(a));

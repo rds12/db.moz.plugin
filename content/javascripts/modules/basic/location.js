@@ -13,6 +13,7 @@ db.moz.plugin.modules.register({
   // location informations:
   
   query: {}, // original loaction query
+  jsfile: {}, // db.moz js file
   main: 'unknown', // main category
   sub:  'unknown', // sub  category
   options: { // options
@@ -58,12 +59,15 @@ db.moz.plugin.modules.register({
     this.gui_extending_close_event();
     this.gui_extending_disable_quickjump_overflow();
 
-    basic.log('module.location',null,true);
-    basic.log(this.query.op  ,'op');
-    basic.log(this.query     ,'query');
-    basic.log(this.main      ,'main');
-    basic.log(this.sub       ,'sub');
-    basic.log(this.options   ,'options');
+    if(basic.is_debug_enabled) {
+        basic.log('module.location',null,true);
+        basic.log(this.query.op  ,'op');
+        basic.log(this.query     ,'query');
+        basic.log(this.jsfile    ,'jsfile');
+        basic.log(this.main      ,'main');
+        basic.log(this.sub       ,'sub');
+        basic.log(this.options   ,'options');
+    }
   },
 
   is_start_page: function(){
@@ -100,6 +104,7 @@ db.moz.plugin.modules.register({
   od_send: function(place){
     const $ = this.od.jQuery;
     
+    this.jsfile = ['fleet'];
     this.main = 'fleet';
     this.sub  = 'dispatch_menu';
     
@@ -124,16 +129,19 @@ db.moz.plugin.modules.register({
   },
   
   od_undefined: function(place){
+    this.jsfile = [];
     this.main = 'login';
     this.sub  = 'startpage';
   },
   
   od_logout: function(place){
+    this.jsfile = [];
     this.main = 'login';
     this.sub  = 'startpage';
   },
   
   od_comm: function(place){
+    this.jsfile = ['comm'];
     this.main = 'comm';
     this.sub  = place['subop'] == 'a' ? 'outbox' : 'inbox';
     
@@ -158,11 +166,13 @@ db.moz.plugin.modules.register({
   },
   
   od_planlist: function(place){
+    this.jsfile = ['planet'];
     this.main = 'planet';
     this.sub  = 'overview';
   },
   
   od_planet: function(place){
+    this.jsfile = ['planet','infrastructure'];
     this.main = 'planet';
     this.sub  = 'infrastructure';
     this.options['planet_id'] = place['index'];
@@ -170,12 +180,14 @@ db.moz.plugin.modules.register({
   },
   
   od_renamer: function(place){
+    this.jsfile = ['planet'];
     this.main = 'planet';
     this.sub  = 'rename';
     this.options['planet_id'] = place['index'];
   },
   
   od_orbit: function(place){
+    this.jsfile = ['orbit','planet','fowapi','toolbar'];
     this.main = 'planet';
     this.sub  = 'orbit';
     this.options['planet_id'] = place['index'];
@@ -191,6 +203,7 @@ db.moz.plugin.modules.register({
   od_main: function(place){
     const $   = this.od.jQuery;
 
+    this.jsfile = [];
     this.main = 'galaxy';
     this.sub  = 'gui';
     
@@ -210,6 +223,7 @@ db.moz.plugin.modules.register({
   },
   
   od_tech: function(place){
+    this.jsfile = ['research'];
     var cases = {
       geb     : 'buildings',
       raum    : 'ships',
@@ -223,39 +237,50 @@ db.moz.plugin.modules.register({
   },
   
   od_werft2: function(place){
+    this.jsfile = [];
     this.main = 'shipyard';
     this.sub  = 'overview';
   },
   
   od_werft: function(place){
+    this.jsfile = [];
     this.main = 'shipyard';
     this.sub  = 'construction';
   },
   
   od_settings: function(place){
+    this.jsfile = [];
     this.main = 'settings';
     this.sub  = 'main';
+  },
+  
+  od_sitter: function(place) {
+    this.jsfile = [];
+    this.main = 'sitter';
+    
+    if(place['auftraege']){
+      this.sub = 'auftraege';
+      return
+    }
     
     if(place['zuruck']){
-      this.main = 'sitter';
       this.sub  = 'logout';
       return;
     }
     
     if(place['umloggen']){
-      this.main = 'sitter';
       this.sub  = 'login';
       return;
     }
     
     if(place['umgelogged']){
-      this.main = 'sitter';
       this.sub  = 'login-complete';
       return;
     }
   },
   
   od_shop: function(place){
+    this.jsfile = [];
     this.main = 'shop';
     this.sub  = 'resources';
     this.options['start'] = place['first'] || 0;
@@ -283,11 +308,13 @@ db.moz.plugin.modules.register({
   },
   
   od_shop1: function(place){
+    this.jsfile = [];
     this.main = 'shop';
     this.sub  = 'create_shop';
   },
   
   od_docklist: function(place){
+    this.jsfile = [];
     this.main = 'shop';
     this.sub  = 'docks';
     this.options['start'] = place['first'] || 0;
@@ -295,6 +322,7 @@ db.moz.plugin.modules.register({
   },
   
   od_trade: function(place){
+    this.jsfile = ['shop'];
     this.main = 'shop';
     this.sub  = 'ships';
     this.options['start'] = place['first'] || 0;
@@ -319,6 +347,7 @@ db.moz.plugin.modules.register({
   },
   
   od_ptrade: function(place){
+    this.jsfile = [];
     const $   = this.od.jQuery;
     
     this.main = 'shop';
@@ -347,16 +376,18 @@ db.moz.plugin.modules.register({
   },
   
   od_logshow: function(place){
+    this.jsfile = [];
     this.main = 'log';
     var cases = {
       1:  'login_user',
       2:  'login_sitter'
     };
-    this.sub  = cases['loginlog'] || 'login_counselor'; 
+    this.sub  = cases[place['loginlog']] || 'login_counselor'; 
     cases = null;
   },
   
   od_handp: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'trading';
     this.options['start'] = place['first'] || 0;
@@ -372,6 +403,7 @@ db.moz.plugin.modules.register({
   },
   
   od_uberweisungen: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'money_transfer';
     this.options['start'] = place['first'] || 0;
@@ -388,6 +420,7 @@ db.moz.plugin.modules.register({
   },
   
   od_verluste: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'lost_ships';
     this.options['start'] = place['first'] || 0;
@@ -395,6 +428,7 @@ db.moz.plugin.modules.register({
   },
   
   od_allyfleetlog: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'alliance_fleet';
     this.options['alliance_id'] = place['welch'];
@@ -403,13 +437,15 @@ db.moz.plugin.modules.register({
   },
   
   od_quesp: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'quests';
     this.options['start'] = place['first'] || 0;
     this.options['end']   = place['last']  || 30;
   },
-  
-  od_quesp: function(place){
+
+  od_warp: function(place){
+    this.jsfile = [];
     this.main = 'log';
     this.sub  = 'battles';
     this.options['start'] = place['first'] || 0;
@@ -417,22 +453,26 @@ db.moz.plugin.modules.register({
   },
   
   od_spy: function(place){
+    this.jsfile = [];
     this.main = 'spy';
     this.sub  = 'main';
   },
   
   od_to: function(place){
+    this.jsfile = [];
     this.main = 'quest';
     this.sub  = 'main';
     this.options['galaxy_id'] = this.od.jQuery('form input[name=gala]').val();
   },
   
   od_scanner: function(place){
+    this.jsfile = [];
     this.main = 'scanner';
     this.sub  = place['sub'] == 'tech' ? 'expanding' : 'main';
   },
   
   od_fleet: function(place){
+    this.jsfile = ['fleet'];
     this.main = 'fleet';
     this.sub  = 'overview';
 
@@ -441,6 +481,7 @@ db.moz.plugin.modules.register({
   },
   
   od_score: function(place){
+    this.jsfile = [];
     this.main = 'highscore';
     var cases = {
       g:    'total',
@@ -457,6 +498,7 @@ db.moz.plugin.modules.register({
   },
   
   od_ally: function(place){
+    this.jsfile = [];
     this.main = 'highscore';
     this.sub  = 'alliances';
     
@@ -464,46 +506,37 @@ db.moz.plugin.modules.register({
     this.options['end']   = place['last']  || 30;
   },
   
-  od_metalist: function(place){
-    this.main = 'highscore';
-    this.sub  = 'metas';
-    
-    this.options['start'] = place['first'] || 0;
-    this.options['end']   = place['last']  || 30;
-  },
-  
   od_system: function(place){
+    this.jsfile = ['system','fowapi','toolbar'];
     this.main = 'system';
     this.sub  = 'main';
     this.options['system_id'] = place['sys'];
   },
   
   od_renamersys: function(place){
+    this.jsfile = [];
     this.main = 'system';
     this.sub  = 'rename';
     this.options['planet_id'] = place['index'];
   },
   
   od_usershow: function(place){
+    this.jsfile = ['toolbar'];
     this.main = 'player';
     this.sub  = 'overview';
     this.options['player_id'] = place['welch'];
   },
   
   od_usdet: function(place){
+    this.jsfile = [];
     this.main = 'user';
     this.sub  = 'statistics';
   },
   
   od_alliances: function(match){
+    this.jsfile = ['toolbar'];
     this.main = 'alliance';
     this.sub  = 'overview';
     this.options['alliance_id'] = match[2];
-  },
-  
-  od_meta: function(place){
-    this.main = 'meta';
-    this.sub  = 'overview';
-    this.options['meta_id'] = place['welch'];
   }
 });
