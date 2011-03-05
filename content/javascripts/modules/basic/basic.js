@@ -48,7 +48,7 @@ db.moz.plugin.modules.register({
 
     this.retrieve_od_whereabouts();
 
-    if(!this.is_od || !this.is_logged_in) return;    
+    if(!this.is_od || !this.is_logged_in) return;
 
     // trying to access ODHelpers instance
     try {
@@ -92,7 +92,7 @@ db.moz.plugin.modules.register({
       this.log(this.alliance_name      ,'alliance_name');
     }
   },
-
+  
   format_time: function(time){
     var matches = /(\d+):(\d+):(\d+):(\d+)/.exec(time);
     if(!matches) return false;
@@ -136,18 +136,26 @@ db.moz.plugin.modules.register({
       )throw 'db.moz.plugin: not in od';
 
       this.is_od = true;
-      // references to the player_panel
       const $   = this.od.jQuery;
+      // references to the player_panel
       this.player_panel = $('.top-status-bar table[width=410]');
-
       if( this.player_panel.length ){
         this.is_logged_in = true;
+      } else {
+          var useZip = $('input[name=useZIP]');
+          if( useZip.length ) {
+              if(this.lib.preferences.get('preferences.login.useZip') === true)
+                  useZip.attr('checked',true);
+          }
       }
 
     }catch(e){
 //      if(this.is_debug_enabled)
 //          this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
     }
+  },
+  
+  is_login_page: function() {
   },
   
   retrieve_common_informations: function(){

@@ -17,10 +17,12 @@
       <!-- [esc] close-handler -->
       <checkbox id="preferences.overall.closeHandler"
                 label='&odchanges.miscellaneous.escHandler;' />
+                
+      <!-- use compression -->
+      <checkbox id="preferences.login.useZip"
+                label='&odchanges.miscellaneous.useZip;' />
 
-      <!-- disable quickjump overflow -->
-      <checkbox id="preferences.overall.disableQuickjumpOverflow"
-                label='&odchanges.miscellaneous.disableQuickjumpOverflow;' />
+
     </groupbox>
 
     <!-- ship shop settings -->

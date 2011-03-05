@@ -521,7 +521,7 @@ db.moz.plugin.modules.register({
   },
   
   od_usershow: function(place){
-    this.jsfile = ['toolbar'];
+    this.jsfile = ['fowapi','toolbar'];
     this.main = 'player';
     this.sub  = 'overview';
     this.options['player_id'] = place['welch'];
@@ -534,7 +534,7 @@ db.moz.plugin.modules.register({
   },
   
   od_alliances: function(match){
-    this.jsfile = ['toolbar'];
+    this.jsfile = ['fowapi','toolbar'];
     this.main = 'alliance';
     this.sub  = 'overview';
     this.options['alliance_id'] = match[2];

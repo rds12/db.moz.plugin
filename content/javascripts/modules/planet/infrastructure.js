@@ -173,7 +173,6 @@ db.moz.plugin.modules.register({
     var ress_min = function(dividend,divisor){
       var tmp = divisor == 0? Number.MAX_VALUE : dividend / divisor;
       min = Math.min(min,tmp);
-      tmp = null;
     }
 
     ress_min(self.deposit.credits, e.attr('credits'));

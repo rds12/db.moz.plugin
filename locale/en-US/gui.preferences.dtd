@@ -52,6 +52,7 @@
 
 <!ENTITY odchanges.miscellaneous.configurators "display ship configurator link">
 <!ENTITY odchanges.miscellaneous.escHandler "if you press the esc key, [esc] indicated windows will be closed">
+<!ENTITY odchanges.miscellaneous.useZip "use compressed transmission">
 <!ENTITY odchanges.miscellaneous.buylink "convert javascript buy links into normal links for multi tabbing">
 
 <!ENTITY odchanges.miscellaneous.caption.overall "Overall">

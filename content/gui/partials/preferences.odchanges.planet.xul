@@ -17,6 +17,10 @@
       <!-- disable overflow -->
       <checkbox id="preferences.planet.disableOverflow"
                 label='&odchanges.planet.disableOverflow;' />
+
+      <!-- disable quickjump overflow -->
+      <checkbox id="preferences.overall.disableQuickjumpOverflow"
+                label='&odchanges.miscellaneous.disableQuickjumpOverflow;' />
     </groupbox>
 
     <!-- System overview -->

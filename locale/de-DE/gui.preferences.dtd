@@ -53,6 +53,7 @@
 
 <!ENTITY odchanges.miscellaneous.configurators "Link zum Schiffkonfigurator">
 <!ENTITY odchanges.miscellaneous.escHandler "Wenn du die Esc-Taste drückst werden alle mit [Esc] gekennzeichneten Fenster geschlossen">
+<!ENTITY odchanges.miscellaneous.useZip "Komprimierte Übertragung für OD nutzen">
 <!ENTITY odchanges.miscellaneous.buylink "Konvertiere Javascript-Kauf-Links in normale Links, um diese in Tabs öffnen zu können">
 
 <!ENTITY odchanges.miscellaneous.caption.overall "Überall">

@@ -13,6 +13,8 @@ pref("extensions.db.moz.plugin.preferences.overall.closeHandler",true);
 // disable quickjump overflow
 pref("extensions.db.moz.plugin.preferences.overall.disableQuickjumpOverflow",true);
 
+// use compression in od
+pref("extensions.db.moz.plugin.preferences.login.useZip",true);
 
 /** Research Settings **/
 

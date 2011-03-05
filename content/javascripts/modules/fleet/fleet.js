@@ -93,7 +93,7 @@ db.moz.plugin.modules.register({
     
     $('#dbMozPluginFleetQuickSend').hide();
     
-    $('input[type=checkbox]').each(function(i,e){
+    $('input[type=checkbox]:checked').each(function(i,e){
       $(e).attr('checked',false);
     });
   },
