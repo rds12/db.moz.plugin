@@ -92,10 +92,10 @@ db.moz.plugin.browser = {
       // only http(s) is allowed     
       if(!location.protocol.match(/^http(|s):/))
         return set_statusbar(false);
-
-      var href = location.host,
-          regexp = /(www.|beta.|)(\d?)omega-day.com/i,
-          is_omegaday = regexp.test(href);
+      
+      var href = location,
+            regexp = /http:\/\/(www(\d?).|beta(\d?).)?omega-day.com/i,
+            is_omegaday = regexp.test(href);
 
       return set_statusbar(is_omegaday);
     }catch(e){
