@@ -20,6 +20,7 @@ EXCLUDE_FILES = [
   'versions/\*',
   'content/javascripts/various_stuff/\*', 
   'content/experimental/\*',
+  'content/test/\*',
   '*.svg'
 ]
 
