@@ -526,7 +526,6 @@ db.moz.plugin.modules.register({
 
       var selector = cmds[key],
           prepend = '['+ name +'] ';
-      cmds = null;
       
       if(basics.is_function(selector)){
         selector(prepend, name);
@@ -537,6 +536,7 @@ db.moz.plugin.modules.register({
       selector = null;
       prepend = null;
     }
+    cmds = null;
 
     // resize command panel and remove fixed width so that
     // the extended text won't screw up the layout
