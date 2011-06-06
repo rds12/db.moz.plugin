@@ -517,7 +517,6 @@ db.moz.plugin.modules.register({
         });
       }
     }
-    allnone = null;
 
     for(var key in this.commands){
       var name = this.commands[key];
@@ -536,6 +535,7 @@ db.moz.plugin.modules.register({
       selector = null;
       prepend = null;
     }
+    allnone = null;
     cmds = null;
 
     // resize command panel and remove fixed width so that
