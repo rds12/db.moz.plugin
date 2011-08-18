@@ -83,12 +83,14 @@ db.moz.plugin.modules.register({
     const $ = this.od.jQuery;
 
     // add the text '[Esc]' to all window closer
-    $('a[href$=.closeDialog()]').prepend('[Esc] ');
+    $('.box.dialog .header .close a[href$=.closeDialog()]').prepend('[Esc] ');
 
     // register onkey event!
     $(win).keydown(function(event){
-      if(event.which == 27) // on [Esc] hide all windows
-      $('.dialogclass').each(function(i,e){
+      if(event.which != 27) return;
+
+      // on [Esc] hide all windows
+      $('.box.dialog').each(function(i,e){
         $(e).css('visibility','hidden');
       });
     });

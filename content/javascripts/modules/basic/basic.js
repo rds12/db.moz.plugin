@@ -23,8 +23,6 @@ db.moz.plugin.modules.register({
   extension_version: 'unknown',
 
   round_relation:   {
-    'en1':     'round5',
-    'de7':     'round7',
     'int8':    'round8'
   },
   world:              'unknown',
@@ -70,7 +68,9 @@ db.moz.plugin.modules.register({
     this.gui_extending_logo();
     this.gui_extending_debug();
     this.gui_extending_configurator_links();
-    
+
+    this.player_panel = undefined;
+
     // logging variables
     
     if(this.is_debug_enabled) {
@@ -92,7 +92,7 @@ db.moz.plugin.modules.register({
       this.log(this.alliance_name      ,'alliance_name');
     }
   },
-  
+
   format_time: function(time){
     var matches = /(\d+):(\d+):(\d+):(\d+)/.exec(time);
     if(!matches) return false;
@@ -130,15 +130,13 @@ db.moz.plugin.modules.register({
       // but od wasn't loaded
       // e.g: offline modus or you don't have a internet connection
       if(
-        dom.Sekunde == undefined ||
-        dom.Minute  == undefined ||
-        dom.Stunde  == undefined
+        dom.Clock == undefined
       )throw 'db.moz.plugin: not in od';
 
       this.is_od = true;
       const $   = this.od.jQuery;
       // references to the player_panel
-      this.player_panel = $('.top-status-bar table[width=410]');
+      this.player_panel = $('.statusbar > table');
       if( this.player_panel.length ){
         this.is_logged_in = true;
       } else {
@@ -147,17 +145,19 @@ db.moz.plugin.modules.register({
               if(this.lib.preferences.get('preferences.login.useZip') === true)
                   useZip.attr('checked',true);
           }
+          useZip = null;
       }
 
     }catch(e){
+      this.player_panel = undefined;
 //      if(this.is_debug_enabled)
 //          this.lib.console.error('modules.basic.retrieve_od_whereabouts: not in od',e);
     }
   },
-  
+
   is_login_page: function() {
   },
-  
+
   retrieve_common_informations: function(){
     const $   = this.od.jQuery;
 
@@ -166,39 +166,23 @@ db.moz.plugin.modules.register({
     this.host     = this.od.doc.location.host;
     this.based_on = this.round_relation[this.world] || 'unknown';
 
-    // retrieving player informations
-    var status = this.player_panel.find('tr:eq(2) td:eq(1) font'),
-        status_text = status.html();
+    // retrieving player status informations
+    this.is_premium = !!this.player_panel.find('.status .premium').length;
+    this.is_slim    = !!this.player_panel.find('.status .slim').length;
+    this.is_sitter  = !!this.player_panel.find('.status .logout').length;
 
-    this.is_premium = />Premium/i.exec(status_text) != undefined;
-    if( this.is_premium == false) {
-      this.is_premium = />Startpremium/i.exec(status_text) != undefined;
-    }
-    this.is_slim = !this.is_premium;
-    this.is_sitter  = /op=sitter/.exec(status_text) != undefined;
-
-    status = null;
-    status_text = null;
-
-    var player       = this.player_panel.find('a[href*=usershow]');
+    var player       = this.player_panel.find('.user');
     this.player_id   = /(\d+)/.exec(player.attr('href'))[1];
     this.player_name = player.html();
     player = null;
 
-    var alliance       = this.player_panel.find('a[href*=alliances]');
+    var alliance       = this.player_panel.find('.alliance');
     this.alliance_id   = /(\d+)/.exec(alliance.attr('href'))[1];
     this.alliance_name = alliance.html();
     alliance = null;
 
-    var race = null;
-    if(this.based_on == 'round5'){
-      var race = this.player_panel.find('a[href*="anznummer"]');
-      if(race.length)
-      this.race_id = /anznummer=(\d+)/.exec(race.attr('href'))[1];
-    }else{// this works for >=round7
-      var race = this.player_panel.find('a[onclick*="op=rassen"]');
-      this.race_id = /func=(\d+)/.exec(race.attr('onclick'))[1];
-    }
+    var race = this.player_panel.find('.race');
+    this.race_id = /func=(\d+)/.exec(race.attr('href'))[1];
     race = null;
   },
 
@@ -209,7 +193,9 @@ db.moz.plugin.modules.register({
     // is existing, than it is the ad page
     try{
       this.is_ad_page = !!$('form[name=Interruptform]').length;
-    }catch(e){}
+    }catch(e){
+      this.is_ad_page = false;
+    }
 
     // reload page if ad apears. only for test purpose
     var value = this.lib.preferences.get('reload_page_if_ad');
@@ -254,7 +240,7 @@ db.moz.plugin.modules.register({
 
   gui_extending_debug : function(){
     // if debug is disabled -> return
-    if(!this.is_debug_enabled){return;}
+    if(!this.is_debug_enabled) return;
 
     const $   = this.od.jQuery;
     const prefs = this.lib.preferences;

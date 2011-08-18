@@ -21,8 +21,9 @@ img {
 
 #dbMozPluginDebug {
   position: absolute;
-  top: 50px;
+  top: 75px;
   right: 0px;
+  z-index: 1;
 }
 
 #dbMozPluginDebug #odMozPluginDebugWindow {
@@ -101,7 +102,7 @@ a {
 }
 
 #dbMozPluginFowWindow *{
-	font-size: 10px !important;
+  font-size: 10px !important;
 }
 
 .dbMozPluginFowNewerScan {

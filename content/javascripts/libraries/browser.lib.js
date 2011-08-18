@@ -18,6 +18,7 @@ db.moz.plugin.browser = {
 
     var win = doc.defaultView;
     delete win['dbMozPluginContentInitialized'];
+    win['dbMozPluginContentInitialized'] = null;
   },
 
   onContentLoaded: function(event){
