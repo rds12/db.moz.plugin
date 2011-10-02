@@ -30,7 +30,7 @@ OPTIONS = {
   :date    => TIME.strftime('%Y.%m.%d'),
   :version => TIME.strftime('%Y.%m.%d'),
   :FFMinVersion => '3.0.0',
-  :FFMaxVersion => '6.0.*'
+  :FFMaxVersion => '8.0.*'
 }
 
 task :default => [:clean]
@@ -237,6 +237,14 @@ def generate_upload_rdf(date)
   sh "#{BASICPATH}/tools/mccoy/mccoy -command update -updateRDF #{BASICPATH}/update.rdf -key '#{REPONAME}'"
 end
 
+# fix compatibility issues with ruby 1.8.*
+unless String.respond_to? 'encoding'
+  class String
+    def force_encoding(enc)
+      self
+    end
+  end
+end
 
 def upload_github(date)
   echo "> Upload Installer to GitHub"
@@ -257,7 +265,7 @@ def upload_github(date)
   direct_link = gh.upload(
     :repos => repos,
     :file  => filename,
-    :content_type => 'text/html',
+    :content_type => 'application/x-xpinstall',
     :description => "v#{date}, #{OPTIONS[:FFMinVersion]} ≤ Firefox ≤ #{OPTIONS[:FFMaxVersion]}"
   )
   echo('link: ' + direct_link.inspect)
